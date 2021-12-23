@@ -6,10 +6,10 @@
 
     <groupId>com.cat.moubieapi</groupId>
     <artifactId>MouBieCat</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>MouBieCat</name>
+    <name>MouBieAPI</name>
     <description>作為 MouBieCat 開發的功能，該插件沒有任何實質功能，只作為日後插件依賴的基底插件。</description>
 
     <!-- 基本配置 -->
