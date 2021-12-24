@@ -38,7 +38,7 @@ public abstract class UItemStackAbstract
         implements Button {
 
     // 介面物品主要TAG
-    private static final String UI_ITEM_NBT_TAG_MAIN_PATH = "UI_ITEM_MAIN_TAG";
+    protected static final String UI_ITEM_NBT_TAG_MAIN_PATH = "UI_ITEM_MAIN_TAG";
 
     // 介面物品是否能移動物品TAG
     private static final String UI_ITEM_NBT_TAG_CAN_MOVE_PATH = "CAN_MOVE";
@@ -146,9 +146,6 @@ public abstract class UItemStackAbstract
         this.setMainTagName(UI_ITEM_NBT_TAG_MAIN_PATH)
                 .setBoolean(UI_ITEM_NBT_TAG_CAN_MOVE_PATH, this.isCamMove)
                 .setString(UI_ITEM_NBT_TAG_CLICK_TYPE_PATH, this.clickType.toString());
-
-        // 清除當前的配置
-        this.remake();
 
         return super.build();
     }

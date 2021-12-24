@@ -35,7 +35,7 @@ public interface Pageable
      * 開啟一個介面(不指定頁數開起第一頁)
      * @param player 玩家
      */
-    void open(@NotNull Player player);
+    @Deprecated void open(@NotNull Player player);
 
     /**
      * 開啟一個介面的頁數
@@ -54,7 +54,7 @@ public interface Pageable
      * 開啟下一頁
      * @param player 玩家
      */
-    void next(@NotNull Player player);
+    void nextPage(@NotNull Player player);
 
     /**
      * 開啟上一頁

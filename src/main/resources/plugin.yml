@@ -7,3 +7,11 @@ authors: [ MouBieCat ]
 description: '${project.description}'
 
 main: com.moubiecat.MouBieCat
+
+commands:
+  MouBieAPI:
+    description: "該插件的主要命令。"
+
+permissions:
+  MouBieAPI.view:
+    description: "查看當前由 MouBieCat 旗下所開發所有插件介面。"

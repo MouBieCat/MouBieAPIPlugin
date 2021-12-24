@@ -64,7 +64,6 @@ public abstract class PageUInventoryAbstract
 
     /**
      * 開啟一個介面的頁數
-     *
      * @param player 玩家
      * @param page   頁數
      */
@@ -91,7 +90,7 @@ public abstract class PageUInventoryAbstract
      * @param player 玩家
      */
     @Override
-    public final void next(final @NotNull Player player) {
+    public final void nextPage(final @NotNull Player player) {
         this.nowPage += 1;
         this.open(player, this.nowPage);
     }

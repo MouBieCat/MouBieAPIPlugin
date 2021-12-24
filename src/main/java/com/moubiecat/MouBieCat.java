@@ -23,8 +23,10 @@ package com.moubiecat;
 
 import com.moubiecat.api.MouBieAPI;
 import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.commands.CommandMain;
 import com.moubiecat.listener.InventoryListener;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -39,9 +41,10 @@ public final class MouBieCat
      */
     @Override
     public void onLoad() {
+        super.onLoad();
+
         // API 掛勾
         MouBieAPI.setMouBieCatPlugin(this);
-        super.onLoad();
     }
 
     /**
@@ -50,6 +53,16 @@ public final class MouBieCat
     @Override
     protected void loadListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+    }
+
+    /**
+     * 插件加載指令方法
+     */
+    @Override
+    protected void loadCommands() {
+        final PluginCommand mouBieAPI = Bukkit.getPluginCommand("MouBieAPI");
+        if (mouBieAPI != null)
+            mouBieAPI.setExecutor(new CommandMain());
     }
 
     /**

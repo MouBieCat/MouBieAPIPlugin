@@ -22,6 +22,7 @@
 package com.moubiecat.api.inventory;
 
 import com.moubiecat.api.inventory.gui.GUI;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,7 +40,8 @@ public interface Backable<G extends GUI> {
 
     /**
      * 返回上一層介面
+     * @param player 玩家
      */
-    void goBack();
+    void goBack(final @NotNull Player player);
 
 }

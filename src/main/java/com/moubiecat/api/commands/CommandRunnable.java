@@ -38,7 +38,7 @@ public interface CommandRunnable {
      * @param args 參數
      * @return 是否成功運行
      */
-    boolean runCommand(@NotNull CommandSender sender, @NotNull String args);
+    boolean runCommand(@NotNull CommandSender sender, @NotNull String[] args);
 
     /**
      * 命令說明列
@@ -46,6 +46,6 @@ public interface CommandRunnable {
      * @param args 參數
      * @return 參數集合
      */
-    @NotNull List<String> run(@NotNull CommandSender sender, @NotNull String args);
+    @NotNull List<String> runTabComplete(@NotNull CommandSender sender, @NotNull String[] args);
 
 }

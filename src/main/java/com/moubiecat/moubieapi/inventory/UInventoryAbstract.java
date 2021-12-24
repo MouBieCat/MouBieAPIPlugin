@@ -114,7 +114,7 @@ public abstract class UInventoryAbstract
     /**
      * 清除當前介面上的所有物品按鈕
      */
-    protected final void clearInventory() {
+    public final void clearInventory() {
         final ItemStack airItemStack = new ItemStack(Material.AIR);
         for (int slot = 0; slot < this.inventory_size.getSize(); slot++)
             this.inventory.setItem(slot, airItemStack);
@@ -125,7 +125,7 @@ public abstract class UInventoryAbstract
      * @param uItem 介面物品實例
      */
     @NotNull
-    protected final UInventoryAbstract addUItem(final @NotNull Button uItem) {
+    public final UInventoryAbstract addUItem(final @NotNull Button uItem) {
         this.inventory.setItem(uItem.getSlotId(), uItem.build());
         return this;
     }
@@ -136,7 +136,7 @@ public abstract class UInventoryAbstract
      * @return 當前的建構器
      */
     @NotNull
-    protected final UInventoryAbstract addItem(final @NotNull ItemStack itemStack) {
+    public final UInventoryAbstract addItem(final @NotNull ItemStack itemStack) {
         this.inventory.addItem(itemStack);
         return this;
     }
@@ -148,7 +148,7 @@ public abstract class UInventoryAbstract
      * @return 當前的建構器
      */
     @NotNull
-    protected final UInventoryAbstract addItem(final @NotNull ItemStack itemStack, final int slot) {
+    public final UInventoryAbstract addItem(final @NotNull ItemStack itemStack, final int slot) {
         this.inventory.setItem(slot, itemStack);
         return this;
     }

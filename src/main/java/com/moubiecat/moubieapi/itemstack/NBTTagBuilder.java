@@ -39,9 +39,11 @@ public class NBTTagBuilder
         implements NBTBuilder {
 
     // 主路徑名稱
+    @NotNull
     private String mainTagName = "default_tag_name";
 
     // NBT TAG 實例
+    @NotNull
     private NBTTagCompound compound = new NBTTagCompound();
 
     /**
@@ -449,9 +451,6 @@ public class NBTTagBuilder
             tag.a(this.mainTagName, this.compound);
             nmsItemStack.c(tag);
         }
-
-        // 清除當前的配置
-        this.remake();
 
         this.itemStack = asBukkitCopy(nmsItemStack);
         return super.build();
