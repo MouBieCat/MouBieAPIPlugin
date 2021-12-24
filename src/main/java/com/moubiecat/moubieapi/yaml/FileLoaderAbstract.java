@@ -21,7 +21,7 @@
 
 package com.moubiecat.moubieapi.yaml;
 
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.yaml.FileSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;

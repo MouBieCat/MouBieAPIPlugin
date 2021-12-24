@@ -21,7 +21,7 @@
 
 package com.moubiecat.moubieapi.yaml.data;
 
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.yaml.PlayerLoader;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;

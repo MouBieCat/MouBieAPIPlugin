@@ -21,7 +21,7 @@
 
 package com.moubiecat.inventory;
 
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.builder.NBTBuilder;
 import com.moubiecat.moubieapi.inventory.UItemStackAbstract;
 import com.moubiecat.moubieapi.itemstack.NBTTagBuilder;

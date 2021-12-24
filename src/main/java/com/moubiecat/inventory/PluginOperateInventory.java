@@ -21,7 +21,7 @@
 
 package com.moubiecat.inventory;
 
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.inventory.Backable;
 import com.moubiecat.api.inventory.InventorySize;
 import com.moubiecat.api.inventory.button.BackButton;

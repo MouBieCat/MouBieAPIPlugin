@@ -21,13 +21,13 @@
 
 package com.moubiecat;
 
-import com.moubiecat.api.MouBieAPI;
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.commands.CommandMain;
 import com.moubiecat.listener.InventoryListener;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 代表該插件的主要類別
@@ -35,17 +35,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class MouBieCat
         extends MouBiePlugin {
-
-    /**
-     * 當插件加載時調用
-     */
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        // API 掛勾
-        MouBieAPI.setMouBieCatPlugin(this);
-    }
 
     /**
      * 插件加載事件監聽器方法
@@ -69,6 +58,7 @@ public final class MouBieCat
      * 獲取當前插件實例
      * @return 插件本身
      */
+    @NotNull
     public static MouBieCat getInstance() {
         return JavaPlugin.getPlugin(MouBieCat.class);
     }

@@ -21,7 +21,7 @@
 
 package com.moubiecat.moubieapi.yaml.data;
 
-import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.yaml.DataLoader;
 import com.moubiecat.moubieapi.yaml.Loader;
 import org.jetbrains.annotations.NotNull;

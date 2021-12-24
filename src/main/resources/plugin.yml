@@ -11,6 +11,7 @@ main: com.moubiecat.MouBieCat
 commands:
   MouBieAPI:
     description: "該插件的主要命令。"
+    aliases: [ mbi ]
 
 permissions:
   MouBieAPI.view:
