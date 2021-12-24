@@ -23,6 +23,8 @@ package com.moubiecat;
 
 import com.moubiecat.api.MouBieAPI;
 import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.listener.InventoryListener;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -40,6 +42,14 @@ public final class MouBieCat
         // API 掛勾
         MouBieAPI.setMouBieCatPlugin(this);
         super.onLoad();
+    }
+
+    /**
+     * 插件加載事件監聽器方法
+     */
+    @Override
+    protected void loadListener() {
+        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
     }
 
     /**
