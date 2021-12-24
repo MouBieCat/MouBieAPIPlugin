@@ -23,6 +23,7 @@ package com.moubiecat.listener;
 
 import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -41,7 +42,7 @@ public final class InventoryListener
      * 當介面被打開
      * @param event 事件
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onOpen(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)
@@ -52,7 +53,7 @@ public final class InventoryListener
      * 當介面被點擊
      * @param event 事件
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onClick(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)
@@ -63,7 +64,7 @@ public final class InventoryListener
      * 當介面被關閉
      * @param event 事件
      */
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onOpen(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)

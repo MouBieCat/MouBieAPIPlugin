@@ -35,40 +35,20 @@ import java.lang.reflect.Method;
  * @author MouBieCat
  */
 public class NBTTagBuilder
-        extends ItemStackBuilder
         implements NBTBuilder {
 
     // 主路徑名稱
-    @NotNull
-    private String mainTagName = "default_tag_name";
+    private final String mainTagName;
 
     // NBT TAG 實例
-    @NotNull
-    private NBTTagCompound compound = new NBTTagCompound();
+    private final NBTTagCompound compound = new NBTTagCompound();
 
     /**
      * 建構子
-     * @param material 材質
+     * @param mainTagName 標籤主路徑
      */
-    public NBTTagBuilder(final @NotNull Material material) {
-        super(material);
-    }
-
-    /**
-     * 建構子
-     * @param material 材質
-     * @param amount   數量
-     */
-    public NBTTagBuilder(final @NotNull Material material, final int amount) {
-        super(material, amount);
-    }
-
-    /**
-     * 建構子
-     * @param itemStack 物品實例
-     */
-    public NBTTagBuilder(final @NotNull ItemStack itemStack) {
-        super(itemStack);
+    public NBTTagBuilder(final @NotNull String mainTagName) {
+        this.mainTagName = mainTagName;
     }
 
     /**
@@ -81,23 +61,12 @@ public class NBTTagBuilder
     }
 
     /**
-     * 設置當前的主路徑名稱
-     * @param tagName 新名稱
-     * @return 當前的建構器
+     * 獲取NBTag物件
+     * @return NBTag
      */
     @NotNull
-    public final NBTBuilder setMainTagName(final @NotNull String tagName) {
-        this.mainTagName = tagName;
-        return this;
-    }
-
-    /**
-     * 重製所有配置 (tag、mainTagName)
-     */
-    @Override
-    public final void remake() {
-        this.mainTagName = "default_tag_name";
-        this.compound = new NBTTagCompound();
+    public final NBTTagCompound getCompound() {
+        return this.compound;
     }
 
     /**
@@ -279,6 +248,35 @@ public class NBTTagBuilder
     }
 
     /**
+     * 建構出的對象實例 (該方法在該類別被棄用)
+     * @return 建構對象
+     */
+    @NotNull
+    @Deprecated
+    public final ItemStack build() {
+        return new ItemStack(Material.AIR);
+    }
+
+    /**
+     * 將一個物品寫入該 tag
+     * @param var1 寫入的物品
+     * @return 寫入後的物品
+     */
+    @NotNull
+    public ItemStack build(final @NotNull ItemStack var1) {
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
+
+        if (tag != null) {
+            // 將當前的配置寫入物品Tag
+            tag.a(this.mainTagName, this.compound);
+            itemStack.c(tag);
+        }
+
+        return NBTTagBuilder.asBukkitCopy(itemStack);
+    }
+
+    /**
      * 在一個物品上解析 tag 類型 boolean
      * @param var1 物品
      * @param var2 主路徑
@@ -286,8 +284,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static boolean getBoolean(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -304,8 +302,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static byte getByte(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -322,8 +320,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static double getDouble(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -340,8 +338,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static float getFloat(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -358,8 +356,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static int getInt(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -376,8 +374,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static long getLong(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -394,8 +392,8 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static short getShort(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -413,8 +411,8 @@ public class NBTTagBuilder
      */
     @NotNull
     public static String getString(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
             final NBTTagCompound compound = tag.p(var2);
@@ -430,30 +428,9 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static boolean hasTag(final @NotNull ItemStack var1, final @NotNull String var2) {
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(var1);
-        final NBTTagCompound tag1 = nmsItemStack.s() != null ? nmsItemStack.s() : new NBTTagCompound();
+        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final NBTTagCompound tag1 = itemStack.s() != null ? itemStack.s() : new NBTTagCompound();
         return tag1.e(var2);
-    }
-
-    /**
-     * 建構出的對象實例
-     * @return 建構對象
-     */
-    @NotNull
-    public ItemStack build() {
-        final ItemStack orgItemStackBuilder = this.itemStack;
-
-        final net.minecraft.world.item.ItemStack nmsItemStack = asNMSCopy(orgItemStackBuilder);
-        final NBTTagCompound tag = nmsItemStack.e() ? nmsItemStack.s() : new NBTTagCompound();
-
-        if (tag != null) {
-            // 將當前的配置寫入物品Tag
-            tag.a(this.mainTagName, this.compound);
-            nmsItemStack.c(tag);
-        }
-
-        this.itemStack = asBukkitCopy(nmsItemStack);
-        return super.build();
     }
 
     /**

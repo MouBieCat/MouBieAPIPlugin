@@ -21,6 +21,8 @@
 
 package com.moubiecat.api.builder;
 
+import net.minecraft.nbt.NBTTagCompound;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * @author MouBieCat
  */
 public interface NBTBuilder
-        extends ItemBuilder {
+        extends Builder<ItemStack> {
 
     /**
      * 獲取當前的主路徑名稱
@@ -37,15 +39,10 @@ public interface NBTBuilder
     @NotNull String getMainTagName();
 
     /**
-     * 設置當前的主路徑名稱
-     * @param tagName 新名稱
+     * 獲取NBTag物件
+     * @return NBTag
      */
-    @NotNull NBTBuilder setMainTagName(@NotNull String tagName);
-
-    /**
-     * 重製所有配置 (tag、mainTagName)
-     */
-    void remake();
+    @NotNull NBTTagCompound getCompound();
 
     /**
      * 在該 tag 上設置一個 boolean
@@ -173,5 +170,18 @@ public interface NBTBuilder
      * @return 資料
      */
     boolean hasTag(@NotNull String var1);
+
+    /**
+     * 建構出的對象實例
+     * @return 建構對象
+     */
+    @Deprecated @NotNull ItemStack build();
+
+    /**
+     * 建構出的對象實例
+     * @param var1 傳入物品
+     * @return 新物品
+     */
+    @NotNull ItemStack build(@NotNull ItemStack var1);
 
 }

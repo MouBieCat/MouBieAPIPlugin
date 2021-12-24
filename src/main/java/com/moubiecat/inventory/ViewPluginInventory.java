@@ -23,12 +23,11 @@ package com.moubiecat.inventory;
 
 import com.moubiecat.api.MouBiePlugin;
 import com.moubiecat.api.inventory.InventorySize;
-import com.moubiecat.api.inventory.button.Button;
+import com.moubiecat.api.inventory.button.PageButton;
 import com.moubiecat.api.inventory.gui.PageGUI;
 import com.moubiecat.moubieapi.inventory.PageUInventoryAbstract;
-import com.moubiecat.moubieapi.inventory.UItemStackAbstract;
+import com.moubiecat.moubieapi.inventory.PageUItemStack;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -53,38 +52,21 @@ public final class ViewPluginInventory
 
     // 下一頁按鈕
     @NotNull
-    private final Button nextButton = new UItemStackAbstract(Material.PAPER, NEXT_BUTTON_SLOT) {
-        @Override
-        @NotNull
-        public ItemStack build() {
-            // 標題
-            this.displayName("<#4411EE>>>>");
-            return super.build();
-        }
-    };
+    private final PageButton nextButton = new PageUItemStack(NEXT_BUTTON_SLOT, "§c§l>>>", null);
 
     // 上一頁按鈕
     @NotNull
-    private final Button previousButton = new UItemStackAbstract(Material.PAPER, PREVIOUS_BUTTON_SLOT) {
-        @Override
-        @NotNull
-        public ItemStack build() {
-            // 標題
-            this.displayName("<#4411EE><<<");
-            return super.build();
-        }
-    };
+    private final PageButton previousButton = new PageUItemStack(PREVIOUS_BUTTON_SLOT, "§c§l<<<", null);
 
     /**
      * 建構子
      */
     public ViewPluginInventory() {
-        super("§8MouBieAPI 旗下插件列表", InventorySize.SIX);
+        super("§8MouBieCat Plugin List", InventorySize.SIX);
     }
 
     /**
      * 初始化介面頁數介面
-     *
      * @param player 玩家
      * @param page   頁數
      */
@@ -98,10 +80,12 @@ public final class ViewPluginInventory
 
         try {
             int startQuest = page * 36;
+
             for (int slot = 9; slot < 45; slot++) {
                 final MouBiePlugin plugin = sortPlugins.get(startQuest++);
                 this.addUItem(new PluginButton(plugin, slot));
             }
+
         } catch (final Exception ignored) { return; }
 
         this.addUItem(this.nextButton);
@@ -109,7 +93,6 @@ public final class ViewPluginInventory
 
     /**
      * 當介面被點擊要做的事情
-     *
      * @param event 介面點擊事件
      * @return 是否繼續子類複寫的運行
      */
@@ -141,6 +124,7 @@ public final class ViewPluginInventory
                 }
             }
         }
+
         return false;
     }
 

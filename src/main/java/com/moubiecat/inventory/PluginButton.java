@@ -22,6 +22,7 @@
 package com.moubiecat.inventory;
 
 import com.moubiecat.api.MouBiePlugin;
+import com.moubiecat.api.builder.NBTBuilder;
 import com.moubiecat.moubieapi.inventory.UItemStackAbstract;
 import com.moubiecat.moubieapi.itemstack.NBTTagBuilder;
 import org.bukkit.Bukkit;
@@ -37,8 +38,11 @@ import org.jetbrains.annotations.Nullable;
 public final class PluginButton
         extends UItemStackAbstract {
 
-    // 插件名稱
-    private static final String UI_ITEM_NBT_TAG_PLUGIN_NAME = "PLUGIN_NAME";
+    // 介面物品代表的主TAG
+    private static final String MOU_BIE_API_PLUGIN_INFO_MAIN_TAG = "MOU_BIE_API_PLUGIN_INFO_MAIN_TAG";
+
+    // 介面物品代表的插件
+    private static final String MOU_BIE_API_PLUGIN_INFO_NAME_TAG = "button_plugin_name";
 
     // 插件
     @NotNull
@@ -60,12 +64,15 @@ public final class PluginButton
     @Override
     @NotNull
     public ItemStack build() {
-        // 配置 TAG 屬性
-        this.setMainTagName(UItemStackAbstract.UI_ITEM_NBT_TAG_MAIN_PATH)
-                .setString(UI_ITEM_NBT_TAG_PLUGIN_NAME, this.plugin.getName());
+        final NBTBuilder nbtBuilder = new NBTTagBuilder(MOU_BIE_API_PLUGIN_INFO_MAIN_TAG);
 
         // 標題
         this.displayName("§a" + this.plugin.getName());
+
+        // 配置 TAG 屬性
+        this.itemStack = nbtBuilder
+                .setString(MOU_BIE_API_PLUGIN_INFO_NAME_TAG, this.plugin.getName())
+                .build(this.itemStack);
 
         return super.build();
     }
@@ -86,10 +93,10 @@ public final class PluginButton
      */
     @Nullable
     public static MouBiePlugin getItemStackPlugin(final @NotNull ItemStack itemStack) {
-        if (NBTTagBuilder.hasTag(itemStack, UItemStackAbstract.UI_ITEM_NBT_TAG_MAIN_PATH)) {
+        if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_API_PLUGIN_INFO_MAIN_TAG)) {
             return (MouBiePlugin)
                     Bukkit.getPluginManager().getPlugin(NBTTagBuilder.getString(
-                            itemStack, UItemStackAbstract.UI_ITEM_NBT_TAG_MAIN_PATH, UI_ITEM_NBT_TAG_PLUGIN_NAME
+                            itemStack, MOU_BIE_API_PLUGIN_INFO_MAIN_TAG, MOU_BIE_API_PLUGIN_INFO_NAME_TAG
                     ));
         }
         return null;

@@ -21,7 +21,9 @@
 
 package com.moubiecat.moubieapi.inventory;
 
+import com.moubiecat.api.builder.NBTBuilder;
 import com.moubiecat.api.inventory.button.Button;
+import com.moubiecat.moubieapi.itemstack.ItemStackBuilder;
 import com.moubiecat.moubieapi.itemstack.NBTTagBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
@@ -34,16 +36,16 @@ import org.jetbrains.annotations.Nullable;
  * @author MouBieCat
  */
 public abstract class UItemStackAbstract
-        extends NBTTagBuilder
+        extends ItemStackBuilder
         implements Button {
 
     // 介面物品主要TAG
-    protected static final String UI_ITEM_NBT_TAG_MAIN_PATH = "UI_ITEM_MAIN_TAG";
+    protected static final String MOU_BIE_UI_ITEM_STACK_MAIN_TAG = "MOU_BIE_UI_ITEM_STACK_MAIN_TAG";
 
     // 介面物品是否能移動物品TAG
-    private static final String UI_ITEM_NBT_TAG_CAN_MOVE_PATH = "CAN_MOVE";
+    private static final String MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG = "button_is_can_move";
     // 介面物品是點擊類型TAG
-    private static final String UI_ITEM_NBT_TAG_CLICK_TYPE_PATH = "CLICK_TYPE";
+    private static final String MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG = "button_click_type";
 
     // 介面位置
     protected int slotId;
@@ -114,8 +116,8 @@ public abstract class UItemStackAbstract
      * @return 是否可被移動
      */
     public static boolean getItemStackCanMove(final @NotNull ItemStack itemStack) {
-        if (NBTTagBuilder.hasTag(itemStack, UI_ITEM_NBT_TAG_MAIN_PATH))
-            return NBTTagBuilder.getBoolean(itemStack, UI_ITEM_NBT_TAG_MAIN_PATH, UI_ITEM_NBT_TAG_CAN_MOVE_PATH);
+        if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG))
+            return NBTTagBuilder.getBoolean(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG);
 
         return false;
     }
@@ -127,9 +129,9 @@ public abstract class UItemStackAbstract
      */
     @Nullable
     public static ClickType getItemStackClickType(final @NotNull ItemStack itemStack) {
-        if (NBTTagBuilder.hasTag(itemStack, UI_ITEM_NBT_TAG_MAIN_PATH)) {
+        if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG)) {
             return ClickType.valueOf(
-                    NBTTagBuilder.getString(itemStack, UI_ITEM_NBT_TAG_MAIN_PATH, UI_ITEM_NBT_TAG_CLICK_TYPE_PATH).toUpperCase()
+                    NBTTagBuilder.getString(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG)
             );
         }
         return null;
@@ -142,10 +144,13 @@ public abstract class UItemStackAbstract
     @Override
     @NotNull
     public ItemStack build() {
+        final NBTBuilder nbtBuilder = new NBTTagBuilder(MOU_BIE_UI_ITEM_STACK_MAIN_TAG);
+
         // 配置 TAG 屬性
-        this.setMainTagName(UI_ITEM_NBT_TAG_MAIN_PATH)
-                .setBoolean(UI_ITEM_NBT_TAG_CAN_MOVE_PATH, this.isCamMove)
-                .setString(UI_ITEM_NBT_TAG_CLICK_TYPE_PATH, this.clickType.toString());
+        this.itemStack = nbtBuilder
+                .setBoolean(MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG, this.isCamMove)
+                .setString(MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG, this.clickType.toString())
+                .build(this.itemStack);
 
         return super.build();
     }

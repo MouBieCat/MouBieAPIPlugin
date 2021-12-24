@@ -24,8 +24,10 @@ package com.moubiecat.inventory;
 import com.moubiecat.api.MouBiePlugin;
 import com.moubiecat.api.inventory.Backable;
 import com.moubiecat.api.inventory.InventorySize;
+import com.moubiecat.api.inventory.button.BackButton;
 import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.api.inventory.gui.GUI;
+import com.moubiecat.moubieapi.inventory.BackUItemStack;
 import com.moubiecat.moubieapi.inventory.UInventoryAbstract;
 import com.moubiecat.moubieapi.inventory.UItemStackAbstract;
 import org.bukkit.Bukkit;
@@ -58,41 +60,33 @@ public final class PluginOperateInventory
     @NotNull
     private final MouBiePlugin plugin;
 
-    // 卸載
+    // 卸載按鈕
     @NotNull
     private final Button disableButton = new UItemStackAbstract(Material.MAGENTA_DYE, DISABLE_BUTTON_SLOT) {
         @Override
         @NotNull
         public ItemStack build() {
             // 標題
-            this.displayName("§c卸載插件 ！");
+            this.displayName("§c§lDisable");
             return super.build();
         }
     };
 
-    // 重讀
+    // 重讀按鈕
     @NotNull
     private final Button reloadButton = new UItemStackAbstract(Material.LIME_DYE, RELOAD_BUTTON_SLOT) {
         @Override
         @NotNull
         public ItemStack build() {
             // 標題
-            this.displayName("§e重讀插件 ！");
+            this.displayName("§e§lReload");
             return super.build();
         }
     };
 
-    // 返回
+    // 返回按鈕
     @NotNull
-    private final Button backButton = new UItemStackAbstract(Material.BARRIER, BACK_BUTTON_SLOT) {
-        @Override
-        @NotNull
-        public ItemStack build() {
-            // 標題
-            this.displayName("§6返回上一層介面");
-            return super.build();
-        }
-    };
+    private final BackButton backButton = new BackUItemStack(BACK_BUTTON_SLOT, "§e§lBack", null);
 
     /**
      * 建構子
@@ -106,7 +100,6 @@ public final class PluginOperateInventory
 
     /**
      * 獲取返回介面的實例
-     *
      * @return 上一層介面
      */
     @NotNull
@@ -134,7 +127,6 @@ public final class PluginOperateInventory
 
     /**
      * 當介面被點擊要做的事情
-     *
      * @param event 介面點擊事件
      * @return 是否繼續子類複寫的運行
      */
@@ -152,10 +144,12 @@ public final class PluginOperateInventory
         switch (slot) {
             case DISABLE_BUTTON_SLOT -> {
                 Bukkit.getPluginManager().disablePlugin(this.plugin);
+                this.goBack(player);
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
             }
             case RELOAD_BUTTON_SLOT -> {
                 this.plugin.onReload();
+                this.goBack(player);
                 player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
             }
             case BACK_BUTTON_SLOT -> {
