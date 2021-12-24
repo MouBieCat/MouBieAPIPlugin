@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * 代表一個介面按鈕類別
  * @author MouBieCat
  */
-public abstract class UItemStackAbstract
+public class UItemStackAbstract
         extends ItemStackBuilder
         implements Button {
 
