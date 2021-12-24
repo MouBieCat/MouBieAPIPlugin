@@ -6,4 +6,4 @@ api-version: 1.18
 authors: [ MouBieCat ]
 description: '${project.description}'
 
-main: com.cat.moubieapi.MouBieCat
+main: com.moubiecat.MouBieCat
