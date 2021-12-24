@@ -21,7 +21,6 @@
 
 package com.moubiecat.api.builder;
 
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
