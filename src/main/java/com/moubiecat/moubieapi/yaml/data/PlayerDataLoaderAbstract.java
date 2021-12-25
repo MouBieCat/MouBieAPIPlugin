@@ -47,6 +47,7 @@ public abstract class PlayerDataLoaderAbstract<P extends OfflinePlayer>
     public PlayerDataLoaderAbstract(final @NotNull MouBiePlugin plugin, final @NotNull String path, final @NotNull P player) {
         super(plugin, path, player.getUniqueId() + ".yml");
         this.owner = player;
+        this.initPlayerLoader();
     }
 
     /**
@@ -57,5 +58,10 @@ public abstract class PlayerDataLoaderAbstract<P extends OfflinePlayer>
     public final P getPlayer() {
         return this.owner;
     }
+
+    /**
+     * 初始化相關動作
+     */
+    protected abstract void initPlayerLoader();
 
 }
