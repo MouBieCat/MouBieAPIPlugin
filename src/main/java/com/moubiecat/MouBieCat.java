@@ -22,10 +22,8 @@
 package com.moubiecat;
 
 import com.moubiecat.api.plugin.MouBiePlugin;
-import com.moubiecat.commands.CommandMain;
 import com.moubiecat.listener.InventoryListener;
 import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,16 +40,6 @@ public final class MouBieCat
     @Override
     protected void loadListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
-    }
-
-    /**
-     * 插件加載指令方法
-     */
-    @Override
-    protected void loadCommands() {
-        final PluginCommand mouBieAPI = Bukkit.getPluginCommand("MouBieAPI");
-        if (mouBieAPI != null)
-            mouBieAPI.setExecutor(new CommandMain());
     }
 
     /**
