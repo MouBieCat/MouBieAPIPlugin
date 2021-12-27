@@ -23,12 +23,9 @@ package com.moubiecat.moubieapi.itemstack;
 
 import com.moubiecat.api.builder.NBTBuilder;
 import net.minecraft.nbt.NBTTagCompound;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Method;
 
 /**
  * 代表一個物品更深層的建構類別
@@ -264,7 +261,7 @@ public class NBTTagBuilder
      */
     @NotNull
     public ItemStack build(final @NotNull ItemStack var1) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null) {
@@ -273,7 +270,7 @@ public class NBTTagBuilder
             itemStack.c(tag);
         }
 
-        return NBTTagBuilder.asBukkitCopy(itemStack);
+        return ItemStackBuilder.asBukkitCopy(itemStack);
     }
 
     /**
@@ -284,7 +281,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static boolean getBoolean(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -302,7 +299,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static byte getByte(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -320,7 +317,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static double getDouble(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -338,7 +335,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static float getFloat(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -356,7 +353,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static int getInt(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -374,7 +371,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static long getLong(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -392,7 +389,7 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static short getShort(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -411,7 +408,7 @@ public class NBTTagBuilder
      */
     @NotNull
     public static String getString(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag = itemStack.e() ? itemStack.s() : new NBTTagCompound();
 
         if (tag != null && tag.e(var2)) {
@@ -428,49 +425,9 @@ public class NBTTagBuilder
      * @return 資料
      */
     public static boolean hasTag(final @NotNull ItemStack var1, final @NotNull String var2) {
-        final net.minecraft.world.item.ItemStack itemStack = NBTTagBuilder.asNMSCopy(var1);
+        final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.asNMSCopy(var1);
         final NBTTagCompound tag1 = itemStack.s() != null ? itemStack.s() : new NBTTagCompound();
         return tag1.e(var2);
-    }
-
-    /**
-     * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
-     * @param orgItemStack 物品
-     * @return net.minecraft.world.item.ItemStack
-     */
-    @NotNull
-    @SuppressWarnings("all")
-    protected static final net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack orgItemStack) {
-        try {
-            // 獲取當前運行的 Bukkit 版本
-            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-            final Method asNMSCopy = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
-
-            return (net.minecraft.world.item.ItemStack) asNMSCopy.invoke(null, orgItemStack);
-        } catch (final Exception ignored) {}
-        return null;
-    }
-
-    /**
-     * 使用反射呼叫 CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack)
-     * @param  nmsItemStack 物品
-     * @return org.bukkit.inventory.ItemStack
-     */
-    @NotNull
-    @SuppressWarnings("all")
-    protected static final ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack nmsItemStack) {
-        try {
-            // 獲取當前運行的 Bukkit 版本
-            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-            final Method asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", net.minecraft.world.item.ItemStack.class);
-
-            return (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
-        } catch (final Exception ignored) {}
-        return null;
     }
 
 }

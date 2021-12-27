@@ -25,6 +25,7 @@ import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.Utils;
 import com.moubiecat.api.yaml.YamlSection;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,6 +48,7 @@ public abstract class YamlLoaderAbstract extends FileLoaderAbstract
      */
     public YamlLoaderAbstract(final @NotNull MouBiePlugin plugin, final @NotNull String path, final @NotNull String name, final boolean isNewFile) {
         super(plugin, path, name, isNewFile);
+        this.configuration = YamlConfiguration.loadConfiguration(this.file);
     }
 
     /**

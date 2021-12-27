@@ -23,6 +23,7 @@ package com.moubiecat.moubieapi.itemstack;
 
 import com.moubiecat.api.Utils;
 import com.moubiecat.api.builder.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
@@ -35,6 +36,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -289,6 +291,46 @@ public class ItemStackBuilder
     @NotNull
     public ItemStack build() {
         return this.itemStack;
+    }
+
+    /**
+     * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
+     * @param orgItemStack 物品
+     * @return net.minecraft.world.item.ItemStack
+     */
+    @NotNull
+    @SuppressWarnings("all")
+    public static final net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack orgItemStack) {
+        try {
+            // 獲取當前運行的 Bukkit 版本
+            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+
+            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
+            final Method asNMSCopy = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
+
+            return (net.minecraft.world.item.ItemStack) asNMSCopy.invoke(null, orgItemStack);
+        } catch (final Exception ignored) {}
+        return null;
+    }
+
+    /**
+     * 使用反射呼叫 CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack)
+     * @param  nmsItemStack 物品
+     * @return org.bukkit.inventory.ItemStack
+     */
+    @NotNull
+    @SuppressWarnings("all")
+    public static final ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack nmsItemStack) {
+        try {
+            // 獲取當前運行的 Bukkit 版本
+            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+
+            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
+            final Method asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", net.minecraft.world.item.ItemStack.class);
+
+            return (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
+        } catch (final Exception ignored) {}
+        return null;
     }
 
 }
