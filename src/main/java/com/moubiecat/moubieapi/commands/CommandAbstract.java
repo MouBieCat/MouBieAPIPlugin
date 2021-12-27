@@ -119,7 +119,7 @@ public abstract class CommandAbstract
      */
     protected final boolean hasPermission(final @NotNull CommandSender sender) {
         if (this.permission != null)
-            sender.hasPermission(String.valueOf(this.permission));
+            return sender.hasPermission(String.valueOf(this.permission));
 
         return true;
     }
