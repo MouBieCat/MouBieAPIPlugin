@@ -22,6 +22,7 @@
 package com.moubiecat;
 
 import com.moubiecat.api.plugin.MouBiePlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +32,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class MouBieCat
         extends MouBiePlugin {
+
+    /**
+     * 插件加載事件監聽器方法
+     */
+    @Override
+    protected void loadListener() {
+        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+    }
 
     /**
      * 獲取當前插件實例

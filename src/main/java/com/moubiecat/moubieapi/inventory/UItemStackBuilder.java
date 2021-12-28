@@ -29,7 +29,6 @@ import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * 代表一個介面按鈕類別
@@ -51,6 +50,7 @@ public class UItemStackBuilder
     protected int slotId;
 
     // 點選方法
+    @NotNull
     protected ClickType clickType = ClickType.UNKNOWN;
 
     // 是否可以被移動
@@ -127,14 +127,14 @@ public class UItemStackBuilder
      * @param itemStack 物品
      * @return 類型
      */
-    @Nullable
+    @NotNull
     public static ClickType getItemStackClickType(final @NotNull ItemStack itemStack) {
         if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG)) {
             return ClickType.valueOf(
                     NBTTagBuilder.getString(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG)
             );
         }
-        return null;
+        return ClickType.UNKNOWN;
     }
 
     /**

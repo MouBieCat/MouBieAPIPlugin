@@ -297,7 +297,7 @@ public class ItemStackBuilder
      * 表一些有關 nms 的應用程序
      * @author MouBieCat
      */
-    public final static class NMSUtils {
+    public final static class NMSHelper {
 
         /**
          * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)

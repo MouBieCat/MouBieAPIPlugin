@@ -109,7 +109,7 @@ public abstract class PageUInventoryAbstract
     /**
      * 將頁數重製
      */
-    public final void rePage() {
+    public final void restPage() {
         this.nowPage = 0;
     }
 

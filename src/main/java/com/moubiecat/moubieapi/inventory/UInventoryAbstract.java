@@ -196,13 +196,4 @@ public abstract class UInventoryAbstract
      */
     protected abstract void initInventory(final @NotNull Player player);
 
-    /**
-     * 關閉伺服器玩家開啟有關該庫存的介面
-     */
-    public static void closeServerPlayerInventory() {
-        for (final Player player : Bukkit.getOnlinePlayers())
-            if (player.getOpenInventory().getTopInventory().getHolder() instanceof GUI)
-                player.closeInventory();
-    }
-
 }
