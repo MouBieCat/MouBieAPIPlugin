@@ -23,6 +23,7 @@ package com.moubiecat.moubieapi.inventory;
 
 import com.moubiecat.api.inventory.button.PageButton;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,6 +56,15 @@ public final class PageUItemStack
      */
     public PageUItemStack(final @NotNull Material material, final int slot, final @NotNull String displayName, final @Nullable List<String> lore) {
         super(material, slot, displayName, lore);
+    }
+
+    /**
+     * 建構子
+     * @param itemStack 物品實例
+     * @param slot 介面位置
+     */
+    public PageUItemStack(final @NotNull ItemStack itemStack, final int slot) {
+        super(itemStack, slot);
     }
 
 }

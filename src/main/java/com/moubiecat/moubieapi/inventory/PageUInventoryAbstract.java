@@ -101,9 +101,16 @@ public abstract class PageUInventoryAbstract
      * @param player 玩家
      */
     @Override
-    public final void previousPage(@NotNull Player player) {
+    public final void previousPage(final @NotNull Player player) {
         this.nowPage -= 1;
         this.open(player, this.nowPage);
+    }
+
+    /**
+     * 將頁數重製
+     */
+    public final void rePage() {
+        this.nowPage = 0;
     }
 
 }

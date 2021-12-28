@@ -294,43 +294,50 @@ public class ItemStackBuilder
     }
 
     /**
-     * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
-     * @param orgItemStack 物品
-     * @return net.minecraft.world.item.ItemStack
+     * 表一些有關 nms 的應用程序
+     * @author MouBieCat
      */
-    @NotNull
-    @SuppressWarnings("all")
-    public static final net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack orgItemStack) {
-        try {
-            // 獲取當前運行的 Bukkit 版本
-            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    public final static class NMSUtils {
 
-            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-            final Method asNMSCopy = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
+        /**
+         * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
+         * @param orgItemStack 物品
+         * @return net.minecraft.world.item.ItemStack
+         */
+        @NotNull
+        @SuppressWarnings("all")
+        public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack orgItemStack) {
+            try {
+                // 獲取當前運行的 Bukkit 版本
+                final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
-            return (net.minecraft.world.item.ItemStack) asNMSCopy.invoke(null, orgItemStack);
-        } catch (final Exception ignored) {}
-        return null;
-    }
+                final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
+                final Method asNMSCopy = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
 
-    /**
-     * 使用反射呼叫 CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack)
-     * @param  nmsItemStack 物品
-     * @return org.bukkit.inventory.ItemStack
-     */
-    @NotNull
-    @SuppressWarnings("all")
-    public static final ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack nmsItemStack) {
-        try {
-            // 獲取當前運行的 Bukkit 版本
-            final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+                return (net.minecraft.world.item.ItemStack) asNMSCopy.invoke(null, orgItemStack);
+            } catch (final Exception ignored) {}
+            return null;
+        }
 
-            final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-            final Method asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", net.minecraft.world.item.ItemStack.class);
+        /**
+         * 使用反射呼叫 CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack)
+         * @param  nmsItemStack 物品
+         * @return org.bukkit.inventory.ItemStack
+         */
+        @NotNull
+        @SuppressWarnings("all")
+        public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack nmsItemStack) {
+            try {
+                // 獲取當前運行的 Bukkit 版本
+                final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 
-            return (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
-        } catch (final Exception ignored) {}
-        return null;
+                final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
+                final Method asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", net.minecraft.world.item.ItemStack.class);
+
+                return (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
+            } catch (final Exception ignored) {}
+            return null;
+        }
     }
 
 }

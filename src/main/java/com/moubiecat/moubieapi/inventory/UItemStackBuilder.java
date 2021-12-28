@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * 代表一個介面按鈕類別
  * @author MouBieCat
  */
-public class UItemStackAbstract
+public class UItemStackBuilder
         extends ItemStackBuilder
         implements Button {
 
@@ -61,7 +61,7 @@ public class UItemStackAbstract
      * @param material 材質
      * @param slot 介面位置
      */
-    public UItemStackAbstract(final @NotNull Material material, final int slot) {
+    public UItemStackBuilder(final @NotNull Material material, final int slot) {
         this(material, 1, slot);
     }
 
@@ -71,7 +71,7 @@ public class UItemStackAbstract
      * @param amount 數量
      * @param slot 介面位置
      */
-    public UItemStackAbstract(final @NotNull Material material, final int amount, final int slot) {
+    public UItemStackBuilder(final @NotNull Material material, final int amount, final int slot) {
         this(new ItemStack(material, amount), slot);
     }
 
@@ -80,7 +80,7 @@ public class UItemStackAbstract
      * @param itemStack 物品實例
      * @param slot 介面位置
      */
-    public UItemStackAbstract(final @NotNull ItemStack itemStack, final int slot) {
+    public UItemStackBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack);
         this.slotId = slot;
     }

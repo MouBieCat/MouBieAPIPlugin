@@ -27,7 +27,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,11 +34,11 @@ import java.util.List;
  * @author MouBieCat
  */
 public abstract class MagicUItemStackAbstract
-        extends UItemStackAbstract
+        extends UItemStackBuilder
         implements MagicButton {
 
     // 顯示名稱
-    @NotNull
+    @Nullable
     private final String displayName;
 
     // 顯示說明
@@ -58,14 +57,28 @@ public abstract class MagicUItemStackAbstract
     }
 
     /**
+     * 建構子
+     * @param itemStack 物品實例
+     * @param slot 介面位置
+     */
+    public MagicUItemStackAbstract(final @NotNull ItemStack itemStack, final int slot) {
+        super(itemStack, slot);
+        this.displayName = null;
+        this.lore = null;
+    }
+
+    /**
      * 將物品建置出來
      * @return 物品
      */
     @Override
     @NotNull
     public ItemStack build() {
-        this.displayName(this.getDisplayName())
-                .lore(this.getLore());
+        if (this.getDisplayName() != null)
+            this.displayName(this.getDisplayName());
+
+        if (this.getLore() != null)
+                this.lore(this.getLore());
 
         return super.build();
     }
@@ -74,7 +87,7 @@ public abstract class MagicUItemStackAbstract
      * 獲取顯示的名稱
      * @return 名稱
      */
-    @NotNull
+    @Nullable
     public final String getDisplayName() {
         return this.displayName;
     }
@@ -83,9 +96,9 @@ public abstract class MagicUItemStackAbstract
      * 獲取顯示的說明
      * @return 說明
      */
-    @NotNull
+    @Nullable
     public final List<String> getLore() {
-        return this.lore != null ? this.lore : new ArrayList<>();
+        return this.lore;
     }
 
 }

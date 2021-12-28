@@ -24,7 +24,6 @@ package com.moubiecat.moubieapi.manager;
 import com.moubiecat.api.manager.DataManager;
 import com.moubiecat.api.yaml.DataLoader;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * 代表一個資料管理器基礎類別
@@ -43,8 +42,7 @@ public abstract class DataManagerAbstract<P, D extends DataLoader>
      */
     @Override
     public void add(final @NotNull P key, final @NotNull D value) {
-        final D data = this.get(key);
-        if (data != null)
+        if (this.hasKey(key))
             this.remove(key);
 
         super.add(key, value);
@@ -61,17 +59,6 @@ public abstract class DataManagerAbstract<P, D extends DataLoader>
             data.saveFile();
 
         super.remove(key);
-    }
-
-    /**
-     * 從管理器中獲取資料
-     * @param key k
-     * @return v
-     */
-    @Override
-    @Nullable
-    public D get(final @NotNull P key) {
-        return super.get(key);
     }
 
 }

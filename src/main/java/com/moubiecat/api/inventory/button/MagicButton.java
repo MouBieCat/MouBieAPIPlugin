@@ -21,7 +21,7 @@
 
 package com.moubiecat.api.inventory.button;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -36,12 +36,12 @@ public interface MagicButton
      * 獲取顯示的名稱
      * @return 名稱
      */
-    @NotNull String getDisplayName();
+    @Nullable String getDisplayName();
 
     /**
      * 獲取顯示的說明
      * @return 說明
      */
-    @NotNull List<String> getLore();
+    @Nullable List<String> getLore();
 
 }
