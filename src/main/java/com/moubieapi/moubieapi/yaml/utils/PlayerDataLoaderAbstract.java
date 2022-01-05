@@ -19,10 +19,11 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.yaml.data;
+package com.moubieapi.moubieapi.yaml.utils;
 
 import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.yaml.PlayerLoader;
+import com.moubieapi.moubieapi.yaml.DataLoaderAbstract;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +34,9 @@ import org.jetbrains.annotations.NotNull;
 public abstract class PlayerDataLoaderAbstract<P extends OfflinePlayer>
         extends DataLoaderAbstract
         implements PlayerLoader<P> {
+
+    public static final String NAME_PATH = "name";
+    public static final String UUID_PATH = "uuid";
 
     // 玩家
     @NotNull
@@ -69,8 +73,8 @@ public abstract class PlayerDataLoaderAbstract<P extends OfflinePlayer>
      */
     @Override
     protected void initDataLoader() {
-        this.configuration.set("uuid", this.owner.getUniqueId().toString());
-        this.configuration.set("name", this.owner.getName());
+        this.configuration.set(UUID_PATH, this.owner.getUniqueId().toString());
+        this.configuration.set(NAME_PATH, this.owner.getName());
         this.save();
     }
 

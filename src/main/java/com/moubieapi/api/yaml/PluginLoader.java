@@ -25,6 +25,5 @@ package com.moubieapi.api.yaml;
  * 代表一個最基礎的插件嵌入式檔案載入器介面
  * @author MouBieCat
  */
-public interface PluginLoader
-        extends FileLoader {
+public interface PluginLoader {
 }

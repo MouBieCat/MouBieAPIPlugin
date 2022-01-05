@@ -19,11 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.yaml.data;
+package com.moubieapi.moubieapi.yaml;
 
 import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.yaml.DataLoader;
-import com.moubieapi.moubieapi.yaml.Loader;
 import org.jetbrains.annotations.NotNull;
 
 /**
