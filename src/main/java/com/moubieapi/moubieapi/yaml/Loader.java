@@ -44,18 +44,4 @@ public class Loader
         super(plugin, path, name, isNewFile);
     }
 
-    /**
-     * 可用於重載
-     */
-    public void loadFile() {
-        this.load();
-    }
-
-    /**
-     * 可用於保存
-     */
-    public void saveFile() {
-        this.save();
-    }
-
 }

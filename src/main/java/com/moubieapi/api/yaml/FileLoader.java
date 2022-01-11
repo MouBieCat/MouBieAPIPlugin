@@ -26,15 +26,4 @@ package com.moubieapi.api.yaml;
  * @author MouBieCat
  */
 public interface FileLoader {
-
-    /**
-     * 可用於重載
-     */
-    void loadFile();
-
-    /**
-     * 可用於保存
-     */
-    void saveFile();
-
 }

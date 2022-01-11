@@ -48,4 +48,11 @@ public abstract class DataLoaderAbstract
      */
     protected abstract void initDataLoader();
 
+    /**
+     * 用於保存檔案資料
+     */
+    public final void saveData() {
+        super.save();
+    }
+
 }

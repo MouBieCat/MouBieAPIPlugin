@@ -178,7 +178,7 @@ public abstract class UInventoryAbstract
      */
     @Override
     public boolean clickInventory(final @NotNull InventoryClickEvent event) {
-        event.setCancelled(this.inventory_cancelEvent);
+        event.setCancelled(this.isCancelClickEvent());
         return true;
     }
 

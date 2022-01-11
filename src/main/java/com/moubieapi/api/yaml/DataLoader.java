@@ -27,4 +27,10 @@ package com.moubieapi.api.yaml;
  */
 public interface DataLoader
         extends FileLoader {
+
+    /**
+     * 用於保存檔案資料
+     */
+    void saveData();
+
 }

@@ -56,7 +56,7 @@ public abstract class DataManagerAbstract<P, D extends DataLoader>
     public void remove(final @NotNull P key) {
         final D data = this.get(key);
         if (data != null)
-            data.saveFile();
+            data.saveData();
 
         super.remove(key);
     }

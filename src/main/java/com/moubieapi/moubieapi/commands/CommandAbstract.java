@@ -131,12 +131,16 @@ public abstract class CommandAbstract
      */
     protected final boolean checkSenderType(final @NotNull CommandSender sender) {
         switch (this.senderType) {
+            // 指令方塊 ....
             case BLOCK_SENDER -> { return sender instanceof BlockCommandSender; }
 
+            // 玩家
             case PLAYER_SENDER -> { return sender instanceof Player; }
 
+            // 後台
             case COMMAND_LINE_SENDER -> { return sender instanceof ConsoleCommandSender; }
 
+            // 任何的
             case ANY_SENDER -> { return true; }
 
         }

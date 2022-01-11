@@ -19,10 +19,11 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.yaml;
+package com.moubieapi.moubieapi.yaml.utils;
 
 import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.yaml.PluginLoader;
+import com.moubieapi.moubieapi.yaml.Loader;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -41,6 +42,13 @@ public abstract class PluginFileLoaderAbstract
      */
     public PluginFileLoaderAbstract(final @NotNull MouBiePlugin plugin, final @NotNull String path, final @NotNull String name) {
         super(plugin, path, name, false);
+    }
+
+    /**
+     * 用於將資料加載或重新加載
+     */
+    public final void loadData() {
+        super.load();
     }
 
 }
