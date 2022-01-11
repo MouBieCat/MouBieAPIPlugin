@@ -19,36 +19,32 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi;
+package com.moubieapi.api.event;
 
-import com.moubieapi.api.plugin.MouBiePlugin;
-import com.moubieapi.listener.InventoryListener;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.event.Event;
 
 /**
- * 代表該插件的主要類別
+ * 代表自製插件的抽象類別
  * @author MouBieCat
  */
-public final class MouBieCat
-        extends MouBiePlugin {
+public abstract class MouBieEvent
+        extends Event {
 
     /**
-     * 插件加載事件監聽器方法
+     * 建構子
+     * @param call 是否直接進行呼叫
      */
-    @Override
-    protected void loadListener() {
-        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+    public MouBieEvent(final boolean call) {
+        if (call)
+            this.call();
     }
 
     /**
-     * 獲取當前插件實例
-     * @return 插件本身
+     * 調用事件
      */
-    @NotNull
-    public static MouBieCat getInstance() {
-        return JavaPlugin.getPlugin(MouBieCat.class);
+    public final void call() {
+        Bukkit.getPluginManager().callEvent(this);
     }
 
 }

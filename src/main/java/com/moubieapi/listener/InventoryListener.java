@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi;
+package com.moubieapi.listener;
 
 import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.event.EventHandler;
