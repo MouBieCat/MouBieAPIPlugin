@@ -43,7 +43,7 @@ public final class InventoryListener
      * @param event 事件
      */
     @EventHandler(priority = EventPriority.HIGH)
-    public void onOpen(final @NotNull InventoryOpenEvent event) {
+    public void onInventoryOpenEvent(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)
             ((GUI) holder).openInventory(event);
@@ -54,7 +54,7 @@ public final class InventoryListener
      * @param event 事件
      */
     @EventHandler(priority = EventPriority.HIGH)
-    public void onOpen(final @NotNull InventoryClickEvent event) {
+    public void onInventoryClickEvent(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)
             ((GUI) holder).clickInventory(event);
@@ -65,7 +65,7 @@ public final class InventoryListener
      * @param event 事件
      */
     @EventHandler(priority = EventPriority.HIGH)
-    public void onOpen(final @NotNull InventoryCloseEvent event) {
+    public void onInventoryCloseEvent(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         if (holder instanceof GUI)
             ((GUI) holder).closeInventory(event);
