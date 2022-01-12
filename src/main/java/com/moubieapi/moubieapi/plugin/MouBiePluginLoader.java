@@ -100,7 +100,6 @@ public final class MouBiePluginLoader
                     // 調用
                     method.invoke(this.plugin);
                 } catch (final InvocationTargetException | IllegalAccessException e) {
-                    e.printStackTrace();
                     this.plugin.getDebugger().warning("§c插件註冊方法 §6" + method.getName() + " §c調用失敗，這是一個錯誤訊息。");
                 }
             }
