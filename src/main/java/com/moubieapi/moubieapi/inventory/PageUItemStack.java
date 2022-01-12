@@ -21,7 +21,7 @@
 
 package com.moubieapi.moubieapi.inventory;
 
-import com.moubieapi.api.inventory.button.PageButton;
+import com.moubieapi.api.inventory.button.MagicButton;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public final class PageUItemStack
         extends MagicUItemStackAbstract
-        implements PageButton {
+        implements MagicButton {
 
     /**
      * 建構子

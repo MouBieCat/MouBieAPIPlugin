@@ -21,7 +21,7 @@
 
 package com.moubieapi.moubieapi.inventory;
 
-import com.moubieapi.api.inventory.button.BackButton;
+import com.moubieapi.api.inventory.button.MagicButton;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public final class BackUItemStack
         extends MagicUItemStackAbstract
-        implements BackButton {
+        implements MagicButton {
 
     /**
      * 建構子

@@ -25,7 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 
 /**
- * 代表自製插件的抽象類別
+ * 代表自製插件事件抽象類別
  * @author MouBieCat
  */
 public abstract class MouBieEvent

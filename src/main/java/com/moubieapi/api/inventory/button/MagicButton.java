@@ -21,27 +21,10 @@
 
 package com.moubieapi.api.inventory.button;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-
 /**
- * 代表一個魔術按鈕，通常是GUI常見按鈕 (下一頁、上一頁、返回)
+ * 代表一個魔術按鈕，通常是GUI常見按鈕
  * @author MouBieCat
  */
 public interface MagicButton
         extends Button {
-
-    /**
-     * 獲取顯示的名稱
-     * @return 名稱
-     */
-    @Nullable String getDisplayName();
-
-    /**
-     * 獲取顯示的說明
-     * @return 說明
-     */
-    @Nullable List<String> getLore();
-
 }

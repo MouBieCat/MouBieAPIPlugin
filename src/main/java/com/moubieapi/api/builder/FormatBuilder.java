@@ -19,12 +19,23 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api.inventory.button;
+package com.moubieapi.api.builder;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表一個介面換頁按鈕
+ * 代表一個格式的建構介面
+ * @param <T> 任何類型
+ * @param <R> 任何類型
  * @author MouBieCat
  */
-public interface PageButton
-        extends MagicButton {
+public interface FormatBuilder<T, R>
+        extends Builder<T> {
+
+    /**
+     * 獲取被轉換的對象
+     * @return 轉換之對象
+     */
+    @NotNull R getReplacer();
+
 }
