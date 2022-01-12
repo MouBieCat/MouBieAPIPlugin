@@ -38,5 +38,5 @@ public @interface ICommand {
      * @return 說明
      */
     String description() default "這是一個指令類別";
-
+    
 }

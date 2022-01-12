@@ -21,18 +21,128 @@
 
 package com.moubieapi.api.commands;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * 代表一個指令運行接受的發送者類型
  * @author MouBieCat
  */
 public enum SenderType {
 
-    COMMAND_LINE_SENDER,
+    // 伺服器後台類型
+    CONSOLE_SENDER(SenderType.CONSOLE_SENDER_ID, SenderType.CONSOLE_SENDER_NAME),
+    // 方塊類型
+    BLOCK_SENDER(SenderType.BLOCK_SENDER_ID, SenderType.BLOCK_SENDER_NAME),
+    // 玩家類型
+    PLAYER_SENDER(SenderType.PLAYER_SENDER_ID, SenderType.PLAYER_SENDER_NAME),
+    // 任何可發送指令的類型
+    ANY_SENDER(SenderType.ANY_SENDER_ID, SenderType.ANY_SENDER_NAME);
 
-    BLOCK_SENDER,
+    private static final long CONSOLE_SENDER_ID = 1;
+    private static final String CONSOLE_SENDER_NAME = "Console_Sender";
 
-    PLAYER_SENDER,
+    private static final long BLOCK_SENDER_ID = 2;
+    private static final String BLOCK_SENDER_NAME= "Block_Sender";
 
-    ANY_SENDER
+    private static final long PLAYER_SENDER_ID = 3;
+    private static final String PLAYER_SENDER_NAME = "PlayerSender";
+
+    private static final long ANY_SENDER_ID = 4;
+    private static final String ANY_SENDER_NAME = "CommandSender";
+
+    // 發送者類型
+    private final CommandSenderInfo info;
+
+    /**
+     * 建構子
+     * @param id 指令發送類型ID
+     * @param name 指令發送類型名
+     */
+    SenderType(long id, @NotNull String name) {
+        this.info = new CommandSenderInfo(id, name);
+    }
+
+    /**
+     * 獲取指令發送類型ID
+     * @return 類型ID
+     */
+    public final long getId() {
+        return this.info.getId();
+    }
+
+    /**
+     * 獲取指令發送類型名
+     * @return 類型名
+     */
+    @NotNull
+    public final String getName() {
+        return this.info.getName();
+    }
+
+    /**
+     * 根據ID查找一個發送者類型
+     * @param id 發送者ID
+     * @return 發送者類型
+     */
+    @Nullable
+    public static SenderType getSenderTypeById(long id) {
+        for (final SenderType type : SenderType.values())
+            if (type.getId() == id)
+                return type;
+
+        return null;
+    }
+
+    /**
+     * 根據名稱查找一個發送者類型
+     * @param name 發送者ID
+     * @return 發送者類型
+     */
+    @Nullable
+    public static SenderType getSenderTypeByName(@NotNull String name) {
+        for (final SenderType type : SenderType.values())
+            if (type.getName().equalsIgnoreCase(name))
+                return type;
+
+        return null;
+    }
+
+
+    /**
+     * 有關發送者資訊
+     * @param id 指令發送者ID
+     * @param name 指令發送者名稱
+     * @author MouBieCat
+     */
+    private record CommandSenderInfo(long id, @NotNull String name) {
+
+        /**
+         * 建構子
+         * @param id   指令發送類型ID
+         * @param name 指令發送類型名
+         */
+        private CommandSenderInfo(long id, @NotNull String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        /**
+         * 獲取指令發送類型ID
+         * @return 類型ID
+         */
+        public long getId() {
+            return this.id;
+        }
+
+        /**
+         * 獲取指令發送類型名
+         * @return 類型名
+         */
+        @NotNull
+        public String getName() {
+            return this.name;
+        }
+    }
 
 }

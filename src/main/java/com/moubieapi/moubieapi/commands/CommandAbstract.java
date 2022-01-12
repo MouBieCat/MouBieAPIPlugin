@@ -138,7 +138,7 @@ public abstract class CommandAbstract
             case PLAYER_SENDER -> { return sender instanceof Player; }
 
             // 後台
-            case COMMAND_LINE_SENDER -> { return sender instanceof ConsoleCommandSender; }
+            case CONSOLE_SENDER -> { return sender instanceof ConsoleCommandSender; }
 
             // 任何的
             case ANY_SENDER -> { return true; }
