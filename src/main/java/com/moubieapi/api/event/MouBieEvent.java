@@ -29,21 +29,12 @@ import org.bukkit.event.Event;
  * @author MouBieCat
  */
 public abstract class MouBieEvent
-        extends Event {
-
-    /**
-     * 建構子
-     * @param call 是否直接進行呼叫
-     */
-    public MouBieEvent(final boolean call) {
-        if (call)
-            this.call();
-    }
+         extends Event {
 
     /**
      * 調用事件
      */
-    public final void call() {
+    public final void callEvent() {
         Bukkit.getPluginManager().callEvent(this);
     }
 
