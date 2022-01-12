@@ -62,7 +62,6 @@ public abstract class MouBiePluginBase
     /**
      * 插件啟用時調用
      */
-
     @Override
     public final void onEnable() {
         this.loader.executeEnableAction();
@@ -71,7 +70,6 @@ public abstract class MouBiePluginBase
     /**
      * 插件關閉時調用
      */
-
     @Override
     public final void onDisable() {
         this.loader.executeDisableAction();

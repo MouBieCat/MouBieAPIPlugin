@@ -39,7 +39,7 @@ public final class MouBieCat
      * 註冊事件
      */
     @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE, priority = 0)
-    public void registerListener1() {
+    public void regListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
     }
 

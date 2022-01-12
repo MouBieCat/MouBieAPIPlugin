@@ -21,7 +21,11 @@
 
 package com.moubieapi.api;
 
+import com.moubieapi.api.plugin.MouBiePlugin;
+import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
@@ -53,6 +57,22 @@ public final class Utils {
         }
 
         return message;
+    }
+
+    /**
+     * 重載沫白的插件
+     * @param pluginName 插件名稱
+     * @return 是否成功重載
+     */
+    public static boolean reloadMouBiePlugin(final @NotNull String pluginName) {
+        final Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
+
+        if (plugin != null && plugin.isEnabled() && plugin instanceof MouBiePlugin) {
+            ((MouBiePluginBase)plugin).onReload();
+            return true;
+        }
+
+        return false;
     }
 
 }
