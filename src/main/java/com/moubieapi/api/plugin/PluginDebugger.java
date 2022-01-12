@@ -19,37 +19,35 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi;
+package com.moubieapi.api.plugin;
 
-import com.moubieapi.api.plugin.Register;
-import com.moubieapi.listener.InventoryListener;
-import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
+
 /**
- * 代表該插件的主要類別
+ * 代表一個插件紀錄器
  * @author MouBieCat
  */
-public final class MouBieCat
-        extends MouBiePluginBase {
+public interface PluginDebugger {
 
     /**
-     * 註冊事件
+     * 紀錄資訊訊息
+     * @param msg 訊息
      */
-    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE, priority = 0)
-    public void registerListener1() {
-        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
-    }
+    void info(final @NotNull String msg);
 
     /**
-     * 獲取當前插件實例
-     * @return 插件本身
+     * 紀錄警告訊息
+     * @param msg 訊息
      */
-    @NotNull
-    public static MouBieCat getInstance() {
-        return JavaPlugin.getPlugin(MouBieCat.class);
-    }
+    void warning(final @NotNull String msg);
+
+    /**
+     * 紀錄訊息
+     * @param level 級別
+     * @param msg 訊息
+     */
+    void log(final @NotNull Level level, final @NotNull String msg);
 
 }

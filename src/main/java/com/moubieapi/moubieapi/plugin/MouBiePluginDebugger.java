@@ -19,9 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api;
+package com.moubieapi.moubieapi.plugin;
 
-import org.bukkit.plugin.Plugin;
+import com.moubieapi.api.Utils;
+import com.moubieapi.api.plugin.MouBiePlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
@@ -31,11 +32,12 @@ import java.util.logging.Logger;
  * 代表一個插件紀錄器
  * @author MouBieCat
  */
-public final class Debugger {
+public final class MouBiePluginDebugger
+        implements com.moubieapi.api.plugin.PluginDebugger {
 
     // 插件
     @NotNull
-    private final Plugin plugin;
+    private final MouBiePlugin plugin;
 
     // 紀錄器
     @NotNull
@@ -45,7 +47,7 @@ public final class Debugger {
      * 建構子
      * @param plugin 插件
      */
-    public Debugger(final @NotNull Plugin plugin) {
+    public MouBiePluginDebugger(final @NotNull MouBiePlugin plugin) {
         this.plugin = plugin;
         this.logger = plugin.getLogger();
     }
@@ -80,17 +82,8 @@ public final class Debugger {
      * @return 插件
      */
     @NotNull
-    public Plugin getPlugin() {
+    public MouBiePlugin getPlugin() {
         return this.plugin;
-    }
-
-    /**
-     * 獲取該紀錄器
-     * @return 紀錄器
-     */
-    @NotNull
-    public Logger getLogger() {
-        return logger;
     }
 
 }

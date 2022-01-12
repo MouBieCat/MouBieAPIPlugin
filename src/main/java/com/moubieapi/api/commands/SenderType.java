@@ -68,7 +68,7 @@ public enum SenderType {
      * @return 類型ID
      */
     public final long getId() {
-        return this.info.getId();
+        return this.info.id();
     }
 
     /**
@@ -77,7 +77,7 @@ public enum SenderType {
      */
     @NotNull
     public final String getName() {
-        return this.info.getName();
+        return this.info.name();
     }
 
     /**
@@ -125,23 +125,6 @@ public enum SenderType {
         private CommandSenderInfo(long id, @NotNull String name) {
             this.id = id;
             this.name = name;
-        }
-
-        /**
-         * 獲取指令發送類型ID
-         * @return 類型ID
-         */
-        public long getId() {
-            return this.id;
-        }
-
-        /**
-         * 獲取指令發送類型名
-         * @return 類型名
-         */
-        @NotNull
-        public String getName() {
-            return this.name;
         }
     }
 

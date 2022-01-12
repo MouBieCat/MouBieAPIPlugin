@@ -21,82 +21,26 @@
 
 package com.moubieapi.api.plugin;
 
-import com.moubieapi.api.Debugger;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表一個我(MouBieCat)自己所寫的插件
+ * 帶鰾一個沫白插件
  * @author MouBieCat
  */
-public abstract class MouBiePlugin
-        extends JavaPlugin {
-
-    // 紀錄器
-    protected final Debugger debugger;
+public interface MouBiePlugin
+        extends Plugin {
 
     /**
-     * 建構子
+     * 獲取插件加載器
+     * @return 加載器
      */
-    public MouBiePlugin() {
-        this.debugger = new Debugger(this);
-    }
-
-    /**
-     * 當插件加載時調用
-     */
-    @Override
-    public void onLoad() {
-    }
-
-    /**
-     * 當插件啟動時調用
-     */
-    @Override
-    public void onEnable() {
-        this.loadFiles();
-        this.loadCommands();
-        this.loadListener();
-    }
-
-    /**
-     * 當插件關閉時調用
-     */
-    @Override
-    public void onDisable() {
-    }
-
-    /**
-     * 當插件重讀時調用
-     */
-    public void onReload() {
-    }
-
-    /**
-     * 插件加載檔案方法
-     */
-    protected void loadFiles() {
-    }
-
-    /**
-     * 插件加載指令方法
-     */
-    protected void loadCommands() {
-    }
-
-    /**
-     * 插件加載事件監聽器方法
-     */
-    protected void loadListener() {
-    }
+    @NotNull PluginLoader getLoader();
 
     /**
      * 獲取紀錄器
      * @return 紀錄器
      */
-    @NotNull
-    public final Debugger getDebugger() {
-        return this.debugger;
-    }
+    @NotNull PluginDebugger getDebugger();
 
 }

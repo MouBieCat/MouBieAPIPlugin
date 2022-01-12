@@ -22,7 +22,7 @@
 package com.moubieapi.api.commands;
 
 /**
- * 代表一個指令
+ * 代表一個指令示標符
  * @author MouBieCat
  */
 public @interface ICommand {

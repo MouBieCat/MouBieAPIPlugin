@@ -21,8 +21,8 @@
 
 package com.moubieapi.moubieapi.yaml;
 
-import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.Utils;
+import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.yaml.YamlSection;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;

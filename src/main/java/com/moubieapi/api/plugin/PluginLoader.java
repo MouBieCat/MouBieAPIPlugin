@@ -19,37 +19,32 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi;
-
-import com.moubieapi.api.plugin.Register;
-import com.moubieapi.listener.InventoryListener;
-import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
+package com.moubieapi.api.plugin;
 
 /**
- * 代表該插件的主要類別
+ * 用於將沫白插件加載的載入器
  * @author MouBieCat
  */
-public final class MouBieCat
-        extends MouBiePluginBase {
+public interface PluginLoader {
 
     /**
-     * 註冊事件
+     * 執行加載插件動作
      */
-    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE, priority = 0)
-    public void registerListener1() {
-        Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
-    }
+    void executeLoadAction();
 
     /**
-     * 獲取當前插件實例
-     * @return 插件本身
+     * 執行啟用插件動作
      */
-    @NotNull
-    public static MouBieCat getInstance() {
-        return JavaPlugin.getPlugin(MouBieCat.class);
-    }
+    void executeEnableAction();
+
+    /**
+     * 執行關閉插件動作
+     */
+    void executeDisableAction();
+
+    /**
+     * 執行重載插件動作
+     */
+    void executeReloadAction();
 
 }
