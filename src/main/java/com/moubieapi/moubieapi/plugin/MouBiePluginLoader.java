@@ -97,9 +97,6 @@ public final class MouBiePluginLoader
         if (methods != null)
             for (final Method method : methods) {
                 try {
-                    // 設置該方法可訪問
-                    method.setAccessible(true);
-
                     // 調用
                     method.invoke(this.plugin);
                 } catch (final InvocationTargetException | IllegalAccessException e) {
@@ -117,7 +114,7 @@ public final class MouBiePluginLoader
         final List<Method> methods = new LinkedList<>();
 
         // 查找有關 Register.class 的類方法並且判斷方法示標動作類型
-        for (final Method method : this.plugin.getClass().getDeclaredMethods())
+        for (final Method method : this.plugin.getClass().getMethods())
             if (method.isAnnotationPresent(Register.class) && method.getAnnotation(Register.class).type().equals(actionType))
                 methods.add(method);
 
