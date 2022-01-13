@@ -38,31 +38,26 @@ import java.lang.annotation.Target;
 public @interface Register {
 
     // 註冊名稱
-    @NotNull
-    String name();
+    @NotNull String name();
 
     // 動作類型
-    @NotNull
-    ActionType type();
+    @NotNull ActionType type();
 
-    // 動作優先等級 (預設 5)
-    int priority() default 5;
+    // 動作優先等級 (預設 NORMAL)
+    @NotNull ActionPriority priority()
+            default ActionPriority.NORMAL;
 
     /**
      * 代表一個動作類型
      * @author MouBieCat
      */
     enum ActionType {
-
         // 加載時
         ACTION_LOAD(0),
-
         // 啟用時
         ACTION_ENABLE(1),
-
         // 卸載時
         ACTION_DISABLE(2),
-
         // 重載時
         ACTION_RELOAD(3);
 
@@ -83,6 +78,42 @@ public @interface Register {
          */
         public final long getId() {
             return this.id;
+        }
+    }
+
+    /**
+     * 代表一個動作的優先級別
+     * @author MouBieCat
+     */
+    enum ActionPriority {
+        // 最高
+        HIGHEST(0),
+        // 高
+        HIGH(1),
+        // 一般
+        NORMAL(2),
+        // 低
+        LOW(3),
+        // 最低
+        LOWEST(4);
+
+        // 優先等級
+        private final long priority;
+
+        /**
+         * 建構子
+         * @param priority 優先等級
+         */
+        ActionPriority(long priority) {
+            this.priority = priority;
+        }
+
+        /**
+         * 獲取優先級
+         * @return 優先級
+         */
+        public final long getPriority() {
+            return this.priority;
         }
     }
 

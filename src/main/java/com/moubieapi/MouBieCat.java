@@ -35,11 +35,8 @@ import org.jetbrains.annotations.NotNull;
 public final class MouBieCat
         extends MouBiePluginBase {
 
-    /**
-     * 註冊事件
-     */
-    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE, priority = 0)
-    public void regListener() {
+    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE)
+    public void registerListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
     }
 
