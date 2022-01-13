@@ -23,7 +23,6 @@ package com.moubieapi.moubieapi.itemstack;
 
 import com.moubieapi.api.Utils;
 import com.moubieapi.api.builder.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
@@ -294,49 +293,33 @@ public class ItemStackBuilder
     }
 
     /**
-     * 表一些有關 nms 的應用程序
+     * 將一些實用應用程序定義在該類別
      * @author MouBieCat
      */
-    public final static class NMSHelper {
-
+    public static class Helper
+            extends ReflectHelper {
         /**
          * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
-         * @param orgItemStack 物品
+         * @param original 物品
          * @return net.minecraft.world.item.ItemStack
          */
         @NotNull
-        @SuppressWarnings("all")
-        public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack orgItemStack) {
-            try {
-                // 獲取當前運行的 Bukkit 版本
-                final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-                final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-                final Method asNMSCopy = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
-
-                return (net.minecraft.world.item.ItemStack) asNMSCopy.invoke(null, orgItemStack);
-            } catch (final Exception ignored) {}
-            return null;
+        public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack original) {
+            final Class<?> craftItemStackClass = ReflectHelper.getClass("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
+            final Method asNMSCopy = ReflectHelper.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
+            return (net.minecraft.world.item.ItemStack) ReflectHelper.invoke(asNMSCopy, null, original);
         }
 
         /**
          * 使用反射呼叫 CraftItemStack.asBukkitCopy(net.minecraft.world.item.ItemStack)
-         * @param  nmsItemStack 物品
+         * @param  itemStack 物品
          * @return org.bukkit.inventory.ItemStack
          */
         @NotNull
-        @SuppressWarnings("all")
-        public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack nmsItemStack) {
-            try {
-                // 獲取當前運行的 Bukkit 版本
-                final String versionStr = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-
-                final Class<?> craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + versionStr + ".inventory.CraftItemStack");
-                final Method asBukkitCopy = craftItemStackClass.getDeclaredMethod("asBukkitCopy", net.minecraft.world.item.ItemStack.class);
-
-                return (ItemStack) asBukkitCopy.invoke(null, nmsItemStack);
-            } catch (final Exception ignored) {}
-            return null;
+        public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack itemStack) {
+            final Class<?> craftItemStackClass = ReflectHelper.getClass("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
+            final Method asBukkitCopy = ReflectHelper.getMethod(craftItemStackClass, "asBukkitCopy", net.minecraft.world.item.ItemStack.class);
+            return (ItemStack) ReflectHelper.invoke(asBukkitCopy, null, itemStack);
         }
     }
 
