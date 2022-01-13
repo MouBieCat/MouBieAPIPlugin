@@ -19,12 +19,13 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.itemstack;
+package com.moubieapi.moubieapi.utils;
 
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -49,6 +50,21 @@ public abstract class ReflectHelper {
         try {
             return Class.forName(path);
         } catch (final ClassNotFoundException ignored) {}
+        return null;
+    }
+
+    /**
+     * 根據一個 Class 類獲取類的一個屬性
+     * @param clazz 類
+     * @param fieldName 屬性名稱
+     * @return 類屬性
+     */
+    @NotNull
+    @SuppressWarnings("all")
+    protected static Field getField(final @NotNull Class<?> clazz, final @NotNull String fieldName) {
+        try {
+            return clazz.getField(fieldName);
+        } catch (final NoSuchFieldException e) {}
         return null;
     }
 

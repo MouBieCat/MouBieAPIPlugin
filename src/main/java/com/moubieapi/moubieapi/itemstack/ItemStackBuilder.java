@@ -23,6 +23,7 @@ package com.moubieapi.moubieapi.itemstack;
 
 import com.moubieapi.api.Utils;
 import com.moubieapi.api.builder.ItemBuilder;
+import com.moubieapi.moubieapi.utils.ReflectHelper;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;

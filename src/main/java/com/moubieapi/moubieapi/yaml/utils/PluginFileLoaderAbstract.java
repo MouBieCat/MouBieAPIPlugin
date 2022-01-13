@@ -22,7 +22,7 @@
 package com.moubieapi.moubieapi.yaml.utils;
 
 import com.moubieapi.api.plugin.MouBiePlugin;
-import com.moubieapi.api.yaml.PluginLoader;
+import com.moubieapi.api.yaml.PluginFileLoader;
 import com.moubieapi.moubieapi.yaml.Loader;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class PluginFileLoaderAbstract
         extends Loader
-        implements PluginLoader {
+        implements PluginFileLoader {
 
     /**
      * 建構子
@@ -47,7 +47,7 @@ public abstract class PluginFileLoaderAbstract
     /**
      * 用於將資料加載或重新加載
      */
-    public final void loadData() {
+    public final void reloadFile() {
         super.load();
     }
 

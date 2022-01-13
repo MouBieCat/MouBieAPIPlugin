@@ -23,6 +23,8 @@ package com.moubieapi.moubieapi.manager;
 
 import com.moubieapi.api.commands.Command;
 import com.moubieapi.api.manager.CommandManager;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 代表一個基礎的指令管理器
@@ -31,4 +33,36 @@ import com.moubieapi.api.manager.CommandManager;
 public abstract class CommandManagerAbstract
         extends ManagerAbstract<String, Command>
         implements CommandManager {
+
+    /**
+     * 添加資料到管理器中
+     * @param key   k
+     * @param value v
+     */
+    @Override
+    public final void add(final @NotNull String key, final @NotNull Command value) {
+        if (!this.hasKey(key))
+            super.add(key, value);
+    }
+
+    /**
+     * 從管理器中刪除資料
+     * @param key k
+     */
+    @Override
+    public final void remove(final @NotNull String key) {
+        super.remove(key);
+    }
+
+    /**
+     * 從管理器中獲取資料
+     * @param key k
+     * @return v
+     */
+    @Override
+    @Nullable
+    public final Command get(final @NotNull String key) {
+        return super.get(key);
+    }
+
 }

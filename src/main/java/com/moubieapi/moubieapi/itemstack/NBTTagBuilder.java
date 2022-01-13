@@ -22,6 +22,7 @@
 package com.moubieapi.moubieapi.itemstack;
 
 import com.moubieapi.api.builder.NBTBuilder;
+import com.moubieapi.moubieapi.utils.ReflectHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
