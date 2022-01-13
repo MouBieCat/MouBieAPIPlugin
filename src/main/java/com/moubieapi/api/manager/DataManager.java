@@ -24,7 +24,7 @@ package com.moubieapi.api.manager;
 import com.moubieapi.api.yaml.DataLoader;
 
 /**
- * 用於紀錄相關資料的任務資料管理器介面
+ * 用於紀錄相關資料的管理器介面
  * @param <P> 玩家類型
  * @param <D> 資料類型
  * @author MouBieCat

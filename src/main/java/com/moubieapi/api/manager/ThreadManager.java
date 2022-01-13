@@ -21,14 +21,14 @@
 
 package com.moubieapi.api.manager;
 
-import com.moubieapi.api.yaml.PlayerLoader;
-import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- * 用於紀錄相關資料的任務資料管理器介面(不包含下線玩家)
- * @param <D> 資料類型
+ * 用於紀錄相關線程的管理器介面
+ * @param <P> 玩家類型
+ * @param <T> 任何類型
  * @author MouBieCat
  */
-public interface PlayerManager<D extends PlayerLoader<Player>>
-        extends OfflinePlayerManager<Player, D> {
+public interface ThreadManager<P, T extends BukkitRunnable>
+        extends Manager<P, T> {
 }
