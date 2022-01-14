@@ -22,7 +22,6 @@
 package com.moubieapi.moubieapi.itemstack;
 
 import com.moubieapi.api.builder.NBTBuilder;
-import com.moubieapi.moubieapi.utils.ReflectHelper;
 import net.minecraft.nbt.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -413,8 +412,7 @@ public class NBTTagBuilder
      * 將一些實用應用程序定義在該類別
      * @author MouBieCat
      */
-    public static class Helper
-            extends ReflectHelper {
+    public static class Helper {
         /**
          * 獲取該物品上記錄的NBTTag
          * @param original 物品

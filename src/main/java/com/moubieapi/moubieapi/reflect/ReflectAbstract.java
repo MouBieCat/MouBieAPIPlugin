@@ -19,9 +19,9 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.utils;
+package com.moubieapi.moubieapi.reflect;
 
-import org.bukkit.Bukkit;
+import com.moubieapi.MouBieCat;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,14 +30,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 代表 NMS 有關的幫助類
+ * 提供一些基本的反射機制代碼
  * @author MouBieCat
  */
-public abstract class ReflectHelper {
-
-    // 獲取當前版本(用於將類用路徑做反射)
-    @NotNull
-    protected static final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+public abstract class ReflectAbstract {
 
     /**
      * 根據路徑獲取一個 Class 類
@@ -46,10 +42,12 @@ public abstract class ReflectHelper {
      */
     @NotNull
     @SuppressWarnings("all")
-    protected static Class<?> getClass(final @NotNull String path) {
+    public static Class<?> getClass(final @NotNull String path) {
         try {
             return Class.forName(path);
-        } catch (final ClassNotFoundException ignored) {}
+        } catch (final ClassNotFoundException ignored) {
+            MouBieCat.getInstance().getDebugger().warning("§c嘗試獲取 §6" + path + " §c類失敗，這是一個錯誤訊息。");
+        }
         return null;
     }
 
@@ -61,10 +59,12 @@ public abstract class ReflectHelper {
      */
     @NotNull
     @SuppressWarnings("all")
-    protected static Field getField(final @NotNull Class<?> clazz, final @NotNull String fieldName) {
+    public static Field getField(final @NotNull Class<?> clazz, final @NotNull String fieldName) {
         try {
             return clazz.getField(fieldName);
-        } catch (final NoSuchFieldException e) {}
+        } catch (final NoSuchFieldException e) {
+            MouBieCat.getInstance().getDebugger().warning("§c嘗試在 §6" + clazz.getName() + " §c獲取 §6" + fieldName + " §c屬性失敗，這是一個錯誤訊息。");
+        }
         return null;
     }
 
@@ -77,26 +77,32 @@ public abstract class ReflectHelper {
      */
     @NotNull
     @SuppressWarnings("all")
-    protected static Method getMethod(final @NotNull Class<?> clazz, final @NotNull String methodName, final @NotNull Class<?>... argsClass) {
+    public static Method getMethod(final @NotNull Class<?> clazz, final @NotNull String methodName, final @NotNull Class<?>... argsClass) {
         try {
             return clazz.getMethod(methodName, argsClass);
-        } catch (final NoSuchMethodException ignored) {}
+        } catch (final NoSuchMethodException ignored) {
+            MouBieCat.getInstance().getDebugger().warning("§c嘗試在 §6" + clazz.getName() + " §c獲取 §6" + methodName + " §c方法失敗，這是一個錯誤訊息。");
+        }
         return null;
     }
 
     /**
      * 調用一個類方法
      * @param method 類方法
+     * @param privateCall 是否強制繞過調用訪問
      * @param obj 在哪個實例上調用
      * @param args 類方法參數
      * @return
      */
     @NotNull
     @SuppressWarnings("all")
-    protected static Object invoke(final @NotNull Method method, final @Nullable Object obj, final @Nullable Object... args) {
+    public static Object invoke(final @NotNull Method method, final @Nullable Object obj, final @Nullable Object... args) {
         try {
+            method.setAccessible(true);
             return method.invoke(obj, args);
-        } catch (final InvocationTargetException | IllegalAccessException ignored) {}
+        } catch (final InvocationTargetException | IllegalAccessException ignored) {
+            MouBieCat.getInstance().getDebugger().warning("§c嘗試對 §6" + method.getName() + " §c調用失敗，這是一個錯誤訊息。");
+        }
         return null;
     }
 

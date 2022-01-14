@@ -23,7 +23,7 @@ package com.moubieapi.moubieapi.itemstack;
 
 import com.moubieapi.api.Utils;
 import com.moubieapi.api.builder.ItemBuilder;
-import com.moubieapi.moubieapi.utils.ReflectHelper;
+import com.moubieapi.moubieapi.reflect.CraftBukkitReflect;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
@@ -297,8 +297,7 @@ public class ItemStackBuilder
      * 將一些實用應用程序定義在該類別
      * @author MouBieCat
      */
-    public static class Helper
-            extends ReflectHelper {
+    public static class Helper {
         /**
          * 使用反射呼叫 CraftItemStack.asNMSCopy(org.bukkit.inventory.ItemStack)
          * @param original 物品
@@ -306,9 +305,9 @@ public class ItemStackBuilder
          */
         @NotNull
         public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack original) {
-            final Class<?> craftItemStackClass = ReflectHelper.getClass("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
-            final Method asNMSCopy = ReflectHelper.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
-            return (net.minecraft.world.item.ItemStack) ReflectHelper.invoke(asNMSCopy, null, original);
+            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass(".inventory.CraftItemStack");
+            final Method asNMSCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
+            return (net.minecraft.world.item.ItemStack) CraftBukkitReflect.invoke(asNMSCopy, null, original);
         }
 
         /**
@@ -318,9 +317,9 @@ public class ItemStackBuilder
          */
         @NotNull
         public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack itemStack) {
-            final Class<?> craftItemStackClass = ReflectHelper.getClass("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
-            final Method asBukkitCopy = ReflectHelper.getMethod(craftItemStackClass, "asBukkitCopy", net.minecraft.world.item.ItemStack.class);
-            return (ItemStack) ReflectHelper.invoke(asBukkitCopy, null, itemStack);
+            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass(".inventory.CraftItemStack");
+            final Method asBukkitCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asBukkitCopy", net.minecraft.world.item.ItemStack.class);
+            return (ItemStack) CraftBukkitReflect.invoke(asBukkitCopy, null, itemStack);
         }
     }
 
