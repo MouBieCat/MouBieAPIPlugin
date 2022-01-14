@@ -305,7 +305,7 @@ public class ItemStackBuilder
          */
         @NotNull
         public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack original) {
-            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass(".inventory.CraftItemStack");
+            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass("inventory.CraftItemStack");
             final Method asNMSCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
             return (net.minecraft.world.item.ItemStack) CraftBukkitReflect.invoke(asNMSCopy, null, original);
         }
@@ -317,7 +317,7 @@ public class ItemStackBuilder
          */
         @NotNull
         public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack itemStack) {
-            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass(".inventory.CraftItemStack");
+            final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass("inventory.CraftItemStack");
             final Method asBukkitCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asBukkitCopy", net.minecraft.world.item.ItemStack.class);
             return (ItemStack) CraftBukkitReflect.invoke(asBukkitCopy, null, itemStack);
         }
