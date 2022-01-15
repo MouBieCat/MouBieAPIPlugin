@@ -28,9 +28,6 @@ import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -161,33 +158,6 @@ public abstract class UInventoryAbstract
     public final void open(final @NotNull Player player) {
         player.openInventory(this.inventory);
         this.initInventory(player);
-    }
-
-    /**
-     * 當介面被開啟要做的事情
-     * @param event 介面開啟事件
-     */
-    @Override
-    public void openInventory(final @NotNull InventoryOpenEvent event) {
-    }
-
-    /**
-     * 當介面被點擊要做的事情
-     * @param event 介面點擊事件
-     * @return 是否繼續子類複寫的運行
-     */
-    @Override
-    public boolean clickInventory(final @NotNull InventoryClickEvent event) {
-        event.setCancelled(this.isCancelClickEvent());
-        return true;
-    }
-
-    /**
-     * 當介面被關閉要做的事情
-     * @param event 介面關閉事件
-     */
-    @Override
-    public void closeInventory(final @NotNull InventoryCloseEvent event) {
     }
 
     /**

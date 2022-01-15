@@ -32,10 +32,9 @@ import java.lang.annotation.Target;
  * 插件註冊動作示標符
  * @author MouBieCat
  */
-
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Register {
+public @interface PluginRegister {
 
     // 註冊名稱
     @NotNull String name();

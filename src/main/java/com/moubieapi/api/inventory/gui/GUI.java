@@ -23,9 +23,6 @@ package com.moubieapi.api.inventory.gui;
 
 import com.moubieapi.api.inventory.InventorySize;
 import com.moubieapi.api.inventory.Openable;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,25 +44,5 @@ public interface GUI
      * @return 標題
      */
     @NotNull String getGUITitle();
-
-    /**
-     * 當介面被開啟要做的事情
-     * @param event 介面開啟事件
-     */
-    void openInventory(@NotNull InventoryOpenEvent event);
-
-    /**
-     * 當介面被點擊要做的事情
-     * @param event 介面點擊事件
-     * @return 是否繼續子類複寫的運行
-     */
-    boolean clickInventory(@NotNull InventoryClickEvent event);
-
-    /**
-     * 當介面被關閉要做的事情
-     * @param event 介面關閉事件
-     */
-    void closeInventory(@NotNull InventoryCloseEvent event);
-
 
 }

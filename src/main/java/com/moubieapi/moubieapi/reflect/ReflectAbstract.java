@@ -45,8 +45,9 @@ public abstract class ReflectAbstract {
     public static Class<?> getClass(final @NotNull String path) {
         try {
             return Class.forName(path);
-        } catch (final ClassNotFoundException ignored) {
+        } catch (final ClassNotFoundException e) {
             MouBieCat.getInstance().getDebugger().warning("§c嘗試獲取 §6" + path + " §c類失敗，這是一個錯誤訊息。");
+            e.printStackTrace();
         }
         return null;
     }
@@ -64,6 +65,7 @@ public abstract class ReflectAbstract {
             return clazz.getField(fieldName);
         } catch (final NoSuchFieldException e) {
             MouBieCat.getInstance().getDebugger().warning("§c嘗試在 §6" + clazz.getName() + " §c獲取 §6" + fieldName + " §c屬性失敗，這是一個錯誤訊息。");
+            e.printStackTrace();
         }
         return null;
     }
@@ -80,8 +82,9 @@ public abstract class ReflectAbstract {
     public static Method getMethod(final @NotNull Class<?> clazz, final @NotNull String methodName, final @NotNull Class<?>... argsClass) {
         try {
             return clazz.getMethod(methodName, argsClass);
-        } catch (final NoSuchMethodException ignored) {
+        } catch (final NoSuchMethodException e) {
             MouBieCat.getInstance().getDebugger().warning("§c嘗試在 §6" + clazz.getName() + " §c獲取 §6" + methodName + " §c方法失敗，這是一個錯誤訊息。");
+            e.printStackTrace();
         }
         return null;
     }
@@ -100,8 +103,9 @@ public abstract class ReflectAbstract {
         try {
             method.setAccessible(true);
             return method.invoke(obj, args);
-        } catch (final InvocationTargetException | IllegalAccessException ignored) {
+        } catch (final InvocationTargetException | IllegalAccessException e) {
             MouBieCat.getInstance().getDebugger().warning("§c嘗試對 §6" + method.getName() + " §c調用失敗，這是一個錯誤訊息。");
+            e.printStackTrace();
         }
         return null;
     }

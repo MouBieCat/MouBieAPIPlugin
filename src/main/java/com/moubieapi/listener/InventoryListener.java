@@ -21,7 +21,9 @@
 
 package com.moubieapi.listener;
 
+import com.moubieapi.api.inventory.InventoryRegister;
 import com.moubieapi.api.inventory.gui.GUI;
+import com.moubieapi.moubieapi.inventory.UInventoryHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -45,8 +47,13 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGH)
     public void onInventoryOpenEvent(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI)
-            ((GUI) holder).openInventory(event);
+
+        if (holder instanceof GUI) {
+            final UInventoryHandler handler =
+                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.OPEN_INVENTORY);
+
+            handler.executeEvent(event);
+        }
     }
 
     /**
@@ -56,8 +63,13 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGH)
     public void onInventoryClickEvent(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI)
-            ((GUI) holder).clickInventory(event);
+
+        if (holder instanceof GUI) {
+            final UInventoryHandler handler =
+                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.CLICK_INVENTORY);
+
+            handler.executeEvent(event);
+        }
     }
 
     /**
@@ -67,8 +79,13 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGH)
     public void onInventoryCloseEvent(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI)
-            ((GUI) holder).closeInventory(event);
+
+        if (holder instanceof GUI) {
+            final UInventoryHandler handler =
+                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.CLOSE_INVENTORY);
+
+            handler.executeEvent(event);
+        }
     }
 
 }

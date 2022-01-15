@@ -21,7 +21,7 @@
 
 package com.moubieapi;
 
-import com.moubieapi.api.plugin.Register;
+import com.moubieapi.api.plugin.PluginRegister;
 import com.moubieapi.listener.InventoryListener;
 import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
 import org.bukkit.Bukkit;
@@ -35,8 +35,8 @@ import org.jetbrains.annotations.NotNull;
 public final class MouBieCat
         extends MouBiePluginBase {
 
-    @Register(name = "註冊插件事件", type = Register.ActionType.ACTION_ENABLE)
-    public void registerListener() {
+    @PluginRegister(name = "註冊插件事件", type = PluginRegister.ActionType.ACTION_ENABLE)
+    private void registerListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
     }
 
