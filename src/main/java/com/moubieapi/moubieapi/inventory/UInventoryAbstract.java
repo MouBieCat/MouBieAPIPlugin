@@ -22,6 +22,7 @@
 package com.moubieapi.moubieapi.inventory;
 
 import com.moubieapi.api.Utils;
+import com.moubieapi.api.inventory.GUIHandler;
 import com.moubieapi.api.inventory.InventorySize;
 import com.moubieapi.api.inventory.button.Button;
 import com.moubieapi.api.inventory.gui.GUI;
@@ -51,8 +52,9 @@ public abstract class UInventoryAbstract
     @NotNull
     private final InventorySize inventory_size;
 
-    // 是否取消事件的操作(使介面不被更動 預設=true)
-    private boolean inventory_cancelEvent = true;
+    // 事件處理程序
+    @NotNull
+    private final GUIHandler eventHandler = new UInventoryListenerHandler(this);
 
     /**
      * 建構子
@@ -93,19 +95,12 @@ public abstract class UInventoryAbstract
     }
 
     /**
-     * 設定是否可以移動該介面的物品
-     * @param isCanMove 可以移動的
+     * 獲取事件處理程序
+     * @return 事件處理程序
      */
-    public final void setCancelClickEvent(final boolean isCanMove) {
-        this.inventory_cancelEvent = isCanMove;
-    }
-
-    /**
-     * 是否可以移動該介面的物品
-     * @return 是否可以
-     */
-    public final boolean isCancelClickEvent() {
-        return this.inventory_cancelEvent;
+    @NotNull
+    public final GUIHandler getEventHandler() {
+        return this.eventHandler;
     }
 
     /**

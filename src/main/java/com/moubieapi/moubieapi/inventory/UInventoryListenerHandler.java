@@ -21,6 +21,7 @@
 
 package com.moubieapi.moubieapi.inventory;
 
+import com.moubieapi.api.inventory.GUIHandler;
 import com.moubieapi.api.inventory.InventoryRegister;
 import com.moubieapi.api.inventory.gui.GUI;
 import com.moubieapi.moubieapi.reflect.ReflectAbstract;
@@ -28,39 +29,41 @@ import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 代表使用者介面處理程序
  * @author MouBieCat
  */
-public final class UInventoryHandler {
+public final class UInventoryListenerHandler
+        implements GUIHandler {
 
     // 處理介面
     @NotNull
     private final GUI handler;
 
-    // 運行動作集合
+    // 運行操作管理器
     @NotNull
-    private final List<Method> methods = new LinkedList<>();
+    private final Map<InventoryRegister.EventType, List<Method>> eventMethods = new LinkedHashMap<>();
 
     /**
      * 建構子
      * @param gui 處理介面
-     * @param type 處理事件類型
      */
-    public UInventoryHandler(final @NotNull GUI gui, final @NotNull InventoryRegister.EventType type) {
+    public UInventoryListenerHandler(final @NotNull GUI gui) {
         this.handler = gui;
-        this.shortEvent(type);
+
+        // 初始化
+        this.shortListener(InventoryRegister.EventType.OPEN_INVENTORY);
+        this.shortListener(InventoryRegister.EventType.CLICK_INVENTORY);
+        this.shortListener(InventoryRegister.EventType.CLOSE_INVENTORY);
     }
 
     /**
      * 排序一個插件註冊動作的所有方法(優先等級)
      * @param type 運行事件類型
      */
-    private void shortEvent(final @NotNull InventoryRegister.EventType type) {
+    private void shortListener(final @NotNull InventoryRegister.EventType type) {
         final List<Method> methods = new LinkedList<>();
 
         // 查找有關 Register.class 的類方法並且判斷方法示標動作類型
@@ -75,7 +78,7 @@ public final class UInventoryHandler {
             ).toList();
 
             // 添加
-            this.methods.addAll(sortedMethods);
+            this.eventMethods.put(type, sortedMethods);
         }
     }
 
@@ -83,9 +86,11 @@ public final class UInventoryHandler {
      * 運行事件方法
      * @param event 事件實例
      */
-    public void executeEvent(final @NotNull InventoryEvent event) {
-        if (this.methods.size() > 0)
-            for (final Method method : this.methods)
+    public void executeListener(final @NotNull InventoryEvent event, final @NotNull InventoryRegister.EventType type) {
+        final List<Method> methods = this.eventMethods.get(type);
+
+        if (methods != null)
+            for (final Method method : methods)
                 ReflectAbstract.invoke(method, this.handler, event);
     }
 

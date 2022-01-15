@@ -21,9 +21,9 @@
 
 package com.moubieapi.listener;
 
+import com.moubieapi.api.inventory.GUIHandler;
 import com.moubieapi.api.inventory.InventoryRegister;
 import com.moubieapi.api.inventory.gui.GUI;
-import com.moubieapi.moubieapi.inventory.UInventoryHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -44,15 +44,12 @@ public final class InventoryListener
      * 當介面被打開
      * @param event 事件
      */
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onInventoryOpenEvent(final @NotNull InventoryOpenEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryOpen(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-
         if (holder instanceof GUI) {
-            final UInventoryHandler handler =
-                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.OPEN_INVENTORY);
-
-            handler.executeEvent(event);
+            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
+            eventHandler.executeListener(event, InventoryRegister.EventType.OPEN_INVENTORY);
         }
     }
 
@@ -60,15 +57,12 @@ public final class InventoryListener
      * 當介面被點擊
      * @param event 事件
      */
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onInventoryClickEvent(final @NotNull InventoryClickEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryClick(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-
         if (holder instanceof GUI) {
-            final UInventoryHandler handler =
-                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.CLICK_INVENTORY);
-
-            handler.executeEvent(event);
+            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
+            eventHandler.executeListener(event, InventoryRegister.EventType.CLICK_INVENTORY);
         }
     }
 
@@ -76,15 +70,12 @@ public final class InventoryListener
      * 當介面被關閉
      * @param event 事件
      */
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onInventoryCloseEvent(final @NotNull InventoryCloseEvent event) {
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onInventoryClose(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-
         if (holder instanceof GUI) {
-            final UInventoryHandler handler =
-                    new UInventoryHandler((GUI) holder, InventoryRegister.EventType.CLOSE_INVENTORY);
-
-            handler.executeEvent(event);
+            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
+            eventHandler.executeListener(event, InventoryRegister.EventType.CLOSE_INVENTORY);
         }
     }
 

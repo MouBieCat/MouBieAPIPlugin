@@ -19,37 +19,21 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api.inventory.gui;
+package com.moubieapi.api.inventory;
 
-import com.moubieapi.api.inventory.GUIHandler;
-import com.moubieapi.api.inventory.InventorySize;
-import com.moubieapi.api.inventory.Openable;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表一個使用者介面
+ * 代表使用者介面處理程序
  * @author MouBieCat
  */
-public interface GUI
-        extends Openable, InventoryHolder {
+public interface GUIHandler {
 
     /**
-     * 獲取介面大小
-     * @return 大小
+     * 運行事件方法
+     * @param event 事件實例
      */
-    @NotNull InventorySize getGUISize();
-
-    /**
-     * 獲取介面標題
-     * @return 標題
-     */
-    @NotNull String getGUITitle();
-
-    /**
-     * 獲取事件處理程序
-     * @return 事件處理程序
-     */
-    @NotNull GUIHandler getEventHandler();
+    void executeListener(final @NotNull InventoryEvent event, final @NotNull InventoryRegister.EventType type);
 
 }
