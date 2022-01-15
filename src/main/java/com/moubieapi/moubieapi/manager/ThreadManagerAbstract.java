@@ -55,7 +55,7 @@ public abstract class ThreadManagerAbstract<P, T extends BukkitRunnable>
     @Override
     public final void remove(final @NotNull P key) {
         final T thread = this.get(key);
-        if (thread != null)
+        if (thread != null && !thread.isCancelled())
             thread.cancel();
 
         super.remove(key);
