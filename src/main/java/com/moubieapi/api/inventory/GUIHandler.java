@@ -21,6 +21,7 @@
 
 package com.moubieapi.api.inventory;
 
+import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,5 +36,11 @@ public interface GUIHandler {
      * @param event 事件實例
      */
     void executeListener(final @NotNull InventoryEvent event, final @NotNull InventoryRegister.EventType type);
+
+    /**
+     * 獲取正在處理介面
+     * @return 介面
+     */
+    @NotNull GUI getHandler();
 
 }
