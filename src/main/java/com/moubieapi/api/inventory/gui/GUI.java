@@ -21,8 +21,6 @@
 
 package com.moubieapi.api.inventory.gui;
 
-import com.moubieapi.api.inventory.GUIHandler;
-import com.moubieapi.api.inventory.InventorySize;
 import com.moubieapi.api.inventory.Openable;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;

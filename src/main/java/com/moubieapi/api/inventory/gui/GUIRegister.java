@@ -1,4 +1,4 @@
-package com.moubieapi.api.inventory;
+package com.moubieapi.api.inventory.gui;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InventoryRegister {
+public @interface GUIRegister {
 
     // 介面事件類型
     @NotNull EventType type();

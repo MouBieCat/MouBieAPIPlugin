@@ -19,9 +19,8 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api.inventory;
+package com.moubieapi.api.inventory.gui;
 
-import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,7 @@ public interface GUIHandler {
      * 運行事件方法
      * @param event 事件實例
      */
-    void executeListener(final @NotNull InventoryEvent event, final @NotNull InventoryRegister.EventType type);
+    void executeListener(final @NotNull InventoryEvent event, final @NotNull GUIRegister.EventType type);
 
     /**
      * 獲取正在處理介面

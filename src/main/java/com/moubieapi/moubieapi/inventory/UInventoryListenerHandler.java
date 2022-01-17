@@ -21,8 +21,8 @@
 
 package com.moubieapi.moubieapi.inventory;
 
-import com.moubieapi.api.inventory.GUIHandler;
-import com.moubieapi.api.inventory.InventoryRegister;
+import com.moubieapi.api.inventory.gui.GUIHandler;
+import com.moubieapi.api.inventory.gui.GUIRegister;
 import com.moubieapi.api.inventory.gui.GUI;
 import com.moubieapi.moubieapi.reflect.ReflectAbstract;
 import org.bukkit.event.inventory.InventoryEvent;
@@ -44,7 +44,7 @@ public final class UInventoryListenerHandler
 
     // 運行操作管理器
     @NotNull
-    private final Map<InventoryRegister.EventType, List<Method>> eventMethods = new LinkedHashMap<>();
+    private final Map<GUIRegister.EventType, List<Method>> eventMethods = new LinkedHashMap<>();
 
     /**
      * 建構子
@@ -54,27 +54,27 @@ public final class UInventoryListenerHandler
         this.handler = gui;
 
         // 初始化
-        this.shortListener(InventoryRegister.EventType.OPEN_INVENTORY);
-        this.shortListener(InventoryRegister.EventType.CLICK_INVENTORY);
-        this.shortListener(InventoryRegister.EventType.CLOSE_INVENTORY);
+        this.shortListener(GUIRegister.EventType.OPEN_INVENTORY);
+        this.shortListener(GUIRegister.EventType.CLICK_INVENTORY);
+        this.shortListener(GUIRegister.EventType.CLOSE_INVENTORY);
     }
 
     /**
      * 排序一個插件註冊動作的所有方法(優先等級)
      * @param type 運行事件類型
      */
-    private void shortListener(final @NotNull InventoryRegister.EventType type) {
+    private void shortListener(final @NotNull GUIRegister.EventType type) {
         final List<Method> methods = new LinkedList<>();
 
         // 查找有關 Register.class 的類方法並且判斷方法示標動作類型
         for (final Method method : this.handler.getClass().getDeclaredMethods())
-            if (method.isAnnotationPresent(InventoryRegister.class) && method.getAnnotation(InventoryRegister.class).type().equals(type))
+            if (method.isAnnotationPresent(GUIRegister.class) && method.getAnnotation(GUIRegister.class).type().equals(type))
                 methods.add(method);
 
         if (methods.size() > 0) {
             // 根據 Register 做優先等級排序
             final List<Method> sortedMethods = methods.stream().sorted(
-                    Comparator.comparing(a -> a.getAnnotation(InventoryRegister.class).priority())
+                    Comparator.comparing(a -> a.getAnnotation(GUIRegister.class).priority())
             ).toList();
 
             // 添加
@@ -86,7 +86,7 @@ public final class UInventoryListenerHandler
      * 運行事件方法
      * @param event 事件實例
      */
-    public void executeListener(final @NotNull InventoryEvent event, final @NotNull InventoryRegister.EventType type) {
+    public void executeListener(final @NotNull InventoryEvent event, final @NotNull GUIRegister.EventType type) {
         final List<Method> methods = this.eventMethods.get(type);
 
         if (methods != null)

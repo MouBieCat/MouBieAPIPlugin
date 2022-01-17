@@ -21,7 +21,7 @@
 
 package com.moubieapi.moubieapi.inventory;
 
-import com.moubieapi.api.inventory.InventorySize;
+import com.moubieapi.api.inventory.gui.InventorySize;
 import com.moubieapi.api.inventory.gui.PageGUI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

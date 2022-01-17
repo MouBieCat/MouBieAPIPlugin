@@ -22,8 +22,8 @@
 package com.moubieapi.moubieapi.inventory;
 
 import com.moubieapi.api.Utils;
-import com.moubieapi.api.inventory.GUIHandler;
-import com.moubieapi.api.inventory.InventorySize;
+import com.moubieapi.api.inventory.gui.GUIHandler;
+import com.moubieapi.api.inventory.gui.InventorySize;
 import com.moubieapi.api.inventory.button.Button;
 import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.Bukkit;
