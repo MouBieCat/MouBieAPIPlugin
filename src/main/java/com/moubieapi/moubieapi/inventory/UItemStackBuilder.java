@@ -21,10 +21,10 @@
 
 package com.moubieapi.moubieapi.inventory;
 
-import com.moubieapi.api.builder.NBTBuilder;
+import com.moubieapi.api.builder.ItemNBTBuilder;
 import com.moubieapi.api.inventory.button.Button;
 import com.moubieapi.moubieapi.itemstack.ItemStackBuilder;
-import com.moubieapi.moubieapi.itemstack.NBTTagBuilder;
+import com.moubieapi.moubieapi.nbttag.ItemStackNBTTagBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -116,8 +116,8 @@ public class UItemStackBuilder
      * @return 是否可被移動
      */
     public static boolean getItemStackCanMove(final @NotNull ItemStack itemStack) {
-        if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG))
-            return NBTTagBuilder.getBoolean(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG);
+        if (ItemStackNBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG))
+            return ItemStackNBTTagBuilder.getBoolean(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG);
 
         return false;
     }
@@ -129,9 +129,9 @@ public class UItemStackBuilder
      */
     @NotNull
     public static ClickType getItemStackClickType(final @NotNull ItemStack itemStack) {
-        if (NBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG)) {
+        if (ItemStackNBTTagBuilder.hasTag(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG)) {
             return ClickType.valueOf(
-                    NBTTagBuilder.getString(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG)
+                    ItemStackNBTTagBuilder.getString(itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG, MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG)
             );
         }
         return ClickType.UNKNOWN;
@@ -144,13 +144,13 @@ public class UItemStackBuilder
     @Override
     @NotNull
     public ItemStack build() {
-        final NBTBuilder nbtBuilder = new NBTTagBuilder(MOU_BIE_UI_ITEM_STACK_MAIN_TAG);
+        final ItemNBTBuilder itemNBTBuilder = new ItemStackNBTTagBuilder(this.itemStack, MOU_BIE_UI_ITEM_STACK_MAIN_TAG);
 
         // 配置 TAG 屬性
-        this.itemStack = nbtBuilder
+        this.itemStack = itemNBTBuilder
                 .setBoolean(MOU_BIE_UI_ITEM_STACK_IS_CAN_MOVE_BUTTON_TAG, this.isCamMove)
                 .setString(MOU_BIE_UI_ITEM_STACK_CLICK_TYPE_TAG, this.clickType.toString())
-                .build(this.itemStack);
+                .build();
 
         return super.build();
     }

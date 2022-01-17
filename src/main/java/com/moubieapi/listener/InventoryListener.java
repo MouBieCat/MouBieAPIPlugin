@@ -78,5 +78,4 @@ public final class InventoryListener
             eventHandler.executeListener(event, GUIRegister.EventType.CLOSE_INVENTORY);
         }
     }
-
 }

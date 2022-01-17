@@ -19,10 +19,10 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api.builder;
+package com.moubieapi.moubieapi.nbttag;
 
+import com.moubieapi.api.builder.NBTBuilder;
 import net.minecraft.nbt.NBTTagCompound;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -30,26 +30,57 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> 具有NBTTag的對象類
  * @author MouBieCat
  */
-public interface NBTBuilder<T>
-        extends Builder<T> {
+public abstract class NBTTagBuilder<T>
+        implements NBTBuilder<T> {
+
+    // 主路徑名稱
+    @NotNull
+    protected final String mainTagName;
+
+    // NBT TAG 實例
+    @NotNull
+    protected final NBTTagCompound compound = new NBTTagCompound();
+
+    // NBTTag 要建構的對象
+    @NotNull
+    protected final T builder;
+
+    /**
+     * 建構子
+     * @param builder 建構的對象
+     * @param mainTagName 標籤主路徑
+     */
+    public NBTTagBuilder(final @NotNull T builder, final @NotNull String mainTagName) {
+        this.builder = builder;
+        this.mainTagName = mainTagName;
+    }
 
     /**
      * 獲取當前的主路徑名稱
      * @return 名稱
      */
-    @NotNull String getMainTagName();
+    @NotNull
+    public final String getMainTagName() {
+        return this.mainTagName;
+    }
 
     /**
      * 獲取NBTag物件
      * @return NBTag
      */
-    @NotNull NBTTagCompound getCompound();
+    @NotNull
+    public final NBTTagCompound getCompound() {
+        return this.compound;
+    }
 
     /**
      * 獲取當前 NBTTag 要建構的對象
      * @return 建構對象
      */
-    @NotNull T getBuilder();
+    @NotNull
+    public final T getBuilder() {
+        return this.builder;
+    }
 
     /**
      * 在該 tag 上設置一個 boolean
@@ -57,7 +88,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setBoolean(@NotNull String var1, boolean var2);
+    @NotNull
+    public final NBTBuilder<T> setBoolean(final @NotNull String var1, final boolean var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 byte
@@ -65,7 +100,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setByte(@NotNull String var1, byte var2);
+    @NotNull
+    public final NBTBuilder<T> setByte(final @NotNull String var1, final byte var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 double
@@ -73,7 +112,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setDouble(@NotNull String var1, double var2);
+    @NotNull
+    public final NBTBuilder<T> setDouble(final @NotNull String var1, final double var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 float
@@ -81,7 +124,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setFloat(@NotNull String var1, float var2);
+    @NotNull
+    public final NBTBuilder<T> setFloat(final @NotNull String var1, final float var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 int
@@ -89,7 +136,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setInt(@NotNull String var1, int var2);
+    @NotNull
+    public final NBTBuilder<T> setInt(final @NotNull String var1, final int var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 long
@@ -97,7 +148,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setLong(@NotNull String var1, long var2);
+    @NotNull
+    public final NBTBuilder<T> setLong(final @NotNull String var1, final long var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 short
@@ -105,7 +160,11 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setShort(@NotNull String var1, short var2);
+    @NotNull
+    public final NBTBuilder<T> setShort(final @NotNull String var1, final short var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上設置一個 String
@@ -113,69 +172,92 @@ public interface NBTBuilder<T>
      * @param var2 資料
      * @return 當前的建構器
      */
-    @NotNull NBTBuilder<T> setString(@NotNull String var1, @NotNull String var2);
+    @NotNull
+    public final NBTBuilder<T> setString(final @NotNull String var1, final @NotNull String var2) {
+        this.compound.a(var1, var2);
+        return this;
+    }
 
     /**
      * 在該 tag 上或取一個 boolean
      * @param var1 路徑
      * @return 資料
      */
-    boolean getBoolean(@NotNull String var1);
+    public final boolean getBoolean(final @NotNull String var1) {
+        return this.compound.b(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 byte
      * @param var1 路徑
      * @return 資料
      */
-    byte getByte(@NotNull String var1);
+    public final byte getByte(final @NotNull String var1) {
+        return this.compound.d(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 double
      * @param var1 路徑
      * @return 資料
      */
-    double getDouble(@NotNull String var1);
+    public final double getDouble(final @NotNull String var1) {
+        return this.compound.k(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 float
      * @param var1 路徑
      * @return 資料
      */
-    float getFloat(@NotNull String var1);
+    public final float getFloat(final @NotNull String var1) {
+        return this.compound.j(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 int
      * @param var1 路徑
      * @return 資料
      */
-    int getInt(@NotNull String var1);
+    public final int getInt(final @NotNull String var1) {
+        return this.compound.h(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 long
      * @param var1 路徑
      * @return 資料
      */
-    long getLong(@NotNull String var1);
+    public final long getLong(final @NotNull String var1) {
+        return this.compound.i(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 short
      * @param var1 路徑
      * @return 資料
      */
-    short getShort(@NotNull String var1);
+    public final short getShort(final @NotNull String var1) {
+        return this.compound.g(var1);
+    }
 
     /**
      * 在該 tag 上或取一個 String
      * @param var1 路徑
      * @return 資料
      */
-    @NotNull String getString(@NotNull String var1);
+    @NotNull
+    public final String getString(final @NotNull String var1) {
+        return this.compound.l(var1);
+    }
 
     /**
      * 檢查是否包含一個路徑
      * @param var1 路徑
      * @return 資料
      */
-    boolean hasTag(@NotNull String var1);
+    public final boolean hasTag(final @NotNull String var1) {
+        return this.compound.e(var1);
+    }
 
 }
