@@ -22,7 +22,8 @@
 package com.moubieapi.moubieapi.nbttag;
 
 import com.moubieapi.api.builder.NBTBuilder;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -39,7 +40,7 @@ public abstract class NBTTagBuilder<T>
 
     // NBT TAG 實例
     @NotNull
-    protected final NBTTagCompound compound = new NBTTagCompound();
+    protected final CompoundTag compound = new CompoundTag();
 
     // NBTTag 要建構的對象
     @NotNull
@@ -69,7 +70,7 @@ public abstract class NBTTagBuilder<T>
      * @return NBTag
      */
     @NotNull
-    public final NBTTagCompound getCompound() {
+    public final Tag getCompound() {
         return this.compound;
     }
 
@@ -90,7 +91,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setBoolean(final @NotNull String var1, final boolean var2) {
-        this.compound.a(var1, var2);
+        this.compound.putBoolean(var1, var2);
         return this;
     }
 
@@ -102,7 +103,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setByte(final @NotNull String var1, final byte var2) {
-        this.compound.a(var1, var2);
+        this.compound.putByte(var1, var2);
         return this;
     }
 
@@ -114,7 +115,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setDouble(final @NotNull String var1, final double var2) {
-        this.compound.a(var1, var2);
+        this.compound.putDouble(var1, var2);
         return this;
     }
 
@@ -126,7 +127,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setFloat(final @NotNull String var1, final float var2) {
-        this.compound.a(var1, var2);
+        this.compound.putFloat(var1, var2);
         return this;
     }
 
@@ -138,7 +139,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setInt(final @NotNull String var1, final int var2) {
-        this.compound.a(var1, var2);
+        this.compound.putInt(var1, var2);
         return this;
     }
 
@@ -150,7 +151,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setLong(final @NotNull String var1, final long var2) {
-        this.compound.a(var1, var2);
+        this.compound.putLong(var1, var2);
         return this;
     }
 
@@ -162,7 +163,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setShort(final @NotNull String var1, final short var2) {
-        this.compound.a(var1, var2);
+        this.compound.putShort(var1, var2);
         return this;
     }
 
@@ -174,7 +175,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final NBTBuilder<T> setString(final @NotNull String var1, final @NotNull String var2) {
-        this.compound.a(var1, var2);
+        this.compound.putString(var1, var2);
         return this;
     }
 
@@ -184,7 +185,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final boolean getBoolean(final @NotNull String var1) {
-        return this.compound.b(var1);
+        return this.compound.getBoolean(var1);
     }
 
     /**
@@ -193,7 +194,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final byte getByte(final @NotNull String var1) {
-        return this.compound.d(var1);
+        return this.compound.getByte(var1);
     }
 
     /**
@@ -202,7 +203,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final double getDouble(final @NotNull String var1) {
-        return this.compound.k(var1);
+        return this.compound.getDouble(var1);
     }
 
     /**
@@ -211,7 +212,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final float getFloat(final @NotNull String var1) {
-        return this.compound.j(var1);
+        return this.compound.getFloat(var1);
     }
 
     /**
@@ -220,7 +221,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final int getInt(final @NotNull String var1) {
-        return this.compound.h(var1);
+        return this.compound.getInt(var1);
     }
 
     /**
@@ -229,7 +230,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final long getLong(final @NotNull String var1) {
-        return this.compound.i(var1);
+        return this.compound.getLong(var1);
     }
 
     /**
@@ -238,7 +239,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final short getShort(final @NotNull String var1) {
-        return this.compound.g(var1);
+        return this.compound.getShort(var1);
     }
 
     /**
@@ -248,7 +249,7 @@ public abstract class NBTTagBuilder<T>
      */
     @NotNull
     public final String getString(final @NotNull String var1) {
-        return this.compound.l(var1);
+        return this.compound.getString(var1);
     }
 
     /**
@@ -257,7 +258,7 @@ public abstract class NBTTagBuilder<T>
      * @return 資料
      */
     public final boolean hasTag(final @NotNull String var1) {
-        return this.compound.e(var1);
+        return this.compound.contains(var1);
     }
 
 }

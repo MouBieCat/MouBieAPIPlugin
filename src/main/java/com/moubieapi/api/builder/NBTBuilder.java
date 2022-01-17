@@ -21,8 +21,7 @@
 
 package com.moubieapi.api.builder;
 
-import net.minecraft.nbt.NBTTagCompound;
-import org.bukkit.inventory.ItemStack;
+import net.minecraft.nbt.Tag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -43,7 +42,7 @@ public interface NBTBuilder<T>
      * 獲取NBTag物件
      * @return NBTag
      */
-    @NotNull NBTTagCompound getCompound();
+    @NotNull Tag getCompound();
 
     /**
      * 獲取當前 NBTTag 要建構的對象

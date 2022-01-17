@@ -23,7 +23,7 @@ package com.moubieapi.moubieapi.nbttag;
 
 import com.moubieapi.api.builder.ItemNBTBuilder;
 import com.moubieapi.moubieapi.itemstack.ItemStackBuilder;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,9 +50,9 @@ public final class ItemStackNBTTagBuilder
      */
     @NotNull
     public ItemStack build() {
-        final NBTTagCompound tag = ItemStackNBTTagBuilder.Helper.getNBTTag(this.builder);
+        final CompoundTag tag = ItemStackNBTTagBuilder.Helper.getNBTTag(this.builder);
         // 將當前的配置寫入物品Tag
-        tag.a(this.mainTagName, this.compound);
+        tag.put(this.mainTagName, this.compound);
         return Helper.setNBTTag(this.builder, tag);
     }
 
@@ -64,10 +64,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static boolean getBoolean(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) && compound.b(var3);
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) && compound.getBoolean(var3);
         }
         return false;
     }
@@ -80,10 +80,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static byte getByte(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.d(var3) : 0;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getByte(var3) : 0;
         }
         return 0;
     }
@@ -96,10 +96,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static double getDouble(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.k(var3) : 0;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getDouble(var3) : 0;
         }
         return 0D;
     }
@@ -112,10 +112,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static float getFloat(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.j(var3) : 0F;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getFloat(var3) : 0F;
         }
         return 0F;
     }
@@ -128,10 +128,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static int getInt(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.h(var3) : 0;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getInt(var3) : 0;
         }
         return 0;
     }
@@ -144,10 +144,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static long getLong(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.i(var3) : 0L;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getLong(var3) : 0L;
         }
         return 0L;
     }
@@ -160,10 +160,10 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static short getShort(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.g(var3) : 0;
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getShort(var3) : 0;
         }
         return 0;
     }
@@ -177,10 +177,10 @@ public final class ItemStackNBTTagBuilder
      */
     @NotNull
     public static String getString(final @NotNull ItemStack var1, final @NotNull String var2, final @NotNull String var3) {
-        final NBTTagCompound tag = Helper.getNBTTag(var1);
-        if (tag.e(var2)) {
-            final NBTTagCompound compound = tag.p(var2);
-            return compound.e(var3) ? compound.l(var3) : "";
+        final CompoundTag tag = Helper.getNBTTag(var1);
+        if (hasTag(var1, var2)) {
+            final CompoundTag compound = tag.getCompound(var2);
+            return compound.contains(var3) ? compound.getString(var3) : "";
         }
         return "";
     }
@@ -192,8 +192,8 @@ public final class ItemStackNBTTagBuilder
      * @return 資料
      */
     public static boolean hasTag(final @NotNull ItemStack var1, final @NotNull String var2) {
-        final NBTTagCompound nbtTag = Helper.getNBTTag(var1);
-        return nbtTag.e(var2);
+        final CompoundTag nbtTag = Helper.getNBTTag(var1);
+        return nbtTag.contains(var2);
     }
 
     /**
@@ -207,10 +207,10 @@ public final class ItemStackNBTTagBuilder
          * @return NBTTag
          */
         @NotNull
-        public static NBTTagCompound getNBTTag(final @NotNull ItemStack original) {
+        public static CompoundTag getNBTTag(final @NotNull ItemStack original) {
             final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.Helper.asNMSCopy(original);
-            final NBTTagCompound tagCompound = itemStack.s();
-            return tagCompound != null ? tagCompound : new NBTTagCompound();
+            final CompoundTag tagCompound = itemStack.getTag();
+            return tagCompound != null ? tagCompound : new CompoundTag();
         }
 
         /**
@@ -220,9 +220,9 @@ public final class ItemStackNBTTagBuilder
          * @return 新物品
          */
         @NotNull
-        public static ItemStack setNBTTag(final @NotNull ItemStack original, final @NotNull NBTTagCompound compound) {
+        public static ItemStack setNBTTag(final @NotNull ItemStack original, final @NotNull CompoundTag compound) {
             final net.minecraft.world.item.ItemStack itemStack = ItemStackBuilder.Helper.asNMSCopy(original);
-            itemStack.c(compound);
+            itemStack.setTag(compound);
             return ItemStackBuilder.Helper.asBukkitCopy(itemStack);
         }
     }
