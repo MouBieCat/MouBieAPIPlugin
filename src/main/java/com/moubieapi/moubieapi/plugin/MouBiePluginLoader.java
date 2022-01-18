@@ -24,7 +24,7 @@ package com.moubieapi.moubieapi.plugin;
 import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.api.plugin.PluginLoader;
 import com.moubieapi.api.plugin.PluginRegister;
-import com.moubieapi.moubieapi.reflect.ReflectAbstract;
+import com.moubieapi.moubieapi.reflect.CraftBukkitReflect;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -96,7 +96,7 @@ public final class MouBiePluginLoader
 
         if (methods != null)
             for (final Method method : methods)
-                ReflectAbstract.invoke(method, this.plugin);
+                CraftBukkitReflect.invoke(method, this.plugin);
     }
 
     /**

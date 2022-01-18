@@ -24,7 +24,7 @@ package com.moubieapi.moubieapi.inventory;
 import com.moubieapi.api.inventory.gui.GUIHandler;
 import com.moubieapi.api.inventory.gui.GUIRegister;
 import com.moubieapi.api.inventory.gui.GUI;
-import com.moubieapi.moubieapi.reflect.ReflectAbstract;
+import com.moubieapi.moubieapi.reflect.CraftBukkitReflect;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -91,7 +91,7 @@ public final class UInventoryListenerHandler
 
         if (methods != null)
             for (final Method method : methods)
-                ReflectAbstract.invoke(method, this.handler, event);
+                CraftBukkitReflect.invoke(method, this.handler, event);
     }
 
     /**

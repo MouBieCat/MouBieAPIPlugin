@@ -33,7 +33,7 @@ import java.lang.reflect.Method;
  * 提供一些基本的反射機制代碼
  * @author MouBieCat
  */
-public abstract class ReflectAbstract {
+abstract class ReflectAbstract {
 
     /**
      * 根據路徑獲取一個 Class 類
@@ -62,9 +62,28 @@ public abstract class ReflectAbstract {
     @SuppressWarnings("all")
     public static Field getField(final @NotNull Class<?> clazz, final @NotNull String fieldName) {
         try {
-            return clazz.getField(fieldName);
+            return clazz.getDeclaredField(fieldName);
         } catch (final NoSuchFieldException e) {
             MouBieCat.getInstance().getDebugger().warning("§c嘗試在 §6" + clazz.getName() + " §c獲取 §6" + fieldName + " §c屬性失敗，這是一個錯誤訊息。");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 根據一個屬性獲取一個對想屬性實例
+     * @param field 屬性
+     * @param object 獲取對象
+     * @return 對象屬性實例
+     */
+    @NotNull
+    @SuppressWarnings("all")
+    public static Object getObject(final @NotNull Field field, final @NotNull Object object) {
+        try {
+            field.setAccessible(true);
+            return field.get(object);
+        } catch (final IllegalAccessException e) {
+            MouBieCat.getInstance().getDebugger().warning("§c嘗試對 §6" + field.getName() + " §c獲取失敗，這是一個錯誤訊息。");
             e.printStackTrace();
         }
         return null;
