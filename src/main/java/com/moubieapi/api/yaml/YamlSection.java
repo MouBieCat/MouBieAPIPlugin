@@ -35,6 +35,13 @@ public interface YamlSection
         extends FileSection {
 
     /**
+     * 在指定路徑設定一個物件
+     * @param var1 路徑
+     * @param var2 物件
+     */
+    void set(@NotNull String var1, @NotNull Object var2);
+
+    /**
      * 在指定路徑獲取某樣物件
      * @param var1 路徑
      * @return 物件

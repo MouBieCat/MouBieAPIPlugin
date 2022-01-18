@@ -52,6 +52,15 @@ public abstract class YamlLoaderAbstract extends FileLoaderAbstract
     }
 
     /**
+     * 在指定路徑設定一個物件
+     * @param var1 路徑
+     * @param var2 物件
+     */
+    public final void set(final @NotNull String var1, final @NotNull Object var2) {
+        this.configuration.set(var1, var2);
+    }
+
+    /**
      * 在指定路徑獲取某樣物件
      * @param var1 路徑
      * @return 物件
