@@ -31,6 +31,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -60,7 +61,8 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI) {
+        final ItemStack currentItem = event.getCurrentItem();
+        if (currentItem != null && holder instanceof GUI) {
             final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
             eventHandler.executeListener(event, GUIRegister.EventType.CLICK_INVENTORY);
         }
