@@ -63,6 +63,7 @@ public abstract class MouBieBukkitRunnable
         this.plugin = plugin;
         this.delay = delay;
         this.period = period;
+        this.start();
     }
 
     /**
