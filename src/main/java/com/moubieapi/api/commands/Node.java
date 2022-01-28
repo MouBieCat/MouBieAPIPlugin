@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * 代表一個基本節點
  * @author MouBieCat
  */
-public interface Node<T extends Node<? extends CommandNode>> {
+public interface Node<T extends Node<?>> {
 
     /**
      * 獲取當前節點列數
