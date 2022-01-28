@@ -22,7 +22,6 @@
 package com.moubieapi.api;
 
 import com.moubieapi.api.plugin.MouBiePlugin;
-import com.moubieapi.moubieapi.plugin.MouBiePluginBase;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -68,7 +67,7 @@ public final class Utils {
         final Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
         if (plugin != null && plugin.isEnabled() && plugin instanceof MouBiePlugin) {
-            ((MouBiePluginBase)plugin).onReload();
+            ((MouBiePlugin)plugin).getLoader().executeReloadAction();
             return true;
         }
 

@@ -58,9 +58,10 @@ public final class CommandReload
      */
     public boolean onCommand(final @NotNull CommandSender sender, final @NotNull String[] args) {
         if (Utils.reloadMouBiePlugin(args[1])) {
-            sender.sendMessage(MouBieCat.PLUGIN_TITLE + "您成功對 " + args[1] + "插件進行了重讀！");
+            sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§2您成功對 §6" + args[1] + " §2插件進行了重讀！");
             return true;
         }
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，沒有找到名稱為 §6" + args[1] + " §c的插件。");
 
         return false;
     }
