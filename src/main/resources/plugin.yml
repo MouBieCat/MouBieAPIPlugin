@@ -11,8 +11,9 @@ main: com.moubieapi.MouBieCat
 commands:
   MouBieAPI:
     description: "該插件的主要命令。"
+    permission: "MouBieAPI.admin"
     aliases: [ mbi ]
 
 permissions:
-  MouBieAPI.view:
-    description: "查看當前由 MouBieCat 旗下所開發所有插件介面。"
+  MouBieAPI.admin:
+    description: "查看有關 MouBieAPI 依賴庫相關的說明。。"
