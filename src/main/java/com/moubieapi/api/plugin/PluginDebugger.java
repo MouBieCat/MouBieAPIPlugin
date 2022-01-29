@@ -35,19 +35,19 @@ public interface PluginDebugger {
      * 紀錄資訊訊息
      * @param msg 訊息
      */
-    void info(final @NotNull String msg);
+    void info(@NotNull String msg);
 
     /**
      * 紀錄警告訊息
      * @param msg 訊息
      */
-    void warning(final @NotNull String msg);
+    void warning(@NotNull String msg);
 
     /**
      * 紀錄訊息
      * @param level 級別
      * @param msg 訊息
      */
-    void log(final @NotNull Level level, final @NotNull String msg);
+    void log(@NotNull Level level, @NotNull String msg);
 
 }

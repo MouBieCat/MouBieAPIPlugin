@@ -34,7 +34,7 @@ public interface GUIHandler {
      * 運行事件方法
      * @param event 事件實例
      */
-    void executeListener(final @NotNull InventoryEvent event, final @NotNull GUIRegister.EventType type);
+    void executeListener(@NotNull InventoryEvent event, @NotNull GUIRegister.EventType type);
 
     /**
      * 獲取正在處理介面

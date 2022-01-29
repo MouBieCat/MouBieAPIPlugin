@@ -81,7 +81,7 @@ public @interface GUIRegister {
          * @param type 類型ID
          * @param name 類型名稱
          */
-        EventType(final long type, final @NotNull String name) {
+        EventType(long type, @NotNull String name) {
             this.type = type;
             this.name = name;
         }

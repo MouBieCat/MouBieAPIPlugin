@@ -41,7 +41,7 @@ public enum InventorySize {
      * 建構子
      * @param size 大小
      */
-    InventorySize(final int size) {
+    InventorySize(int size) {
         this.size = size;
     }
 

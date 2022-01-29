@@ -42,6 +42,6 @@ public interface Backable<G extends GUI> {
      * 返回上一層介面
      * @param player 玩家
      */
-    void goBack(final @NotNull Player player);
+    void goBack(@NotNull Player player);
 
 }
