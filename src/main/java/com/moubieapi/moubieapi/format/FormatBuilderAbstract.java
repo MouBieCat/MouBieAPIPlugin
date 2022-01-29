@@ -67,7 +67,7 @@ public abstract class FormatBuilderAbstract<T, R>
      * @return 轉換完成格式
      */
     @NotNull
-    public abstract T replace(@NotNull T replace, @NotNull R replacer);
+    public abstract T replace(final @NotNull T replace, final @NotNull R replacer);
 
     /**
      * 獲取被轉換的對象
