@@ -21,12 +21,23 @@
 
 package com.moubieapi.moubieapi.manager;
 
-import com.moubieapi.api.commands.CommandNode;
+import com.moubieapi.api.commands.Node;
+import com.moubieapi.api.manager.NodeManager;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表一個指令節點管理器
+ * 代表一個節點管理器
+ * @param <N> 節點類型
  * @author MouBieCat
  */
-public final class CommandNodeManager
-        extends NodeManagerAbstract<CommandNode> {
+public abstract class NodeManagerAbstract<N extends Node<?>>
+        extends ManagerAbstract<String, N>
+        implements NodeManager<N> {
+
+    @Override
+    public void add(final @NotNull String key, final @NotNull N value) {
+        if (!this.hasKey(key))
+            super.add(key, value);
+    }
+
 }

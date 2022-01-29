@@ -21,13 +21,12 @@
 
 package com.moubieapi.api.manager;
 
-import com.moubieapi.api.commands.CommandNode;
 import com.moubieapi.api.commands.Node;
 
 /**
  * 代表節點管理員
  * @author MouBieCat
  */
-public interface NodeManager<N extends Node<? extends CommandNode>>
+public interface NodeManager<N extends Node<?>>
         extends Manager<String, N> {
 }
