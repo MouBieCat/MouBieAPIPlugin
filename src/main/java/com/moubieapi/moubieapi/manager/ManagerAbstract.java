@@ -85,4 +85,13 @@ public abstract class ManagerAbstract<K, V>
         return this.manager.values();
     }
 
+    /**
+     * 複製一份新的管理器
+     * @return 新管理器
+     */
+    @NotNull
+    public final Map<K, V> copyManager() {
+        return new HashMap<>(this.manager);
+    }
+
 }
