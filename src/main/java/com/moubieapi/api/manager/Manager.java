@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
-import java.util.Map;
 
 /**
  * 代表一個基礎的管理器介面
@@ -65,11 +64,5 @@ public interface Manager<K, V> {
      * @return 集合
      */
     @NotNull Collection<V> getValues();
-
-    /**
-     * 複製一份管理器
-     * @return 複製管理器
-     */
-    @NotNull Map<K, V> copyManager();
 
 }

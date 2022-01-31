@@ -38,7 +38,7 @@ public abstract class ManagerAbstract<K, V>
         implements Manager<K, V> {
 
     // 管理器
-    private final Map<K, V> manager = new HashMap<>();
+    protected final Map<K, V> manager = new HashMap<>();
 
     /**
      * 添加資料到管理器中
@@ -85,13 +85,5 @@ public abstract class ManagerAbstract<K, V>
         return this.manager.values();
     }
 
-    /**
-     * 複製一份新的管理器
-     * @return 新管理器
-     */
-    @NotNull
-    public final Map<K, V> copyManager() {
-        return new HashMap<>(this.manager);
-    }
 
 }
