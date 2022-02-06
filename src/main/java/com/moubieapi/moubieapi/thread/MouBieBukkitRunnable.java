@@ -84,6 +84,12 @@ public abstract class MouBieBukkitRunnable
         this.cancel();
     }
 
+    
+    @Override
+    public void run() {
+        this.whenTimeRun();
+    }
+
     /**
      * 使程序重新開始
      */

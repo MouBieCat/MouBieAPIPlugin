@@ -41,6 +41,7 @@ public abstract class DataLoaderAbstract
      */
     public DataLoaderAbstract(final @NotNull MouBiePlugin plugin, final @NotNull String path, final @NotNull String name) {
         super(plugin, path, name, true);
+        this.initDataLoader();
     }
 
     /**

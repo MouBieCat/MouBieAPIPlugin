@@ -62,7 +62,7 @@ public abstract class MouBieTimeRunnable
             this.stop();
 
         else {
-            this.whenTimeRun();
+            super.run();
             --nowCount;
         }
     }
