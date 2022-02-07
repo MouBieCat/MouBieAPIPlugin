@@ -21,14 +21,14 @@
 
 package com.moubieapi.moubieapi.plugin;
 
-import com.moubieapi.api.plugin.PluginDebugger;
 import com.moubieapi.api.plugin.MouBiePlugin;
+import com.moubieapi.api.plugin.PluginDebugger;
 import com.moubieapi.api.plugin.PluginLoader;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 帶鰾一個基礎的沫白插件
+ * 代表一個基礎的沫白插件
  * @author MouBieCat
  */
 public abstract class MouBiePluginBase
@@ -37,19 +37,11 @@ public abstract class MouBiePluginBase
 
     // 加載器
     @NotNull
-    private final PluginLoader loader;
+    private final PluginLoader loader = new MouBiePluginLoader(this);
 
     // 紀錄器
     @NotNull
-    private final PluginDebugger debugger;
-
-    /**
-     * 建構子
-     */
-    public MouBiePluginBase() {
-        this.loader = new MouBiePluginLoader(this);
-        this.debugger = new MouBiePluginDebugger(this);
-    }
+    private final PluginDebugger debugger = new MouBiePluginDebugger(this);
 
     /**
      * 插件加載時調用

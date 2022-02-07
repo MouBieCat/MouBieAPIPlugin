@@ -84,12 +84,6 @@ public abstract class MouBieBukkitRunnable
         this.cancel();
     }
 
-    
-    @Override
-    public void run() {
-        this.whenTimeRun();
-    }
-
     /**
      * 使程序重新開始
      */
@@ -170,10 +164,5 @@ public abstract class MouBieBukkitRunnable
      * 當計時器被重新開始
      */
     protected abstract void whenTimeRestart();
-
-    /**
-     * 當計時器被執行
-     */
-    protected abstract void whenTimeRun();
 
 }

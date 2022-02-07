@@ -25,7 +25,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 帶鰾一個沫白插件
+ * 代表一個沫白插件
  * @author MouBieCat
  */
 public interface MouBiePlugin

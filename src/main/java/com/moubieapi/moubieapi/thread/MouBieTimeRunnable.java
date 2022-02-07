@@ -62,7 +62,7 @@ public abstract class MouBieTimeRunnable
             this.stop();
 
         else {
-            super.run();
+            this.whenTimeRun();
             --nowCount;
         }
     }
@@ -82,5 +82,10 @@ public abstract class MouBieTimeRunnable
     public final int getNowCount() {
         return this.nowCount;
     }
+
+    /**
+     * 當計時器被執行
+     */
+    protected abstract void whenTimeRun();
 
 }
