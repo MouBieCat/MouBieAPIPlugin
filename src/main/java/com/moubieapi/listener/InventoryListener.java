@@ -21,9 +21,9 @@
 
 package com.moubieapi.listener;
 
+import com.moubieapi.api.inventory.gui.GUI;
 import com.moubieapi.api.inventory.gui.GUIHandler;
 import com.moubieapi.api.inventory.gui.GUIRegister;
-import com.moubieapi.api.inventory.gui.GUI;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

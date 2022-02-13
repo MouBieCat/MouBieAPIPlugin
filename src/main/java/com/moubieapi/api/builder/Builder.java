@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
  * @param <T> 建構出任何類型
  * @author MouBieCat
  */
+@FunctionalInterface
 public interface Builder<T> {
 
     /**

@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * @param <G> 有關 GUI 的類
  * @author MouBieCat
  */
-public interface Backable<G extends GUI> {
+public interface Returnable<G extends GUI> {
 
     /**
      * 獲取返回介面的實例

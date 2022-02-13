@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
  * 代表一個可開啟的介面
  * @author MouBieCat
  */
+@FunctionalInterface
 public interface Openable {
 
     /**
