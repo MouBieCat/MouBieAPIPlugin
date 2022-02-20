@@ -22,7 +22,6 @@
 package com.moubieapi.listener;
 
 import com.moubieapi.api.inventory.gui.GUI;
-import com.moubieapi.api.inventory.gui.GUIHandler;
 import com.moubieapi.api.inventory.gui.GUIRegister;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -48,10 +47,8 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryOpen(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI) {
-            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
-            eventHandler.executeListener(event, GUIRegister.EventType.OPEN_INVENTORY);
-        }
+        if (holder instanceof GUI gui)
+            gui.getEventHandler().executeListener(event, GUIRegister.EventType.OPEN_INVENTORY);
     }
 
     /**
@@ -62,10 +59,8 @@ public final class InventoryListener
     public void onInventoryClick(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         final ItemStack currentItem = event.getCurrentItem();
-        if (currentItem != null && holder instanceof GUI) {
-            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
-            eventHandler.executeListener(event, GUIRegister.EventType.CLICK_INVENTORY);
-        }
+        if (currentItem != null && holder instanceof GUI gui)
+            gui.getEventHandler().executeListener(event, GUIRegister.EventType.CLICK_INVENTORY);
     }
 
     /**
@@ -75,10 +70,8 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClose(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
-        if (holder instanceof GUI) {
-            final GUIHandler eventHandler = ((GUI) holder).getEventHandler();
-            eventHandler.executeListener(event, GUIRegister.EventType.CLOSE_INVENTORY);
-        }
+        if (holder instanceof GUI gui)
+            gui.getEventHandler().executeListener(event, GUIRegister.EventType.CLOSE_INVENTORY);
     }
 
 }
