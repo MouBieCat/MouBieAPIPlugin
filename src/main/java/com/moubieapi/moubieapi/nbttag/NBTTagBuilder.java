@@ -22,8 +22,7 @@
 package com.moubieapi.moubieapi.nbttag;
 
 import com.moubieapi.api.builder.NBTBuilder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NBTTagCompound;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,7 +39,7 @@ public abstract class NBTTagBuilder<T>
 
     // NBT TAG 實例
     @NotNull
-    protected final CompoundTag compound = new CompoundTag();
+    protected final NBTTagCompound compound = new NBTTagCompound();
 
     // NBTTag 要建構的對象
     @NotNull
@@ -70,7 +69,7 @@ public abstract class NBTTagBuilder<T>
      * @return NBTag
      */
     @NotNull
-    public final Tag getCompound() {
+    public final NBTTagCompound getCompound() {
         return this.compound;
     }
 

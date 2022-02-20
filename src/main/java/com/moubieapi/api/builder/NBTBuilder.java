@@ -21,7 +21,7 @@
 
 package com.moubieapi.api.builder;
 
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NBTBase;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,7 +42,7 @@ public interface NBTBuilder<T>
      * 獲取NBTag物件
      * @return NBTag
      */
-    @NotNull Tag getCompound();
+    @NotNull NBTBase getCompound();
 
     /**
      * 獲取當前 NBTTag 要建構的對象
