@@ -54,14 +54,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- net.minecraft.server -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>minecraft-server</artifactId>
-            <version>${spigot.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -69,6 +61,13 @@
             <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- net.minecraft.server -->
+<!--        <dependency>-->
+<!--            <groupId>org.spigotmc</groupId>-->
+<!--            <artifactId>minecraft-server</artifactId>-->
+<!--            <version>1.18.1-R0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <!-- 建構 -->

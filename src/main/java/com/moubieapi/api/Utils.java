@@ -66,8 +66,8 @@ public final class Utils {
     public static boolean reloadMouBiePlugin(final @NotNull String pluginName) {
         final Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
 
-        if (plugin != null && plugin.isEnabled() && plugin instanceof MouBiePlugin) {
-            ((MouBiePlugin)plugin).getLoader().executeReloadAction();
+        if (plugin != null && plugin.isEnabled() && plugin instanceof MouBiePlugin mouBiePlugin) {
+            mouBiePlugin.getLoader().executeReloadAction();
             return true;
         }
 
