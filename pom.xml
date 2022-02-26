@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>minecraft-server</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>${spigot.version}</version>
         </dependency>
 
         <!-- Spigot -->
