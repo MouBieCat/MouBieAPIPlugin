@@ -54,18 +54,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- net.minecraft.server -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>minecraft-server</artifactId>
-            <version>${spigot.version}</version>
-        </dependency>
-
-        <!-- Spigot -->
+        <!-- net.mincraft.server(remapped-mojang) -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>${spigot.version}</version>
+            <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -115,5 +109,6 @@
             </resource>
         </resources>
     </build>
+
 
 </project>
