@@ -16,4 +16,4 @@ commands:
 
 permissions:
   MouBieAPI.admin:
-    description: "查看有關 MouBieAPI 依賴庫相關的說明。。"
+    description: "查看有關 MouBieAPI 依賴庫相關的說明。"
