@@ -40,16 +40,16 @@ public enum SenderType {
     ANY_SENDER(SenderType.ANY_SENDER_ID, SenderType.ANY_SENDER_NAME);
 
     private static final long CONSOLE_SENDER_ID = 1;
-    private static final String CONSOLE_SENDER_NAME = "Console_Sender";
+    private static final String CONSOLE_SENDER_NAME = "控制台";
 
     private static final long BLOCK_SENDER_ID = 2;
-    private static final String BLOCK_SENDER_NAME= "Block_Sender";
+    private static final String BLOCK_SENDER_NAME= "指令方塊";
 
     private static final long PLAYER_SENDER_ID = 3;
-    private static final String PLAYER_SENDER_NAME = "PlayerSender";
+    private static final String PLAYER_SENDER_NAME = "玩家";
 
     private static final long ANY_SENDER_ID = 4;
-    private static final String ANY_SENDER_NAME = "CommandSender";
+    private static final String ANY_SENDER_NAME = "任何";
 
     // 發送者類型
     private final CommandSenderInfo info;

@@ -60,19 +60,17 @@ public interface SubCommand
     /**
      * 檢查指令是否可以被該發送者運行
      * @param sender 發送者
-     * @param cmd 指令
      * @param args 指令參數
      * @return 是否可以運行
      */
-    boolean checkCommand(@NotNull CommandSender sender, @NotNull String cmd, @NotNull String[] args);
+    boolean checkCommand(@NotNull CommandSender sender, @NotNull String[] args);
 
     /**
      * 檢查指令幫助訊息是否可以被使用者查看
      * @param sender 發送者
-     * @param cmd 指令
      * @param args 指令參數
      * @return 是否可以查看
      */
-    boolean checkTab(@NotNull CommandSender sender, @NotNull String cmd, @NotNull String[] args);
+    boolean checkTab(@NotNull CommandSender sender, @NotNull String[] args);
 
 }

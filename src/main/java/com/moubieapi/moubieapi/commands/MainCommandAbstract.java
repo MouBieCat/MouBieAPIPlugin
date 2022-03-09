@@ -58,9 +58,15 @@ public class MainCommandAbstract
         if (args.length >= 1) {
             final @Nullable SubCommand subCommand = this.commandManager.get(args[0]);
 
-            if (subCommand != null)
-                return subCommand.onCmd(sender, args);
+            if (subCommand != null) {
+                if (subCommand.checkCommand(sender, args))
+                    return subCommand.onCmd(sender, args);
 
+                else {
+                    sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，您沒有運行該指令參數的權限，或是該指令只可以由 §6" + subCommand.getSenderType().getName() + " §c使用。");
+                    return false;
+                }
+            }
         }
 
         return this.onCmd(sender, args);
@@ -79,7 +85,7 @@ public class MainCommandAbstract
         if (args.length >= 1) {
             final @Nullable SubCommand subCommand = this.commandManager.get(args[0]);
 
-            if (subCommand != null)
+            if (subCommand != null && subCommand.checkTab(sender, args))
                 return subCommand.onTab(sender, args);
         }
 

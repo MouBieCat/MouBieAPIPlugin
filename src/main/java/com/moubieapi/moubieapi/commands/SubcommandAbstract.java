@@ -122,11 +122,10 @@ public abstract class SubcommandAbstract
      * 檢查指令是否可以被該發送者運行
      *
      * @param sender 發送者
-     * @param cmd    指令
      * @param args   指令參數
      * @return 是否可以運行
      */
-    public final boolean checkCommand(final @NotNull CommandSender sender, final @NotNull String cmd, final @NotNull String[] args) {
+    public final boolean checkCommand(final @NotNull CommandSender sender, final @NotNull String[] args) {
         return this.checkPermission(sender) && this.checkPermission(sender);
     }
 
@@ -134,12 +133,11 @@ public abstract class SubcommandAbstract
      * 檢查指令幫助訊息是否可以被使用者查看
      *
      * @param sender 發送者
-     * @param cmd    指令
      * @param args   指令參數
      * @return 是否可以查看
      */
-    public final boolean checkTab(final @NotNull CommandSender sender, final @NotNull String cmd, final @NotNull String[] args) {
-        return this.checkPermission(sender) && this.checkPermission(sender);
+    public final boolean checkTab(final @NotNull CommandSender sender, final @NotNull String[] args) {
+        return this.checkPermission(sender) && this.checkSenderType(sender);
     }
 
     /**
