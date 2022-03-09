@@ -50,7 +50,7 @@ public final class MouBieCat
     private void registerCommands() {
         final PluginCommand command = this.getCommand("MouBieAPI");
         if (command != null)
-            command.setExecutor(new CommandMain(command));
+            command.setExecutor(new CommandMain());
     }
 
     /**

@@ -19,14 +19,15 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.manager;
+package com.moubieapi.api.manager;
 
-import com.moubieapi.api.commands.CommandNode;
+import com.moubieapi.api.commands.SubCommand;
+import com.moubieapi.api.manager.Manager;
 
 /**
- * 代表一個指令節點管理器
+ * 代表指令參數管理器
  * @author MouBieCat
  */
-public final class CommandNodeManager
-        extends NodeManagerAbstract<CommandNode> {
+public interface CommandManager
+        extends Manager<String, SubCommand> {
 }

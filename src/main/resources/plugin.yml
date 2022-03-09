@@ -15,5 +15,5 @@ commands:
     aliases: [ mbi ]
 
 permissions:
-  MouBieAPI.admin:
-    description: "查看有關 MouBieAPI 依賴庫相關的說明。"
+  MouBieAPI.reload:
+    description: "用於重新讀取沫白旗下所開發的插件。"

@@ -19,14 +19,16 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.api.commands;
+package com.moubieapi.moubieapi.manager;
 
-import org.bukkit.command.TabExecutor;
+import com.moubieapi.api.commands.SubCommand;
+import com.moubieapi.api.manager.CommandManager;
 
 /**
- * 代表一個插件的命令主節點
+ * 代表指令參數管理器
  * @author MouBieCat
  */
-public interface CommandMainNode
-        extends CommandNode, TabExecutor {
+public final class SubCommandManager
+        extends ManagerAbstract<String, SubCommand>
+        implements CommandManager {
 }

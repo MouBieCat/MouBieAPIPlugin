@@ -19,25 +19,23 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubieapi.moubieapi.manager;
+package com.moubieapi.api.commands;
 
-import com.moubieapi.api.commands.Node;
-import com.moubieapi.api.manager.NodeManager;
+import com.moubieapi.api.manager.CommandManager;
+import org.bukkit.command.TabExecutor;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表一個節點管理器
- * @param <N> 節點類型
+ * 代表一個主指令
  * @author MouBieCat
  */
-public abstract class NodeManagerAbstract<N extends Node<?>>
-        extends ManagerAbstract<String, N>
-        implements NodeManager<N> {
+public interface MainCommand
+        extends TabExecutor, CommandExecutable {
 
-    @Override
-    public void add(final @NotNull String key, final @NotNull N value) {
-        if (!this.hasKey(key))
-            super.add(key, value);
-    }
+    /**
+     * 獲取子指令管理器
+     * @return 管理器
+     */
+    @NotNull CommandManager getSubCommandManager();
 
 }

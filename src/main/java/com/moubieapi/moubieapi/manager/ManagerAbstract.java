@@ -85,5 +85,11 @@ public abstract class ManagerAbstract<K, V>
         return this.manager.values();
     }
 
+    /**
+     * 清除所有紀錄
+     */
+    public final void clear() {
+        this.manager.clear();
+    }
 
 }

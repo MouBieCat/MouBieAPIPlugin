@@ -24,6 +24,10 @@ package com.moubieapi.api.commands;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * 代表一個指令發送者類型
+ * @author MouBieCat
+ */
 public enum SenderType {
 
     // 伺服器後台類型

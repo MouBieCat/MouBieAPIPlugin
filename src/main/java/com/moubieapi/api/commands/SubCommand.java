@@ -27,50 +27,52 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * 代表一個指令節點
+ * 代表一個子指令
  * @author MouBieCat
  */
-public interface CommandNode
-        extends CommandExecutable, Node<CommandNode> {
+public interface SubCommand
+        extends CommandExecutable {
 
     /**
-     * 獲取節點所需權限
+     * 獲取指令名稱
+     * @return 名稱
+     */
+    @NotNull String getName();
+
+    /**
+     * 獲取指令權限
      * @return 權限
      */
     @Nullable Permission getPermission();
 
     /**
-     * 獲取節點所需發送者類型
-     * @return 類型
+     * 獲取指令發送者
+     * @return 發送者
      */
     @NotNull SenderType getSenderType();
 
     /**
-     * 獲取節點說明
+     * 獲取指令說明
      * @return 說明
      */
     @NotNull String getDescription();
 
     /**
-     * 獲取指令所需長度
-     * @return 長度
+     * 檢查指令是否可以被該發送者運行
+     * @param sender 發送者
+     * @param cmd 指令
+     * @param args 指令參數
+     * @return 是否可以運行
      */
-    int getCommandLength();
+    boolean checkCommand(@NotNull CommandSender sender, @NotNull String cmd, @NotNull String[] args);
 
     /**
-     * 檢查指令發送者身分是否可運行該節點
+     * 檢查指令幫助訊息是否可以被使用者查看
      * @param sender 發送者
+     * @param cmd 指令
      * @param args 指令參數
-     * @return 是否可執行該節點
+     * @return 是否可以查看
      */
-    boolean checkCommand(@NotNull CommandSender sender, @NotNull String[] args);
-
-    /**
-     * 檢查指令發送者身分是否可運行該節點
-     * @param sender 發送者
-     * @param args 指令參數
-     * @return 是否可執行該節點
-     */
-    boolean checkTab(@NotNull CommandSender sender, @NotNull String[] args);
+    boolean checkTab(@NotNull CommandSender sender, @NotNull String cmd, @NotNull String[] args);
 
 }

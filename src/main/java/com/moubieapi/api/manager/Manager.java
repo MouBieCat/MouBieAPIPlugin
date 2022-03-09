@@ -65,4 +65,9 @@ public interface Manager<K, V> {
      */
     @NotNull Collection<V> getValues();
 
+    /**
+     * 清除所有紀錄
+     */
+    void clear();
+
 }

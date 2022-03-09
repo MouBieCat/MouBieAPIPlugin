@@ -38,7 +38,7 @@ public interface CommandExecutable {
      * @param args 參數
      * @return 是否成功運行
      */
-    boolean onCommand(@NotNull CommandSender sender, @NotNull String[] args);
+    boolean onCmd(@NotNull CommandSender sender, @NotNull String[] args);
 
     /**
      * 運行該節點指令幫助列表

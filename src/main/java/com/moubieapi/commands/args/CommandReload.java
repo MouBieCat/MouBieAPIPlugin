@@ -25,12 +25,15 @@ import com.moubieapi.MouBieCat;
 import com.moubieapi.api.Utils;
 import com.moubieapi.api.commands.SenderType;
 import com.moubieapi.api.plugin.MouBiePlugin;
-import com.moubieapi.moubieapi.commands.CommandNodeAbstract;
+import com.moubieapi.moubieapi.commands.SubcommandAbstract;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,15 +42,17 @@ import java.util.List;
  * @author MouBieCat
  */
 public final class CommandReload
-        extends CommandNodeAbstract {
+        extends SubcommandAbstract {
 
     /**
      * 建構子
-     * @param nodeId      當前節點列數
-     * @param nodeName    節點名稱
+     * @param name        子指令名
+     * @param permission  指令權限
+     * @param type        指令發送者
+     * @param description 指令說明
      */
-    public CommandReload(final int nodeId, final @NotNull String nodeName) {
-        super(nodeId, nodeName, SenderType.ANY_SENDER, "用於重讀插件的指令參數。", 2);
+    public CommandReload(final @NotNull String name, final @Nullable Permission permission, final @NotNull SenderType type, final @NotNull String description) {
+        super(name, permission, type, description);
     }
 
     /**
@@ -56,13 +61,12 @@ public final class CommandReload
      * @param args   參數
      * @return 是否成功運行
      */
-    public boolean onCommand(final @NotNull CommandSender sender, final @NotNull String[] args) {
+    public boolean onCmd(final @NotNull CommandSender sender, final @NotNull String[] args) {
         if (Utils.reloadMouBiePlugin(args[1])) {
             sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§2您成功對 §6" + args[1] + " §2插件進行了重讀！");
             return true;
         }
         sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，沒有找到名稱為 §6" + args[1] + " §c的插件。");
-
         return false;
     }
 
@@ -74,13 +78,19 @@ public final class CommandReload
      */
     @NotNull
     public List<String> onTab(final @NotNull CommandSender sender, final @NotNull String[] args) {
-        final List<MouBiePlugin> mouBiePlugins = new LinkedList<>();
+        if (args.length == 2) {
+            final Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
 
-        for (final @NotNull Plugin plugin : Bukkit.getPluginManager().getPlugins())
-            if (plugin instanceof MouBiePlugin)
-                mouBiePlugins.add((MouBiePlugin) plugin);
+            final List<MouBiePlugin> mouBiePlugins = new LinkedList<>();
 
-        return mouBiePlugins.stream().map(Plugin::getName).toList();
+            for (final Plugin plugin : plugins)
+                if (plugin instanceof MouBiePlugin)
+                    mouBiePlugins.add((MouBiePlugin) plugin);
+
+            return mouBiePlugins.stream().map(Plugin::getName).toList();
+        }
+
+        return new ArrayList<>();
     }
 
 }
