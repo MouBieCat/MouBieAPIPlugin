@@ -62,11 +62,19 @@ public final class CommandReload
      * @return 是否成功運行
      */
     public boolean onCmd(final @NotNull CommandSender sender, final @NotNull String[] args) {
-        if (Utils.reloadMouBiePlugin(args[1])) {
-            sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§2您成功對 §6" + args[1] + " §2插件進行了重讀！");
-            return true;
+
+        if (args.length == 2) {
+
+            if (Utils.reloadMouBiePlugin(args[1])) {
+                sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§2您成功對 §6" + args[1] + " §2插件進行了重讀！");
+                return true;
+            }
+
+            sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，沒有找到名稱為 §6" + args[1] + " §c的插件。");
+            return false;
         }
-        sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，沒有找到名稱為 §6" + args[1] + " §c的插件。");
+
+        sender.sendMessage(MouBieCat.PLUGIN_TITLE + "§c很抱歉，您所輸入的參數不足，請輸入一個插件名稱。");
         return false;
     }
 
