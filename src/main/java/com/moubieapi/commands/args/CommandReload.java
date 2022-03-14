@@ -26,15 +26,12 @@ import com.moubieapi.api.Utils;
 import com.moubieapi.api.commands.SenderType;
 import com.moubieapi.api.plugin.MouBiePlugin;
 import com.moubieapi.moubieapi.commands.SubcommandAbstract;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
-import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -86,19 +83,14 @@ public final class CommandReload
      */
     @NotNull
     public List<String> onTab(final @NotNull CommandSender sender, final @NotNull String[] args) {
+        final List<String> list = new ArrayList<>();
+
         if (args.length == 2) {
-            final Plugin[] plugins = Bukkit.getPluginManager().getPlugins();
-
-            final List<MouBiePlugin> mouBiePlugins = new LinkedList<>();
-
-            for (final Plugin plugin : plugins)
-                if (plugin instanceof MouBiePlugin)
-                    mouBiePlugins.add((MouBiePlugin) plugin);
-
-            return mouBiePlugins.stream().map(Plugin::getName).toList();
+            final List<MouBiePlugin> plugins = Utils.getMouBiePlugins();
+            list.addAll(plugins.stream().map(MouBiePlugin::getName).toList());
         }
 
-        return new ArrayList<>();
+        return list;
     }
 
 }

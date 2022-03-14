@@ -24,9 +24,13 @@ package com.moubieapi.api;
 import com.moubieapi.api.plugin.MouBiePlugin;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,7 +45,7 @@ public final class Utils {
      * @param msg 十六進位RGB字串 (<#FF0000> Hello world !)
      * @return RGB字串
      */
-    public static String forMessageToRGB(final @NotNull String msg) {
+    public static String forMessageToRGB(@NotNull String msg) {
         String message = msg;
 
         final Pattern hexPattern = Pattern.compile("<#([A-Fa-f0-9]){6}>");
@@ -59,19 +63,63 @@ public final class Utils {
     }
 
     /**
+     * 獲取沫白插件集合
+     * @return 插件集合
+     */
+    @NotNull
+    public static List<MouBiePlugin> getMouBiePlugins() {
+        final List<MouBiePlugin> plugins = new ArrayList<>();
+
+        for (final Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
+            if (plugin instanceof MouBiePlugin mouBiePlugin)
+                plugins.add(mouBiePlugin);
+        }
+
+        return plugins;
+    }
+
+    /**
+     * 獲取沫白插件
+     * @param name 插件名稱
+     * @return 沫白插件
+     */
+    @Nullable
+    public static MouBiePlugin getMouBiePlugin(@NotNull String name) {
+        final List<MouBiePlugin> plugins = Utils.getMouBiePlugins();
+
+        for (final MouBiePlugin plugin : plugins) {
+            if (plugin.getName().equalsIgnoreCase(name))
+                return plugin;
+        }
+
+        return null;
+    }
+
+    /**
      * 重載沫白的插件
-     * @param pluginName 插件名稱
+     * @param name 插件名稱
      * @return 是否成功重載
      */
-    public static boolean reloadMouBiePlugin(final @NotNull String pluginName) {
-        final Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
-
-        if (plugin != null && plugin.isEnabled() && plugin instanceof MouBiePlugin mouBiePlugin) {
-            mouBiePlugin.getLoader().executeReloadAction();
+    public static boolean reloadMouBiePlugin(@NotNull String name) {
+        final @Nullable MouBiePlugin plugin = Utils.getMouBiePlugin(name);
+        if (plugin != null) {
+            plugin.getLoader().executeReloadAction();
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * 呼叫事件並且返回事件呼叫結果
+     * @param event 事件
+     * @param <T> 事件類
+     * @return 事件呼叫結果
+     */
+    @NotNull
+    public static <T extends Event> T callEvent(@NotNull T event) {
+        Bukkit.getPluginManager().callEvent(event);
+        return event;
     }
 
 }
