@@ -4,32 +4,37 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cat.moubieapi</groupId>
-    <artifactId>MouBieCat</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
-
+    <!-- 專案訊息 -->
     <name>MouBieAPI</name>
     <description>作為 MouBieCat 開發的功能，該插件沒有任何實質功能，只作為日後插件依賴的基底插件。</description>
+    <modules>
+        <module>MouBieAPI-plugin</module>
+        <module>MouBieAPI-framework</module>
+    </modules>
+
+    <!-- 專案群組 -->
+    <groupId>com.moubiecat</groupId>
+    <artifactId>MouBieAPI</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
 
     <!-- 基本配置 -->
     <properties>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jdk.version>17</jdk.version>
-        <java.version>17</java.version>
-
-        <!-- api-version: -->
-        <plugin.api.version>1.18</plugin.api.version>
 
         <!-- maven library version -->
         <spigot.api.version>1.18-R0.1-SNAPSHOT</spigot.api.version>
         <spigot.version>1.18.1-R0.1-SNAPSHOT</spigot.version>
+
+        <!-- plugin.yml -->
+        <plugin-yml.api-version>1.18</plugin-yml.api-version>
     </properties>
 
     <!-- 從雲端倉庫下載依賴到本地倉庫 -->
     <repositories>
+        <!-- Spigot -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
@@ -43,7 +48,7 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>23.0.0</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Spigot API -->
@@ -54,7 +59,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- net.mincraft.server(remapped-mojang) -->
+        <!-- net-minecraft-server (remapped) -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
@@ -64,51 +69,71 @@
         </dependency>
     </dependencies>
 
-    <!-- 建構 -->
+    <!-- 建置專案 -->
     <build>
         <plugins>
+            <!-- maven-shade-plugin -->
             <plugin>
-                <groupId>net.md-5</groupId>
-                <artifactId>specialsource-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>remap</goal>
-                        </goals>
-                        <id>remap-obf</id>
-                        <configuration>
-                            <srgIn>org.spigotmc:minecraft-server:1.18.1-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>
-                            <reverse>true</reverse>
-                            <remappedDependencies>org.spigotmc:spigot:1.18.1-R0.1-SNAPSHOT:jar:remapped-mojang</remappedDependencies>
-                            <remappedArtifactAttached>true</remappedArtifactAttached>
-                            <remappedClassifierName>remapped-obf</remappedClassifierName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>remap</goal>
-                        </goals>
-                        <id>remap-spigot</id>
-                        <configuration>
-                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>
-                            <srgIn>org.spigotmc:minecraft-server:1.18.1-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>
-                            <remappedDependencies>org.spigotmc:spigot:1.18.1-R0.1-SNAPSHOT:jar:remapped-obf</remappedDependencies>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
             </plugin>
         </plugins>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+        <!--        <plugins>-->
+        <!--            &lt;!&ndash; maven-shade-plugin &ndash;&gt;-->
+        <!--            <plugin>-->
+        <!--                <groupId>org.apache.maven.plugins</groupId>-->
+        <!--                <artifactId>maven-shade-plugin</artifactId>-->
+        <!--                <version>3.2.4</version>-->
+        <!--                <executions>-->
+        <!--                    <execution>-->
+        <!--                        <phase>package</phase>-->
+        <!--                        <goals>-->
+        <!--                            <goal>shade</goal>-->
+        <!--                        </goals>-->
+        <!--                        <configuration>-->
+        <!--                            <createDependencyReducedPom>false</createDependencyReducedPom>-->
+        <!--                        </configuration>-->
+        <!--                    </execution>-->
+        <!--                </executions>-->
+        <!--            </plugin>-->
 
+        <!--            &lt;!&ndash; net.md-5 &ndash;&gt;-->
+        <!--            <plugin>-->
+        <!--                <groupId>net.md-5</groupId>-->
+        <!--                <artifactId>specialsource-maven-plugin</artifactId>-->
+        <!--                <version>1.2.2</version>-->
+        <!--                <executions>-->
+        <!--                    <execution>-->
+        <!--                        <phase>package</phase>-->
+        <!--                        <goals>-->
+        <!--                            <goal>remap</goal>-->
+        <!--                        </goals>-->
+        <!--                        <id>remap-obf</id>-->
+        <!--                        <configuration>-->
+        <!--                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:txt:maps-mojang</srgIn>-->
+        <!--                            <reverse>true</reverse>-->
+        <!--                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-mojang</remappedDependencies>-->
+        <!--                            <remappedArtifactAttached>true</remappedArtifactAttached>-->
+        <!--                            <remappedClassifierName>remapped-obf</remappedClassifierName>-->
+        <!--                        </configuration>-->
+        <!--                    </execution>-->
+        <!--                    <execution>-->
+        <!--                        <phase>package</phase>-->
+        <!--                        <goals>-->
+        <!--                            <goal>remap</goal>-->
+        <!--                        </goals>-->
+        <!--                        <id>remap-spigot</id>-->
+        <!--                        <configuration>-->
+        <!--                            <inputFile>${project.build.directory}/${project.artifactId}-${project.version}-remapped-obf.jar</inputFile>-->
+        <!--                            <srgIn>org.spigotmc:minecraft-server:1.18.2-R0.1-SNAPSHOT:csrg:maps-spigot</srgIn>-->
+        <!--                            <remappedDependencies>org.spigotmc:spigot:1.18.2-R0.1-SNAPSHOT:jar:remapped-obf</remappedDependencies>-->
+        <!--                        </configuration>-->
+        <!--                    </execution>-->
+        <!--                </executions>-->
+        <!--            </plugin>-->
+        <!--        </plugins>-->
+    </build>
 
 </project>

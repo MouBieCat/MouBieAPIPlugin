@@ -1,0 +1,19 @@
+name: MouBieAPI
+
+version: '${project.version}'
+api-version: '${plugin-yml.api-version}'
+
+authors: [ MouBieCat ]
+description: '${project.description}'
+
+main: com.moubieapi.MouBieCat
+
+commands:
+  MouBieAPI:
+    description: "該插件的主要命令。"
+    permission: "MouBieAPI.admin"
+    aliases: [ mbi ]
+
+permissions:
+  MouBieAPI.reload:
+    description: "用於重新讀取沫白旗下所開發的插件。"
