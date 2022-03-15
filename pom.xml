@@ -12,6 +12,14 @@
         <module>MouBieAPI-framework</module>
     </modules>
 
+    <!-- 開發者訊息 -->
+    <developers>
+        <developer>
+            <id>MouBieCat</id>
+            <url>https://github.com/MouBieCat</url>
+        </developer>
+    </developers>
+
     <!-- 專案群組 -->
     <groupId>com.moubiecat</groupId>
     <artifactId>MouBieAPI</artifactId>
@@ -41,29 +49,63 @@
         </repository>
     </repositories>
 
-    <!-- 導入依賴 -->
+    <!-- 依賴項目 -->
+    <dependencyManagement>
+        <!-- 導入依賴 -->
+        <dependencies>
+            <!-- jetbrains -->
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>23.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Spigot API -->
+            <dependency>
+                <groupId>org.spigotmc</groupId>
+                <artifactId>spigot-api</artifactId>
+                <version>${spigot.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- net-minecraft-server (remapped) -->
+            <dependency>
+                <groupId>org.spigotmc</groupId>
+                <artifactId>spigot</artifactId>
+                <version>${spigot.version}</version>
+                <classifier>remapped-mojang</classifier>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- MouBieAPI-framework -->
+            <dependency>
+                <groupId>com.moubiecat</groupId>
+                <artifactId>MouBieAPI-framework</artifactId>
+                <version>${project.parent.version}</version>
+                <scope>compile</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 依賴 -->
     <dependencies>
         <!-- jetbrains -->
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>23.0.0</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>${spigot.api.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <!-- net-minecraft-server (remapped) -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>${spigot.version}</version>
             <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>

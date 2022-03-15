@@ -23,8 +23,8 @@
 
     <!-- 建置專案 -->
     <build>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
         <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
 
         <plugins>
             <!-- maven-shade-plugin -->
