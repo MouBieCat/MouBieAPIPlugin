@@ -28,16 +28,21 @@
 
     <!-- 基本配置 -->
     <properties>
+        <!-- 譯環境配置 -->
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- maven library version -->
+        <!-- net-minecraft-server / Spigot(api) 版本配置 -->
         <spigot.api.version>1.18-R0.1-SNAPSHOT</spigot.api.version>
         <spigot.version>1.18.1-R0.1-SNAPSHOT</spigot.version>
 
-        <!-- plugin.yml -->
+        <!-- plugin.yml 配置 -->
         <plugin-yml.api-version>1.18</plugin-yml.api-version>
+
+        <!-- 代碼環境 測試環境配置 -->
+        <code.sourceDirectory>src/main/java</code.sourceDirectory>
+        <code.testSourceDirectory>src/test/java</code.testSourceDirectory>
     </properties>
 
     <!-- 從雲端倉庫下載依賴到本地倉庫 -->
@@ -46,6 +51,12 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <!-- PaperMC API -->
+        <repository>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
     </repositories>
 
@@ -69,6 +80,14 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!-- PaperMC API -->
+            <dependency>
+                <groupId>io.papermc.paper</groupId>
+                <artifactId>paper-api</artifactId>
+                <version>${spigot.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- net-minecraft-server (remapped) -->
             <dependency>
                 <groupId>org.spigotmc</groupId>
@@ -82,7 +101,7 @@
             <dependency>
                 <groupId>com.moubiecat</groupId>
                 <artifactId>MouBieAPI-framework</artifactId>
-                <version>${project.parent.version}</version>
+                <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>
         </dependencies>
@@ -141,6 +160,13 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- specialsource-maven-plugin -->
+            <plugin>
+                <groupId>net.md-5</groupId>
+                <artifactId>specialsource-maven-plugin</artifactId>
+                <version>1.2.3</version>
             </plugin>
         </plugins>
     </build>
