@@ -34,8 +34,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- net-minecraft-server / Spigot(api) 版本配置 -->
-        <spigot.api.version>1.18-R0.1-SNAPSHOT</spigot.api.version>
-        <spigot.version>1.18.1-R0.1-SNAPSHOT</spigot.version>
+        <spigot.api.version>1.18.2-R0.1-SNAPSHOT</spigot.api.version>
+        <spigot.version>1.18.2-R0.1-SNAPSHOT</spigot.version>
 
         <!-- plugin.yml 配置 -->
         <plugin-yml.api-version>1.18</plugin-yml.api-version>
