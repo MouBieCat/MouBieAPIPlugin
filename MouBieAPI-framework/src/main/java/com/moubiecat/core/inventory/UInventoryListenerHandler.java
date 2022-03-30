@@ -21,10 +21,9 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.inventory.Cancelable;
+import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;
-import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.inventory.InventoryEvent;
@@ -95,7 +94,7 @@ public final class UInventoryListenerHandler
             for (final Method method : methods) {
                 // 是否為可取消對象 (根據GUI對象來判斷是否無論如何取消事件調用)
                 if (event instanceof Cancellable)
-                    ((Cancelable) event).setCancel(this.handler.isCancel());
+                    ((Cancellable) event).setCancelled(this.handler.isCancelEvent());
 
                 CraftBukkitReflect.invoke(method, this.handler, event);
             }

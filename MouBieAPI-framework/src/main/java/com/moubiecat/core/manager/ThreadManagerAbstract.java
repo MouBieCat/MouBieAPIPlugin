@@ -42,10 +42,8 @@ public abstract class ThreadManagerAbstract<P, T extends BukkitRunnable>
      */
     @Override
     public final void add(final @NotNull P key, final @NotNull T value) {
-        if (this.hasKey(key))
-            this.remove(key);
-
-        super.add(key, value);
+        if (!this.hasKey(key))
+            super.add(key, value);
     }
 
     /**

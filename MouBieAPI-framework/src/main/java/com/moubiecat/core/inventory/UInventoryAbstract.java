@@ -110,7 +110,7 @@ public abstract class UInventoryAbstract
      * 獲取為取消狀態
      * @return 狀態
      */
-    public final boolean isCancel() {
+    public final boolean isCancelEvent() {
         return this.isCancel;
     }
 
@@ -160,7 +160,7 @@ public abstract class UInventoryAbstract
      * 設置是否為取消狀態
      * @param cancel 新狀態
      */
-    public final void setCancel(final boolean cancel) {
+    public final void setCancelEvent(final boolean cancel) {
         this.isCancel = cancel;
     }
 

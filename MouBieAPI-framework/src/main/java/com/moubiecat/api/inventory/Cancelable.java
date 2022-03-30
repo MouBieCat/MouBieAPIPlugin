@@ -31,12 +31,12 @@ public interface Cancelable {
      * 獲取為取消狀態
      * @return 狀態
      */
-    boolean isCancel();
+    boolean isCancelEvent();
 
     /**
      * 設置是否為取消狀態
      * @param cancel 新狀態
      */
-    void setCancel(boolean cancel);
+    void setCancelEvent(boolean cancel);
 
 }
