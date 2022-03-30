@@ -22,10 +22,10 @@
 package com.moubiecat.core.inventory;
 
 import com.moubiecat.api.Utils;
-import com.moubiecat.api.inventory.gui.GUIHandler;
-import com.moubiecat.api.inventory.gui.InventorySize;
 import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.api.inventory.gui.GUI;
+import com.moubiecat.api.inventory.gui.GUIHandler;
+import com.moubiecat.api.inventory.gui.InventorySize;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -55,6 +55,9 @@ public abstract class UInventoryAbstract
     // 事件處理程序
     @NotNull
     private final GUIHandler eventHandler = new UInventoryListenerHandler(this);
+
+    // 是否取消事件
+    private boolean isCancel = true;
 
     /**
      * 建構子
@@ -104,9 +107,17 @@ public abstract class UInventoryAbstract
     }
 
     /**
+     * 獲取為取消狀態
+     * @return 狀態
+     */
+    public final boolean isCancel() {
+        return this.isCancel;
+    }
+
+    /**
      * 清除當前介面上的所有物品按鈕
      */
-    public final void clearInventory() {
+    protected final void clearInventory() {
         final ItemStack airItemStack = new ItemStack(Material.AIR);
         for (int slot = 0; slot < this.inventory_size.getSize(); slot++)
             this.inventory.setItem(slot, airItemStack);
@@ -117,7 +128,7 @@ public abstract class UInventoryAbstract
      * @param uItem 介面物品實例
      */
     @NotNull
-    public final UInventoryAbstract addUItem(final @NotNull Button uItem) {
+    protected final UInventoryAbstract addUItem(final @NotNull Button uItem) {
         this.inventory.setItem(uItem.getSlotId(), uItem.build());
         return this;
     }
@@ -128,7 +139,7 @@ public abstract class UInventoryAbstract
      * @return 當前的建構器
      */
     @NotNull
-    public final UInventoryAbstract addItem(final @NotNull ItemStack itemStack) {
+    protected final UInventoryAbstract addItem(final @NotNull ItemStack itemStack) {
         this.inventory.addItem(itemStack);
         return this;
     }
@@ -140,9 +151,17 @@ public abstract class UInventoryAbstract
      * @return 當前的建構器
      */
     @NotNull
-    public final UInventoryAbstract addItem(final @NotNull ItemStack itemStack, final int slot) {
+    protected final UInventoryAbstract addItem(final @NotNull ItemStack itemStack, final int slot) {
         this.inventory.setItem(slot, itemStack);
         return this;
+    }
+
+    /**
+     * 設置是否為取消狀態
+     * @param cancel 新狀態
+     */
+    public final void setCancel(final boolean cancel) {
+        this.isCancel = cancel;
     }
 
     /**

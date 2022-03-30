@@ -19,36 +19,24 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiecat.api.inventory.gui;
-
-import com.moubiecat.api.inventory.Cancelable;
-import com.moubiecat.api.inventory.Openable;
-import org.bukkit.inventory.InventoryHolder;
-import org.jetbrains.annotations.NotNull;
+package com.moubiecat.api.inventory;
 
 /**
- * 代表一個使用者介面
+ * 是否取消事件運行
  * @author MouBieCat
  */
-public interface GUI
-        extends Openable, Cancelable, InventoryHolder {
+public interface Cancelable {
 
     /**
-     * 獲取介面大小
-     * @return 大小
+     * 獲取為取消狀態
+     * @return 狀態
      */
-    @NotNull InventorySize getGUISize();
+    boolean isCancel();
 
     /**
-     * 獲取介面標題
-     * @return 標題
+     * 設置是否為取消狀態
+     * @param cancel 新狀態
      */
-    @NotNull String getGUITitle();
-
-    /**
-     * 獲取事件處理程序
-     * @return 事件處理程序
-     */
-    @NotNull GUIHandler getEventHandler();
+    void setCancel(boolean cancel);
 
 }
