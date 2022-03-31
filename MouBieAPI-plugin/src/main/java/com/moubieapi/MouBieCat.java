@@ -21,6 +21,7 @@
 
 package com.moubieapi;
 
+import com.moubieapi.listener.PluginListener;
 import com.moubiecat.api.plugin.PluginRegister;
 import com.moubiecat.core.plugin.MouBiePluginBase;
 import com.moubieapi.commands.CommandMain;
@@ -43,6 +44,7 @@ public final class MouBieCat
     @PluginRegister(name = "註冊插件事件", type = PluginRegister.ActionType.ACTION_ENABLE)
     private void registerListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PluginListener(), this);
     }
 
 
