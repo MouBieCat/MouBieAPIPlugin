@@ -26,10 +26,14 @@ import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.bukkit.event.Cancellable;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.*;
 
 /**
@@ -45,7 +49,7 @@ public final class UInventoryListenerHandler
 
     // 運行操作管理器
     @NotNull
-    private final Map<GUIRegister.EventType, List<Method>> eventMethods = new LinkedHashMap<>();
+    private final Map<String, List<Method>> eventMethods = new LinkedHashMap<>();
 
     /**
      * 建構子
@@ -55,49 +59,46 @@ public final class UInventoryListenerHandler
         this.handler = gui;
 
         // 初始化
-        this.shortListener(GUIRegister.EventType.OPEN_INVENTORY);
-        this.shortListener(GUIRegister.EventType.CLICK_INVENTORY);
-        this.shortListener(GUIRegister.EventType.CLOSE_INVENTORY);
+        this.shortListener(InventoryOpenEvent.class);
+        this.shortListener(InventoryClickEvent.class);
+        this.shortListener(InventoryCloseEvent.class);
     }
 
     /**
      * 排序一個插件註冊動作的所有方法(優先等級)
-     * @param type 運行事件類型
+     * @param eventClass 事件類
      */
-    private void shortListener(final @NotNull GUIRegister.EventType type) {
+    private void shortListener(final @NotNull Class<? extends InventoryEvent> eventClass) {
         final List<Method> methods = new LinkedList<>();
 
-        // 查找有關 Register.class 的類方法並且判斷方法示標動作類型
-        for (final Method method : this.handler.getClass().getDeclaredMethods())
-            if (method.isAnnotationPresent(GUIRegister.class) && method.getAnnotation(GUIRegister.class).type().equals(type))
-                methods.add(method);
+        for (final Method method : this.handler.getClass().getDeclaredMethods()) {
+            if (method.isAnnotationPresent(GUIRegister.class) && method.getParameterCount() == 1) {
+                final Parameter parameter = method.getParameters()[0];
 
-        if (methods.size() > 0) {
-            // 根據 Register 做優先等級排序
-            final List<Method> sortedMethods = methods.stream().sorted(
-                    Comparator.comparing(a -> a.getAnnotation(GUIRegister.class).priority())
-            ).toList();
-
-            // 添加
-            this.eventMethods.put(type, sortedMethods);
+                if (parameter.getType().equals(eventClass))
+                    methods.add(method);
+            }
         }
+
+        if (methods.size() > 0)
+            this.eventMethods.put(eventClass.getName(), methods);
     }
 
     /**
      * 運行事件方法
      * @param event 事件實例
      */
-    public void executeListener(final @NotNull InventoryEvent event, final @NotNull GUIRegister.EventType type) {
-        final List<Method> methods = this.eventMethods.get(type);
+    public void executeListener(final @NotNull InventoryEvent event) {
+        final List<Method> methods = this.eventMethods.get(event.getClass().getName());
 
-        if (methods != null)
-            for (final Method method : methods) {
-                // 是否為可取消對象 (根據GUI對象來判斷是否無論如何取消事件調用)
-                if (event instanceof Cancellable)
-                    ((Cancellable) event).setCancelled(this.handler.isCancelEvent());
-
+        if (methods != null) {
+            for (final Method method : methods)
                 CraftBukkitReflect.invoke(method, this.handler, event);
-            }
+
+            // 是否為可取消對象 (根據GUI對象來判斷是否無論如何取消事件調用)
+            if (event instanceof Cancellable)
+                ((Cancellable) event).setCancelled(this.handler.isCancelEvent());
+        }
     }
 
     /**

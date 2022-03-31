@@ -15,9 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GUIRegister {
 
-    // 介面事件類型
-    @NotNull EventType type();
-
     // 事件優先等級
     @NotNull EventPriority priority()
             default EventPriority.NORMAL;
@@ -55,52 +52,6 @@ public @interface GUIRegister {
          */
         public final long getPriority() {
             return this.priority;
-        }
-    }
-
-    /**
-     * 使用者介面事件觸發類型
-     * @author MouBieCat
-     */
-    enum EventType {
-        // 開啟
-        OPEN_INVENTORY(0, "OPEN"),
-        // 點擊
-        CLICK_INVENTORY(1, "CLICK"),
-        // 關閉
-        CLOSE_INVENTORY(2, "CLOSE");
-
-        // 類型ID
-        private final long type;
-
-        // 類型名稱
-        private final String name;
-
-        /**
-         * 建構子
-         * @param type 類型ID
-         * @param name 類型名稱
-         */
-        EventType(long type, @NotNull String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        /**
-         * 獲取類型ID
-         * @return id
-         */
-        public final long getTypeId() {
-            return this.type;
-        }
-
-        /**
-         * 獲取類型名稱
-         * @return Name
-         */
-        @NotNull
-        public final String getName() {
-            return name;
         }
     }
 

@@ -22,7 +22,6 @@
 package com.moubieapi.listener;
 
 import com.moubiecat.api.inventory.gui.GUI;
-import com.moubiecat.api.inventory.gui.GUIRegister;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -47,8 +46,9 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryOpen(final @NotNull InventoryOpenEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
+
         if (holder instanceof GUI gui)
-            gui.getEventHandler().executeListener(event, GUIRegister.EventType.OPEN_INVENTORY);
+            gui.getEventHandler().executeListener(event);
     }
 
     /**
@@ -59,8 +59,9 @@ public final class InventoryListener
     public void onInventoryClick(final @NotNull InventoryClickEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
         final ItemStack currentItem = event.getCurrentItem();
+
         if (currentItem != null && holder instanceof GUI gui)
-            gui.getEventHandler().executeListener(event, GUIRegister.EventType.CLICK_INVENTORY);
+            gui.getEventHandler().executeListener(event);
     }
 
     /**
@@ -70,8 +71,9 @@ public final class InventoryListener
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClose(final @NotNull InventoryCloseEvent event) {
         final InventoryHolder holder = event.getInventory().getHolder();
+
         if (holder instanceof GUI gui)
-            gui.getEventHandler().executeListener(event, GUIRegister.EventType.CLOSE_INVENTORY);
+            gui.getEventHandler().executeListener(event);
     }
 
 }
