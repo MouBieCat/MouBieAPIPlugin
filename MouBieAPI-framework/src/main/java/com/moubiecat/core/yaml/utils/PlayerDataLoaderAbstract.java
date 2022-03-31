@@ -35,9 +35,6 @@ public abstract class PlayerDataLoaderAbstract<P extends OfflinePlayer>
         extends DataLoaderAbstract
         implements PlayerLoader<P> {
 
-    public static final String NAME_PATH = "name";
-    public static final String UUID_PATH = "uuid";
-
     // 玩家
     @NotNull
     protected final P owner;

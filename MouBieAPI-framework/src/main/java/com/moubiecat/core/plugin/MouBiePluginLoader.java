@@ -111,7 +111,7 @@ public final class MouBiePluginLoader
             if (method.isAnnotationPresent(PluginRegister.class) && method.getAnnotation(PluginRegister.class).type().equals(actionType))
                 methods.add(method);
 
-        if (methods.size() > 0) {
+        if (methods.size() > 1) {
             // 根據 Register 做優先等級排序
             final List<Method> sortedMethods = methods.stream().sorted(
                     Comparator.comparing(a -> a.getAnnotation(PluginRegister.class).priority())

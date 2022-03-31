@@ -80,8 +80,14 @@ public final class UInventoryListenerHandler
             }
         }
 
-        if (methods.size() > 0)
-            this.eventMethods.put(eventClass.getName(), methods);
+        if (methods.size() > 1) {
+            // 根據 Register 做優先等級排序
+            final List<Method> sortedMethods = methods.stream().sorted(
+                    Comparator.comparing(a -> a.getAnnotation(GUIRegister.class).priority())
+            ).toList();
+
+            this.eventMethods.put(eventClass.getName(), sortedMethods);
+        }
     }
 
     /**
