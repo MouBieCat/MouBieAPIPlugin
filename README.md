@@ -10,7 +10,7 @@ Author: MouBieCat
 
 The project Development environment info
 <ul>
-    <li><a href="https://www.oracle.com/java/technologies/downloads/">OpenJDK</a> - 18</li>
+    <li><a href="https://www.oracle.com/java/technologies/downloads/">OpenJDK</a> - 17</li>
     <li><a href="https://getbukkit.org/download/spigot">SpigotMC</a> - 1.18.2</li>
 </ul>
 
