@@ -10,8 +10,8 @@ Author: MouBieCat
 
 The project Development environment info
 <ul>
-    <li><a href="https://java.com/zh_TW/">Java JDK</a> - 17.0.1</li>
-    <li><a href="https://papermc.io/">PaperMC</a> - 1.18.1</li>
+    <li><a href="https://java.com/zh_TW/">OpenJDK</a> - 18</li>
+    <li><a href="https://papermc.io/">SpigotMC</a> - 1.18.2</li>
 </ul>
 
 -------------
