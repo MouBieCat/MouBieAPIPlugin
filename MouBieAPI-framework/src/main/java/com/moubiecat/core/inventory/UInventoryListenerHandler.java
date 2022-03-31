@@ -21,15 +21,18 @@
 
 package com.moubiecat.core.inventory;
 
+import com.moubiecat.api.inventory.button.ClickButton;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -50,6 +53,10 @@ public final class UInventoryListenerHandler
     // 運行操作管理器
     @NotNull
     private final Map<String, List<Method>> eventMethods = new LinkedHashMap<>();
+
+    // 點擊按鈕集合
+    @NotNull
+    private final List<ClickButton> clickButtons = new ArrayList<>();
 
     /**
      * 建構子
@@ -91,10 +98,26 @@ public final class UInventoryListenerHandler
     }
 
     /**
+     * 運行按鈕事件
+     * @param event 事件
+     */
+    private void executeClickButton(final @NotNull InventoryClickEvent event) {
+        final ItemStack currentItem = event.getCurrentItem();
+        for (final ClickButton button : this.clickButtons)
+            if (button.build().equals(currentItem))
+                button.onClick(this.handler, (Player) event.getWhoClicked());
+    }
+
+    /**
      * 運行事件方法
      * @param event 事件實例
      */
     public void executeListener(final @NotNull InventoryEvent event) {
+        // 處理按鈕事件
+        if (event instanceof InventoryClickEvent clickEvent)
+            this.executeClickButton(clickEvent);
+
+        // 處理類函數事件
         final List<Method> methods = this.eventMethods.get(event.getClass().getName());
 
         if (methods != null) {
@@ -102,9 +125,17 @@ public final class UInventoryListenerHandler
                 CraftBukkitReflect.invoke(method, this.handler, event);
 
             // 是否為可取消對象 (根據GUI對象來判斷是否無論如何取消事件調用)
-            if (event instanceof Cancellable)
-                ((Cancellable) event).setCancelled(this.handler.isCancelEvent());
+            if (event instanceof Cancellable cancellable)
+                cancellable.setCancelled(this.handler.isCancelEvent());
         }
+    }
+
+    /**
+     * 註冊點擊按鈕
+     * @param buttons 按鈕
+     */
+    public void registerClickButton(final @NotNull ClickButton... buttons) {
+        Collections.addAll(this.clickButtons, buttons);
     }
 
     /**

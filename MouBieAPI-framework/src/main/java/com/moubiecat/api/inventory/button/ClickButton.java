@@ -19,34 +19,24 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiecat.api.inventory.gui;
+package com.moubiecat.api.inventory.button;
 
-import com.moubiecat.api.inventory.button.ClickButton;
-import org.bukkit.event.inventory.InventoryEvent;
+import com.moubiecat.api.inventory.gui.GUI;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表使用者介面處理程序
+ * 代表一個可點擊的按鈕
  * @author MouBieCat
  */
-public interface GUIHandler {
+public interface ClickButton
+        extends Button {
 
     /**
-     * 運行事件方法
-     * @param event 事件實例
+     * 當被點擊時調用
+     * @param gui 事件GUI
+     * @param player 點擊玩家
      */
-    void executeListener(@NotNull InventoryEvent event);
-
-    /**
-     * 註冊點擊按鈕
-     * @param buttons 按鈕
-     */
-    void registerClickButton(final @NotNull ClickButton... buttons);
-
-    /**
-     * 獲取正在處理介面
-     * @return 介面
-     */
-    @NotNull GUI getHandler();
+    void onClick(@NotNull GUI gui, @NotNull Player player);
 
 }
