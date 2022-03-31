@@ -21,6 +21,10 @@
 
 package com.moubiecat.core.plugin;
 
+import com.moubiecat.api.Utils;
+import com.moubiecat.api.event.MouBiePluginDisableEvent;
+import com.moubiecat.api.event.MouBiePluginEnableEvent;
+import com.moubiecat.api.event.MouBiePluginReloadEvent;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.plugin.PluginLoader;
@@ -71,6 +75,7 @@ public final class MouBiePluginLoader
      */
     public void executeEnableAction() {
         this.execute(PluginRegister.ActionType.ACTION_ENABLE);
+        Utils.callEvent(new MouBiePluginEnableEvent(this.plugin));
     }
 
     /**
@@ -78,6 +83,7 @@ public final class MouBiePluginLoader
      */
     public void executeDisableAction() {
         this.execute(PluginRegister.ActionType.ACTION_DISABLE);
+        Utils.callEvent(new MouBiePluginDisableEvent(this.plugin));
     }
 
     /**
@@ -85,6 +91,7 @@ public final class MouBiePluginLoader
      */
     public void executeReloadAction() {
         this.execute(PluginRegister.ActionType.ACTION_RELOAD);
+        Utils.callEvent(new MouBiePluginReloadEvent(this.plugin));
     }
 
     /**
