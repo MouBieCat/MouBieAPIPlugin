@@ -34,6 +34,7 @@ import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -56,7 +57,7 @@ public final class UInventoryListenerHandler
 
     // 點擊按鈕集合
     @NotNull
-    private final List<ClickButton> clickButtons = new ArrayList<>();
+    private final Map<ItemStack, ClickButton> clickButtonMap = new HashMap<>();
 
     /**
      * 建構子
@@ -102,10 +103,9 @@ public final class UInventoryListenerHandler
      * @param event 事件
      */
     private void executeClickButton(final @NotNull InventoryClickEvent event) {
-        final ItemStack currentItem = event.getCurrentItem();
-        for (final ClickButton button : this.clickButtons)
-            if (button.build().equals(currentItem))
-                button.onClick(this.handler, (Player) event.getWhoClicked());
+        final @Nullable ClickButton button = this.clickButtonMap.get(event.getCurrentItem());
+        if (button != null)
+            button.onClick(this.handler, (Player) event.getWhoClicked());
     }
 
     /**
@@ -135,7 +135,8 @@ public final class UInventoryListenerHandler
      * @param buttons 按鈕
      */
     public void registerClickButton(final @NotNull ClickButton... buttons) {
-        Collections.addAll(this.clickButtons, buttons);
+        for (final ClickButton button : buttons)
+            this.clickButtonMap.put(button.build(), button);
     }
 
     /**
