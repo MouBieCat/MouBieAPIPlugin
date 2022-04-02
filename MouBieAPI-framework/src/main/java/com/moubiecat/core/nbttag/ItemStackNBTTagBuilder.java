@@ -21,8 +21,8 @@
 
 package com.moubiecat.core.nbttag;
 
-import com.moubiecat.core.itemstack.ItemStackBuilder;
 import com.moubiecat.api.builder.ItemNBTBuilder;
+import com.moubiecat.core.itemstack.ItemStackBuilder;
 import net.minecraft.nbt.CompoundTag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +41,7 @@ public final class ItemStackNBTTagBuilder
      * @param mainTagName 標籤主路徑
      */
     public ItemStackNBTTagBuilder(final @NotNull ItemStack builder, final @NotNull String mainTagName) {
-        super(builder, mainTagName);
+        super(builder, mainTagName, new CompoundTag());
     }
 
     /**

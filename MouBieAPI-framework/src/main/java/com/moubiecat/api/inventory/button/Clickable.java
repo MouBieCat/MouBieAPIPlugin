@@ -21,22 +21,19 @@
 
 package com.moubiecat.api.inventory.button;
 
-import com.moubiecat.api.inventory.gui.GUI;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * 代表一個可點擊的按鈕
  * @author MouBieCat
  */
-public interface ClickButton
+public interface Clickable
         extends Button {
 
     /**
      * 當被點擊時調用
-     * @param gui 事件GUI
-     * @param player 點擊玩家
+     * @param event 點擊事件
      */
-    void onClick(@NotNull GUI gui, @NotNull Player player);
+    void executeListener(final @NotNull ClickButtonEvent event);
 
 }

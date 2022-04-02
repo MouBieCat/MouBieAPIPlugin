@@ -21,7 +21,6 @@
 
 package com.moubiecat.api.inventory.gui;
 
-import com.moubiecat.api.inventory.Cancelable;
 import com.moubiecat.api.inventory.Openable;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
@@ -31,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * @author MouBieCat
  */
 public interface GUI
-        extends Openable, Cancelable, InventoryHolder {
+        extends Openable, InventoryHolder {
 
     /**
      * 獲取介面大小

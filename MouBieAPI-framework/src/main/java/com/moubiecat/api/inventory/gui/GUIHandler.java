@@ -21,7 +21,7 @@
 
 package com.moubiecat.api.inventory.gui;
 
-import com.moubiecat.api.inventory.button.ClickButton;
+import com.moubiecat.api.inventory.button.Button;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public interface GUIHandler {
      * 註冊點擊按鈕
      * @param buttons 按鈕
      */
-    void registerClickButton(final @NotNull ClickButton... buttons);
+    void registerButton(final @NotNull Button... buttons);
 
     /**
      * 獲取正在處理介面

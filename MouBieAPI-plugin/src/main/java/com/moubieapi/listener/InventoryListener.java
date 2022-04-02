@@ -22,6 +22,7 @@
 package com.moubieapi.listener;
 
 import com.moubiecat.api.inventory.gui.GUI;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -60,7 +61,7 @@ public final class InventoryListener
         final InventoryHolder holder = event.getInventory().getHolder();
         final ItemStack currentItem = event.getCurrentItem();
 
-        if (currentItem != null && holder instanceof GUI gui)
+        if (holder instanceof GUI gui && currentItem != null && !currentItem.getType().equals(Material.AIR))
             gui.getEventHandler().executeListener(event);
     }
 

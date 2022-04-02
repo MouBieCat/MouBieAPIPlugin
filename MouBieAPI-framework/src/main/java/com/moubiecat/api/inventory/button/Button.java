@@ -26,6 +26,8 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * 代表一個介面上的按鈕
  * @author MouBieCat
@@ -43,12 +45,12 @@ public interface Button
      * 獲取該物品是否可以被移動
      * @return 類型
      */
-    boolean isCamMoveButton();
+    boolean isCancelEvent();
 
     /**
      * 獲取點擊的方法
      * @return 點擊方法
      */
-    @NotNull ClickType getClickType();
+    @NotNull List<ClickType> getClickType();
 
 }

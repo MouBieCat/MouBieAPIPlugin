@@ -36,7 +36,6 @@ public interface MainCommand
      * 獲取子指令管理器
      * @return 管理器
      */
-    @NotNull
-    CommandManager getSubCommandManager();
+    @NotNull CommandManager getSubCommandManager();
 
 }

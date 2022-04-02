@@ -21,23 +21,21 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.inventory.button.ClickButton;
+import com.moubiecat.api.inventory.button.Button;
+import com.moubiecat.api.inventory.button.Clickable;
+import com.moubiecat.api.inventory.button.ClickButtonEvent;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.*;
 
 /**
@@ -53,11 +51,11 @@ public final class UInventoryListenerHandler
 
     // 運行操作管理器
     @NotNull
-    private final Map<String, List<Method>> eventMethods = new LinkedHashMap<>();
+    private final Map<Class<? extends InventoryEvent>, List<Method>> eventMethods = new LinkedHashMap<>();
 
     // 點擊按鈕集合
     @NotNull
-    private final Map<ItemStack, ClickButton> clickButtonMap = new HashMap<>();
+    private final List<Button> buttons = new ArrayList<>();
 
     /**
      * 建構子
@@ -81,31 +79,45 @@ public final class UInventoryListenerHandler
 
         for (final Method method : this.handler.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(GUIRegister.class) && method.getParameterCount() == 1) {
-                final Parameter parameter = method.getParameters()[0];
+                final Class<?> parameter = method.getParameterTypes()[0];
 
-                if (parameter.getType().equals(eventClass))
+                if (parameter.equals(eventClass))
                     methods.add(method);
             }
         }
 
-        if (methods.size() > 1) {
+        if (methods.size() > 0) {
             // 根據 Register 做優先等級排序
             final List<Method> sortedMethods = methods.stream().sorted(
                     Comparator.comparing(a -> a.getAnnotation(GUIRegister.class).priority())
             ).toList();
 
-            this.eventMethods.put(eventClass.getName(), sortedMethods);
+            this.eventMethods.put(eventClass, sortedMethods);
         }
     }
 
     /**
      * 運行按鈕事件
      * @param event 事件
+     * @return 是否已經運行過按鈕
      */
-    private void executeClickButton(final @NotNull InventoryClickEvent event) {
-        final @Nullable ClickButton button = this.clickButtonMap.get(event.getCurrentItem());
-        if (button != null)
-            button.onClick(this.handler, (Player) event.getWhoClicked());
+    private boolean executeListener0(final @NotNull InventoryClickEvent event) {
+        // 查找按鈕
+        for (final Button button : this.buttons) {
+            if (button.build().equals(event.getCurrentItem())) {
+                // 如果是可以點擊的
+                if (button instanceof Clickable clickButton)
+                    clickButton.executeListener(
+                            new ClickButtonEvent(this.handler, event.getClick(), (Player) event.getWhoClicked())
+                    );
+
+                // 該按鈕是否取消事件
+                event.setCancelled(button.isCancelEvent());
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -115,18 +127,14 @@ public final class UInventoryListenerHandler
     public void executeListener(final @NotNull InventoryEvent event) {
         // 處理按鈕事件
         if (event instanceof InventoryClickEvent clickEvent)
-            this.executeClickButton(clickEvent);
+            if (this.executeListener0(clickEvent))
+                return;
 
         // 處理類函數事件
-        final List<Method> methods = this.eventMethods.get(event.getClass().getName());
-
+        final List<Method> methods = this.eventMethods.get(event.getClass());
         if (methods != null) {
             for (final Method method : methods)
                 CraftBukkitReflect.invoke(method, this.handler, event);
-
-            // 是否為可取消對象 (根據GUI對象來判斷是否無論如何取消事件調用)
-            if (event instanceof Cancellable cancellable)
-                cancellable.setCancelled(this.handler.isCancelEvent());
         }
     }
 
@@ -134,9 +142,8 @@ public final class UInventoryListenerHandler
      * 註冊點擊按鈕
      * @param buttons 按鈕
      */
-    public void registerClickButton(final @NotNull ClickButton... buttons) {
-        for (final ClickButton button : buttons)
-            this.clickButtonMap.put(button.build(), button);
+    public void registerButton(final @NotNull Button... buttons) {
+        this.buttons.addAll(Arrays.stream(buttons).toList());
     }
 
     /**

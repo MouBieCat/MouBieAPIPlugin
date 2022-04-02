@@ -40,7 +40,7 @@ public abstract class NBTTagBuilder<T>
 
     // NBT TAG 實例
     @NotNull
-    protected final CompoundTag compound = new CompoundTag();
+    protected final CompoundTag compound;
 
     // NBTTag 要建構的對象
     @NotNull
@@ -50,10 +50,12 @@ public abstract class NBTTagBuilder<T>
      * 建構子
      * @param builder 建構的對象
      * @param mainTagName 標籤主路徑
+     * @param tag 標籤
      */
-    public NBTTagBuilder(final @NotNull T builder, final @NotNull String mainTagName) {
+    public NBTTagBuilder(final @NotNull T builder, final @NotNull String mainTagName, final @NotNull CompoundTag tag) {
         this.builder = builder;
         this.mainTagName = mainTagName;
+        this.compound = tag;
     }
 
     /**

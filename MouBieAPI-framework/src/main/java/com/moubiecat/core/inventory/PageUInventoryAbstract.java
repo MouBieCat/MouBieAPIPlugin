@@ -91,8 +91,7 @@ public abstract class PageUInventoryAbstract
      */
     @Override
     public final void nextPage(final @NotNull Player player) {
-        this.nowPage += 1;
-        this.open(player, this.nowPage);
+        this.open(player, ++this.nowPage);
     }
 
     /**
@@ -102,14 +101,13 @@ public abstract class PageUInventoryAbstract
      */
     @Override
     public final void previousPage(final @NotNull Player player) {
-        this.nowPage -= 1;
-        this.open(player, this.nowPage);
+        this.open(player, --this.nowPage);
     }
 
     /**
      * 將頁數重製
      */
-    public final void restPage() {
+    protected final void restPage() {
         this.nowPage = 0;
     }
 
