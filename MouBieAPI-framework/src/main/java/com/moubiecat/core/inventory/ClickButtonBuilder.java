@@ -21,8 +21,8 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.inventory.button.Clickable;
 import com.moubiecat.api.inventory.button.ClickButtonEvent;
+import com.moubiecat.api.inventory.button.Clickable;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -73,8 +73,8 @@ public abstract class ClickButtonBuilder
      * 執行監聽事件
      * @param event 事件
      */
-    public final void executeListener(final @NotNull ClickButtonEvent event) {
-        if (this.clickTypes.contains(event.getClickTypes()))
+    public final void executeButtonClick(final @NotNull ClickButtonEvent event) {
+        if (event.getSlot() == this.buttonSlot && this.buttonClickType.contains(event.getClickTypes()))
             this.onClick(event);
     }
 

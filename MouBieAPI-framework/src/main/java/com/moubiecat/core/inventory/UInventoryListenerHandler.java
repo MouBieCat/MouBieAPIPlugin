@@ -22,8 +22,8 @@
 package com.moubiecat.core.inventory;
 
 import com.moubiecat.api.inventory.button.Button;
-import com.moubiecat.api.inventory.button.Clickable;
 import com.moubiecat.api.inventory.button.ClickButtonEvent;
+import com.moubiecat.api.inventory.button.Clickable;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;
@@ -34,6 +34,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -55,7 +56,7 @@ public final class UInventoryListenerHandler
 
     // 點擊按鈕集合
     @NotNull
-    private final List<Button> buttons = new ArrayList<>();
+    private final Map<UUID, Button> buttons = new LinkedHashMap<>();
 
     /**
      * 建構子
@@ -68,6 +69,54 @@ public final class UInventoryListenerHandler
         this.shortListener(InventoryOpenEvent.class);
         this.shortListener(InventoryClickEvent.class);
         this.shortListener(InventoryCloseEvent.class);
+    }
+
+    /**
+     * 運行事件方法
+     * @param event 事件實例
+     */
+    public void executeListener(final @NotNull InventoryEvent event) {
+        // 處理按鈕事件
+        if (event instanceof InventoryClickEvent clickEvent)
+            if (this.executeInventoryClickEvent0(clickEvent))
+                return;
+
+        // 處理類函數事件
+        final List<Method> methods = this.eventMethods.get(event.getClass());
+        if (methods != null) {
+            for (final Method method : methods)
+                CraftBukkitReflect.invoke(method, this.handler, event);
+        }
+    }
+
+    /**
+     * 處理按鈕事件
+     * @param event 事件
+     * @return 是否已經運行過按鈕
+     */
+    private boolean executeInventoryClickEvent0(final @NotNull InventoryClickEvent event) {
+        // 獲取點擊按鈕ID
+        final @Nullable UUID buttonId = ButtonBuilder.getButtonId(event.getCurrentItem());
+        if (buttonId == null)
+            return false;
+
+        // 獲取按鈕
+        final @Nullable Button button = this.buttons.get(buttonId);
+        if (button == null)
+            return false;
+
+        if (button instanceof Clickable clickable) {
+            clickable.executeButtonClick(
+                    new ClickButtonEvent(this.handler, event.getClick(), (Player) event.getWhoClicked(), event.getSlot())
+            );
+
+            // 重新繪製按鈕
+            this.handler.drawButton(button);
+        }
+
+        // 該按鈕是否取消事件
+        event.setCancelled(button.isButtonCancelEvent());
+        return true;
     }
 
     /**
@@ -97,53 +146,12 @@ public final class UInventoryListenerHandler
     }
 
     /**
-     * 運行按鈕事件
-     * @param event 事件
-     * @return 是否已經運行過按鈕
-     */
-    private boolean executeListener0(final @NotNull InventoryClickEvent event) {
-        // 查找按鈕
-        for (final Button button : this.buttons) {
-            if (button.build().equals(event.getCurrentItem())) {
-                // 如果是可以點擊的
-                if (button instanceof Clickable clickButton)
-                    clickButton.executeListener(
-                            new ClickButtonEvent(this.handler, event.getClick(), (Player) event.getWhoClicked())
-                    );
-
-                // 該按鈕是否取消事件
-                event.setCancelled(button.isCancelEvent());
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * 運行事件方法
-     * @param event 事件實例
-     */
-    public void executeListener(final @NotNull InventoryEvent event) {
-        // 處理按鈕事件
-        if (event instanceof InventoryClickEvent clickEvent)
-            if (this.executeListener0(clickEvent))
-                return;
-
-        // 處理類函數事件
-        final List<Method> methods = this.eventMethods.get(event.getClass());
-        if (methods != null) {
-            for (final Method method : methods)
-                CraftBukkitReflect.invoke(method, this.handler, event);
-        }
-    }
-
-    /**
      * 註冊點擊按鈕
      * @param buttons 按鈕
      */
     public void registerButton(final @NotNull Button... buttons) {
-        this.buttons.addAll(Arrays.stream(buttons).toList());
+        for (final Button button : buttons)
+            this.buttons.put(button.getButtonId(), button);
     }
 
     /**

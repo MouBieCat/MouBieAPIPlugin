@@ -34,6 +34,6 @@ public interface Clickable
      * 當被點擊時調用
      * @param event 點擊事件
      */
-    void executeListener(final @NotNull ClickButtonEvent event);
+    void executeButtonClick(final @NotNull ClickButtonEvent event);
 
 }

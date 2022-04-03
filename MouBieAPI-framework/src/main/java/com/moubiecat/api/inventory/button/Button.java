@@ -27,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 代表一個介面上的按鈕
@@ -36,21 +37,27 @@ public interface Button
         extends Builder<ItemStack> {
 
     /**
+     * 獲取按鈕UUID
+     * @return UUID
+     */
+    @NotNull UUID getButtonId();
+
+    /**
      * 獲取物品在介面上的位置
      * @return 位置
      */
-    int getSlotId();
+    int getButtonSlot();
 
     /**
      * 獲取該物品是否可以被移動
      * @return 類型
      */
-    boolean isCancelEvent();
+    boolean isButtonCancelEvent();
 
     /**
      * 獲取點擊的方法
      * @return 點擊方法
      */
-    @NotNull List<ClickType> getClickType();
+    @NotNull List<ClickType> getButtonClickType();
 
 }

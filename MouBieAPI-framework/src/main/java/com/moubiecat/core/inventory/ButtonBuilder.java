@@ -21,15 +21,19 @@
 
 package com.moubiecat.core.inventory;
 
+import com.moubiecat.api.builder.ItemNBTBuilder;
 import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.core.itemstack.ItemStackBuilder;
+import com.moubiecat.core.nbttag.ItemStackNBTTagBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 代表一個介面按鈕類別
@@ -39,15 +43,25 @@ public class ButtonBuilder
         extends ItemStackBuilder
         implements Button {
 
+    @NotNull
+    private static final String MOU_BIE_API_BUTTON_TAG = "mou_bie_api_button_tag";
+
+    @NotNull
+    private static final String BUTTON_UUID = "button_uuid_tag";
+
+    // 按鈕UUID
+    @NotNull
+    protected final UUID buttonId = UUID.randomUUID();
+
     // 介面位置
-    protected int slotId;
+    protected int buttonSlot;
 
     // 點選方法
     @NotNull
-    protected List<ClickType> clickTypes = new ArrayList<>();
+    protected final List<ClickType> buttonClickType = new ArrayList<>();
 
     // 是否取消點擊事件
-    protected boolean cancelClickEvent = true;
+    protected boolean buttonCancelEvent = true;
 
     /**
      * 建構子
@@ -75,23 +89,32 @@ public class ButtonBuilder
      */
     public ButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack);
-        this.slotId = slot;
+        this.buttonSlot = slot;
+    }
+
+    /**
+     * 獲取按鈕UUID
+     * @return UUID
+     */
+    @NotNull
+    public final UUID getButtonId() {
+        return this.buttonId;
     }
 
     /**
      * 獲取物品在介面上的位置
      * @return 位置
      */
-    public final int getSlotId() {
-        return this.slotId;
+    public final int getButtonSlot() {
+        return this.buttonSlot;
     }
 
     /**
      * 獲取該物品是否可以被移動
      * @return 類型
      */
-    public final boolean isCancelEvent() {
-        return this.cancelClickEvent;
+    public final boolean isButtonCancelEvent() {
+        return this.buttonCancelEvent;
     }
 
     /**
@@ -99,8 +122,40 @@ public class ButtonBuilder
      * @return 點擊方法
      */
     @NotNull
-    public final List<ClickType> getClickType() {
-        return this.clickTypes;
+    public final List<ClickType> getButtonClickType() {
+        return this.buttonClickType;
+    }
+
+    /**
+     * 建構函數
+     * @return 對象
+     */
+    @Override
+    @NotNull
+    public ItemStack build() {
+        // 寫入按鈕UUID
+        final ItemNBTBuilder nbtBuilder = new ItemStackNBTTagBuilder(this.itemStack, ButtonBuilder.MOU_BIE_API_BUTTON_TAG);
+        this.itemStack = nbtBuilder
+                .setString(ButtonBuilder.BUTTON_UUID, this.buttonId.toString())
+                .build();
+
+        return super.build();
+    }
+
+    /**
+     * 獲取按鈕UUID
+     * @param itemStack 物品
+     * @return UUID
+     */
+    @Nullable
+    public static UUID getButtonId(final @Nullable ItemStack itemStack) {
+        if (itemStack == null)
+            return null;
+
+        final String uuidString =
+                ItemStackNBTTagBuilder.getString(itemStack, ButtonBuilder.MOU_BIE_API_BUTTON_TAG, ButtonBuilder.BUTTON_UUID);
+
+        return !uuidString.equals("") ? UUID.fromString(uuidString) : null;
     }
 
 }

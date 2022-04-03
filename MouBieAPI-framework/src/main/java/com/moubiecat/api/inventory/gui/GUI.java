@@ -22,7 +22,9 @@
 package com.moubiecat.api.inventory.gui;
 
 import com.moubiecat.api.inventory.Openable;
+import com.moubiecat.api.inventory.button.Button;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -49,5 +51,24 @@ public interface GUI
      * @return 事件處理程序
      */
     @NotNull GUIHandler getEventHandler();
+
+    /**
+     * 繪製按鈕
+     * @param buttons 按鈕
+     */
+    @NotNull GUI drawButton(final @NotNull Button... buttons);
+
+    /**
+     * 繪製物品
+     * @param itemStacks 物品
+     */
+    @NotNull GUI drawItemStack(final @NotNull ItemStack... itemStacks);
+
+
+    /**
+     * 繪製物品
+     * @param itemStacks 物品
+     */
+    @NotNull GUI drawItemStack(final int slotId, final @NotNull ItemStack itemStacks);
 
 }

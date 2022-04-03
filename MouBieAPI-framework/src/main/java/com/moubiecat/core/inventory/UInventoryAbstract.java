@@ -31,7 +31,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -105,6 +104,35 @@ public abstract class UInventoryAbstract
     }
 
     /**
+     * 繪製按鈕
+     * @param buttons 按鈕
+     */
+    public final UInventoryAbstract drawButton(final @NotNull Button... buttons) {
+        for (final Button button : buttons)
+            this.inventory.setItem(button.getButtonSlot(), button.build());
+
+        return this;
+    }
+
+    /**
+     * 繪製物品
+     * @param itemStacks 物品
+     */
+    public final UInventoryAbstract drawItemStack(final int slotId, final @NotNull ItemStack itemStacks) {
+        this.inventory.setItem(slotId, itemStacks);
+        return this;
+    }
+
+    /**
+     * 繪製物品
+     * @param itemStacks 物品
+     */
+    public final UInventoryAbstract drawItemStack(final @NotNull ItemStack... itemStacks) {
+        this.inventory.addItem(itemStacks);
+        return this;
+    }
+
+    /**
      * 清除當前介面上的所有物品按鈕
      */
     protected final void clearInventory() {
@@ -114,37 +142,12 @@ public abstract class UInventoryAbstract
     }
 
     /**
-     * 添加一個按鈕到介面
+     * 對該介面註冊按鈕
      * @param buttons 按鈕
      */
     @NotNull
-    protected final UInventoryAbstract addUItem(final @NotNull Button @NotNull ... buttons) {
-        for (final Button button : buttons)
-            this.inventory.setItem(button.getSlotId(), button.build());
-
-        return this;
-    }
-
-    /**
-     * 添加一個物品到介面
-     * @param itemStack 物品
-     * @return 當前的建構器
-     */
-    @NotNull
-    protected final UInventoryAbstract addItem(final @NotNull ItemStack... itemStack) {
-        this.inventory.addItem(itemStack);
-        return this;
-    }
-
-    /**
-     * 添加一個物品到介面
-     * @param itemStack 物品
-     * @param slot 位置
-     * @return 當前的建構器
-     */
-    @NotNull
-    protected final UInventoryAbstract addItem(final @NotNull ItemStack itemStack, final int slot) {
-        this.inventory.setItem(slot, itemStack);
+    protected final UInventoryAbstract addUItem(final @NotNull Button ... buttons) {
+        this.eventHandler.registerButton(buttons);
         return this;
     }
 

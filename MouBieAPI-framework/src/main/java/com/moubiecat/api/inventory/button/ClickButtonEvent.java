@@ -44,16 +44,20 @@ public final class ClickButtonEvent {
     @NotNull
     private final ClickType clickTypes;
 
+    // 點擊位置
+    private final int slot;
+
     /**
      * 建構子
      * @param gui 事件介面
      * @param type 事件點擊類型
      * @param player 事件玩家
      */
-    public ClickButtonEvent(@NotNull GUI gui, @NotNull ClickType type, @NotNull Player player) {
+    public ClickButtonEvent(@NotNull GUI gui, @NotNull ClickType type, @NotNull Player player, int slot) {
         this.gui = gui;
         this.clickTypes = type;
         this.player = player;
+        this.slot = slot;
     }
 
     /**
@@ -81,6 +85,14 @@ public final class ClickButtonEvent {
     @NotNull
     public Player getPlayer() {
         return this.player;
+    }
+
+    /**
+     * 獲取點擊位置
+     * @return 位置ID
+     */
+    public int getSlot() {
+        return this.slot;
     }
 
 }
