@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
  * 代表一個可點擊的按鈕建構器
  * @author MouBieCat
  */
-public abstract class ClickButtonBuilder
+public class ClickButtonBuilder
         extends ButtonBuilder
         implements Clickable {
 
@@ -67,7 +67,8 @@ public abstract class ClickButtonBuilder
      * 當被點級時調用
      * @param event 事件
      */
-    protected abstract void onClick(final @NotNull ClickButtonEvent event);
+    protected void onClick(final @NotNull ClickButtonEvent event) {
+    }
 
     /**
      * 執行監聽事件
