@@ -21,20 +21,40 @@
 
 package com.moubiecat.api.inventory.button;
 
-import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
- * 代表一個可點擊的按鈕
+ * 代表一個有清單列表的按鈕
  * @author MouBieCat
  */
-public interface Clickable
-        extends Button {
+public interface ListButton
+        extends Clickable {
 
     /**
-     * 當被點擊時調用
-     * @param event 點擊事件
+     * 獲取當前選取項目ID
+     * @return ID
      */
-    void executeButtonClick(final @NotNull ClickButtonEvent event);
+    int getSelectIndex();
+
+    /**
+     * 獲取當前選取的項目
+     * @return 項目
+     */
+    @NotNull String getSelectContent();
+
+    /**
+     * 獲取一個指定的內容
+     * @param index 位置
+     * @return 內容
+     */
+    @NotNull String getContent(final int index);
+
+    /**
+     * 獲取所有內容
+     * @return 內容
+     */
+    @NotNull List<String> getContents();
 
 }

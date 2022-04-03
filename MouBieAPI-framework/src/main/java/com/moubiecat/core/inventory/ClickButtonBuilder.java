@@ -21,8 +21,8 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.inventory.button.ClickButtonEvent;
 import com.moubiecat.api.inventory.button.Clickable;
+import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +41,7 @@ public abstract class ClickButtonBuilder
      * @param slot     介面位置
      */
     public ClickButtonBuilder(final @NotNull Material material, final int slot) {
-        super(material, slot);
+        this(material, 1, slot);
     }
 
     /**
@@ -51,7 +51,7 @@ public abstract class ClickButtonBuilder
      * @param slot     介面位置
      */
     public ClickButtonBuilder(final @NotNull Material material, final int amount, final int slot) {
-        super(material, amount, slot);
+        this(new ItemStack(material, amount), slot);
     }
 
     /**

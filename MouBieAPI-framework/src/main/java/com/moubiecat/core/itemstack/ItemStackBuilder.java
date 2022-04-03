@@ -216,7 +216,8 @@ public class ItemStackBuilder
     public final ItemBuilder lore(final @NotNull List<String> lore) {
         final ItemMeta itemMeta = this.getItemMeta();
         if (itemMeta != null) {
-            itemMeta.setLore(lore);
+            final List<String> colorLore = lore.stream().map(Utils::forMessageToRGB).toList();
+            itemMeta.setLore(colorLore);
             this.setItemMeta(itemMeta);
         }
         return this;

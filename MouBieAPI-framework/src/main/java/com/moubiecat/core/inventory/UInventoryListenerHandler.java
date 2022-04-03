@@ -22,8 +22,8 @@
 package com.moubiecat.core.inventory;
 
 import com.moubiecat.api.inventory.button.Button;
-import com.moubiecat.api.inventory.button.ClickButtonEvent;
 import com.moubiecat.api.inventory.button.Clickable;
+import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.GUIRegister;

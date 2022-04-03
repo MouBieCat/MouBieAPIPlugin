@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiecat.api.inventory.button;
+package com.moubiecat.api.inventory.button.event;
 
 import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * 代表GUI按鈕點擊事件
  * @author MouBieCat
  */
-public final class ClickButtonEvent {
+public class ClickButtonEvent {
 
     // 事件GUI
     @NotNull
@@ -52,6 +52,7 @@ public final class ClickButtonEvent {
      * @param gui 事件介面
      * @param type 事件點擊類型
      * @param player 事件玩家
+     * @param slot 點擊位置
      */
     public ClickButtonEvent(@NotNull GUI gui, @NotNull ClickType type, @NotNull Player player, int slot) {
         this.gui = gui;
@@ -65,7 +66,7 @@ public final class ClickButtonEvent {
      * @return GUI
      */
     @NotNull
-    public GUI getGUI() {
+    public final GUI getGUI() {
         return this.gui;
     }
 
@@ -74,7 +75,7 @@ public final class ClickButtonEvent {
      * @return 點擊類型
      */
     @NotNull
-    public ClickType getClickTypes() {
+    public final ClickType getClickTypes() {
         return this.clickTypes;
     }
 
@@ -83,7 +84,7 @@ public final class ClickButtonEvent {
      * @return 玩家
      */
     @NotNull
-    public Player getPlayer() {
+    public final Player getPlayer() {
         return this.player;
     }
 
@@ -91,7 +92,7 @@ public final class ClickButtonEvent {
      * 獲取點擊位置
      * @return 位置ID
      */
-    public int getSlot() {
+    public final int getSlot() {
         return this.slot;
     }
 
