@@ -80,6 +80,13 @@ public abstract class ListButtonBuilder
      */
     public ListButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack, slot);
+    }
+
+    /**
+     * 初始化按鈕配置
+     */
+    @Override
+    protected void initButton() {
         this.buttonClickType.add(ClickType.LEFT);
         this.buttonClickType.add(ClickType.RIGHT);
     }
@@ -215,7 +222,7 @@ public abstract class ListButtonBuilder
 
         // 選取項目顯示樣式
         @NotNull
-        public String selectItemDisplayStyle = " §f§l> {content}§r";
+        public String selectItemDisplayStyle = " §f> {content}§r";
 
         // 未取項目顯示樣式
         @NotNull

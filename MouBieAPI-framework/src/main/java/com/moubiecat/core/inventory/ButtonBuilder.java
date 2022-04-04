@@ -90,6 +90,8 @@ public class ButtonBuilder
     public ButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack);
         this.buttonSlot = slot;
+
+        this.initButton();
     }
 
     /**
@@ -124,6 +126,12 @@ public class ButtonBuilder
     @NotNull
     public final List<ClickType> getButtonClickType() {
         return this.buttonClickType;
+    }
+
+    /**
+     * 初始化按鈕配置
+     */
+    protected void initButton() {
     }
 
     /**
