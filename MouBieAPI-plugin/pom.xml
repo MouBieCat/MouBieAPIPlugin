@@ -27,7 +27,7 @@
     <build>
         <!-- 環境 -->
         <sourceDirectory>${code.sourceDirectory}</sourceDirectory>
-<!--        <testSourceDirectory>${code.testSourceDirectory}</testSourceDirectory>-->
+        <testSourceDirectory>${code.testSourceDirectory}</testSourceDirectory>
 
         <!-- 資源檔 -->
         <resources>
