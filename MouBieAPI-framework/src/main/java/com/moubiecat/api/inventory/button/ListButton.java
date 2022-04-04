@@ -49,7 +49,7 @@ public interface ListButton
      * @param index 位置
      * @return 內容
      */
-    @NotNull String getContent(final int index);
+    @NotNull String getContent(int index);
 
     /**
      * 獲取所有內容

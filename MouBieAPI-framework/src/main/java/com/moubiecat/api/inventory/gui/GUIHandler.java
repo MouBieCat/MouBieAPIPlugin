@@ -41,7 +41,7 @@ public interface GUIHandler {
      * 註冊點擊按鈕
      * @param buttons 按鈕
      */
-    void registerButton(final @NotNull Button... buttons);
+    void registerButton(@NotNull Button... buttons);
 
     /**
      * 獲取正在處理介面

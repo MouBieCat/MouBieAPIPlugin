@@ -56,12 +56,12 @@ public interface GUI
      * 繪製按鈕
      * @param buttons 按鈕
      */
-    @NotNull GUI drawButton(final @NotNull Button... buttons);
+    @NotNull GUI drawButton(@NotNull Button... buttons);
 
     /**
      * 繪製物品
      * @param itemStacks 物品
      */
-    @NotNull GUI drawItemStack(final int slotId, final @NotNull ItemStack itemStacks);
+    @NotNull GUI drawItemStack(int slotId, @NotNull ItemStack itemStacks);
 
 }

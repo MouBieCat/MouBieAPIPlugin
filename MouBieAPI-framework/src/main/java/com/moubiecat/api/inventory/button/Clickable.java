@@ -38,7 +38,7 @@ public interface Clickable
      * 當被點擊時調用
      * @param event 點擊事件
      */
-    void executeButtonClick(final @NotNull ClickButtonEvent event);
+    void executeButtonClick(@NotNull ClickButtonEvent event);
 
     /**
      * 獲取點擊的方法
