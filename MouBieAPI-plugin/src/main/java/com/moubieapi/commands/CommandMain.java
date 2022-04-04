@@ -21,9 +21,9 @@
 
 package com.moubieapi.commands;
 
+import com.moubieapi.commands.args.CommandReload;
 import com.moubiecat.api.commands.SenderType;
 import com.moubiecat.core.commands.MainCommandAbstract;
-import com.moubieapi.commands.args.CommandReload;
 import org.bukkit.permissions.Permission;
 
 /**
@@ -37,7 +37,7 @@ public final class CommandMain
      * 建構子
      */
     public CommandMain() {
-        this.commandManager.add("reload", new CommandReload(
+        this.commandManager.put("reload", new CommandReload(
                 "reload",
                 new Permission("MouBieAPI.reload"),
                 SenderType.ANY_SENDER,

@@ -23,15 +23,15 @@ package com.moubiecat.core.commands;
 
 import com.moubiecat.api.commands.MainCommand;
 import com.moubiecat.api.commands.SubCommand;
-import com.moubiecat.api.manager.CommandManager;
-import com.moubiecat.core.manager.SubCommandManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 代表一個主指令
@@ -42,7 +42,7 @@ public class MainCommandAbstract
 
     // 子指令管理器
     @NotNull
-    protected final SubCommandManager commandManager = new SubCommandManager();
+    protected final Map<String, SubCommand> commandManager = new LinkedHashMap<>();
 
     /**
      * 運行該指令
@@ -110,17 +110,8 @@ public class MainCommandAbstract
      */
     @NotNull
     public List<String> onTab(final @NotNull CommandSender sender, final @NotNull String[] args) {
-        final Collection<SubCommand> commands = this.commandManager.getValues();
+        final Collection<SubCommand> commands = this.commandManager.values();
         return commands.stream().map(SubCommand::getName).toList();
-    }
-
-    /**
-     * 獲取子指令管理器
-     * @return 管理器
-     */
-    @NotNull
-    public final CommandManager getSubCommandManager() {
-        return this.commandManager;
     }
 
 }

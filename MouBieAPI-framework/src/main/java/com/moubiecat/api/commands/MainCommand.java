@@ -21,9 +21,7 @@
 
 package com.moubiecat.api.commands;
 
-import com.moubiecat.api.manager.CommandManager;
 import org.bukkit.command.TabExecutor;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 代表一個主指令
@@ -31,11 +29,4 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface MainCommand
         extends TabExecutor, CommandExecutable {
-
-    /**
-     * 獲取子指令管理器
-     * @return 管理器
-     */
-    @NotNull CommandManager getSubCommandManager();
-
 }
