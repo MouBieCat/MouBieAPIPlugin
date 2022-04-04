@@ -87,8 +87,11 @@ public final class InventoryListener
      * @param event 事件實例
      */
     private void executeInventoryEvent(final @NotNull GUI gui, @NotNull InventoryEvent event) {
+        // 異步調用事件
         new AsyncInventoryEventThread(gui, event).run();
+        // 是否為可取消事件
         if (event instanceof Cancellable cancellable)
+            // 設定取消事件，如果介面的 GUIEventCancelRegister 標記帶有該事件類
             cancellable.setCancelled(this.isCancelEvent(gui, event));
     }
 
@@ -99,10 +102,14 @@ public final class InventoryListener
      * @return 是否取消
      */
     private boolean isCancelEvent(final @NotNull GUI gui, final @NotNull InventoryEvent event) {
+        // 獲取介面類
         final @NotNull Class<? extends @NotNull GUI> guiClass = gui.getClass();
 
+        // 如果介面類帶有 GUIEventCancelRegister 標記
         if (guiClass.isAnnotationPresent(GUIEventCancelRegister.class)) {
+            // 獲取 GUIEventCancelRegister 標記
             final @NotNull GUIEventCancelRegister cancelRegister = guiClass.getAnnotation(GUIEventCancelRegister.class);
+            // 如果標記事件帶有 event，則取消事件
             for (final @NotNull Class<? extends InventoryEvent> cancel : cancelRegister.cancels()) {
                 if (cancel.equals(event.getClass()))
                     return true;
