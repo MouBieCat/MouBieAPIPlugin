@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CancelRegister {
+public @interface GUIEventCancelRegister {
 
     /**
      * 要強制取消事件的事件類陣列

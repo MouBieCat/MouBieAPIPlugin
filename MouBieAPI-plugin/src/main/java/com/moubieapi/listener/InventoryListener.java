@@ -21,8 +21,8 @@
 
 package com.moubieapi.listener;
 
-import com.moubiecat.api.inventory.gui.CancelRegister;
 import com.moubiecat.api.inventory.gui.GUI;
+import com.moubiecat.api.inventory.gui.GUIEventCancelRegister;
 import org.bukkit.Material;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
@@ -101,14 +101,13 @@ public final class InventoryListener
     private boolean isCancelEvent(final @NotNull GUI gui, final @NotNull InventoryEvent event) {
         final @NotNull Class<? extends @NotNull GUI> guiClass = gui.getClass();
 
-        if (guiClass.isAnnotationPresent(CancelRegister.class)) {
-            final @NotNull CancelRegister cancelRegister = guiClass.getAnnotation(CancelRegister.class);
-
-            for (final @NotNull Class<? extends InventoryEvent> cancel : cancelRegister.cancels())
+        if (guiClass.isAnnotationPresent(GUIEventCancelRegister.class)) {
+            final @NotNull GUIEventCancelRegister cancelRegister = guiClass.getAnnotation(GUIEventCancelRegister.class);
+            for (final @NotNull Class<? extends InventoryEvent> cancel : cancelRegister.cancels()) {
                 if (cancel.equals(event.getClass()))
                     return true;
+            }
         }
-
         return false;
     }
 
