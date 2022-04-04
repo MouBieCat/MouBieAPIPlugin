@@ -97,12 +97,8 @@ public final class UInventoryListenerHandler
     private boolean executeInventoryClickEvent0(final @NotNull InventoryClickEvent event) {
         // 獲取點擊按鈕ID
         final @Nullable UUID buttonId = ButtonBuilder.getButtonId(event.getCurrentItem());
-        if (buttonId == null)
-            return false;
-
-        // 獲取按鈕
         final @Nullable Button button = this.buttons.get(buttonId);
-        if (button == null)
+        if (buttonId == null || button == null)
             return false;
 
         if (button instanceof Clickable clickable) {

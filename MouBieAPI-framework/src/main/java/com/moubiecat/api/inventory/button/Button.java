@@ -22,11 +22,9 @@
 package com.moubiecat.api.inventory.button;
 
 import com.moubiecat.api.builder.Builder;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -53,11 +51,5 @@ public interface Button
      * @return 類型
      */
     boolean isButtonCancelEvent();
-
-    /**
-     * 獲取點擊的方法
-     * @return 點擊方法
-     */
-    @NotNull List<ClickType> getButtonClickType();
 
 }

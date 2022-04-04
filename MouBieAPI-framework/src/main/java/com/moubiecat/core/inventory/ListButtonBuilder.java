@@ -25,7 +25,6 @@ import com.moubiecat.api.inventory.button.ListButton;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.button.event.ListButtonEvent;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -39,20 +38,20 @@ import java.util.List;
  * 代表一個有清單列表的按鈕建構器
  * @author MouBieCat
  */
-public abstract class ListButtonBuilder
+public class ListButtonBuilder
         extends ClickButtonBuilder
         implements ListButton {
-
-    // 內容集合
-    @NotNull
-    protected List<String> contents = new LinkedList<>();
-
-    // 選取內容ID
-    private int selectItem = 0;
 
     // 按鈕樣式
     @NotNull
     protected final ListButtonStyle buttonStyle = new ListButtonStyle();
+
+    // 內容集合
+    @NotNull
+    protected final List<String> contents = new LinkedList<>();
+
+    // 選取內容ID
+    private int selectItem = 0;
 
     /**
      * 建構子
@@ -80,15 +79,6 @@ public abstract class ListButtonBuilder
      */
     public ListButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack, slot);
-    }
-
-    /**
-     * 初始化按鈕配置
-     */
-    @Override
-    protected void initButton() {
-        this.buttonClickType.add(ClickType.LEFT);
-        this.buttonClickType.add(ClickType.RIGHT);
     }
 
     /**
@@ -208,7 +198,6 @@ public abstract class ListButtonBuilder
                     this.getContent(i),
                     i == this.selectItem)
             );
-
 
         this.lore(lore);
         return super.build();

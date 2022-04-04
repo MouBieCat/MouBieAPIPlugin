@@ -24,8 +24,12 @@ package com.moubiecat.core.inventory;
 import com.moubiecat.api.inventory.button.Clickable;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 代表一個可點擊的按鈕建構器
@@ -34,6 +38,10 @@ import org.jetbrains.annotations.NotNull;
 public class ClickButtonBuilder
         extends ButtonBuilder
         implements Clickable {
+
+    // 點選方法
+    @NotNull
+    protected final List<ClickType> buttonClickType = new ArrayList<>();
 
     /**
      * 建構子
@@ -77,6 +85,15 @@ public class ClickButtonBuilder
     public final void executeButtonClick(final @NotNull ClickButtonEvent event) {
         if (event.getSlot() == this.buttonSlot && this.buttonClickType.contains(event.getClickTypes()))
             this.onClick(event);
+    }
+
+    /**
+     * 獲取點擊的方法
+     * @return 點擊方法
+     */
+    @NotNull
+    public final List<ClickType> getButtonClickType() {
+        return this.buttonClickType;
     }
 
 }

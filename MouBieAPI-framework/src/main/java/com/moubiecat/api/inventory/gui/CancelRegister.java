@@ -21,47 +21,26 @@
 
 package com.moubiecat.api.inventory.gui;
 
-import com.moubiecat.api.inventory.Openable;
-import com.moubiecat.api.inventory.button.Button;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 /**
- * 代表一個使用者介面
+ * 代表一些可取消的事件操作
  * @author MouBieCat
  */
-public interface GUI
-        extends Openable, InventoryHolder {
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CancelRegister {
 
     /**
-     * 獲取介面大小
-     * @return 大小
+     * 要強制取消事件的事件類陣列
+     * @return 類陣列
      */
-    @NotNull InventorySize getGUISize();
-
-    /**
-     * 獲取介面標題
-     * @return 標題
-     */
-    @NotNull String getGUITitle();
-
-    /**
-     * 獲取事件處理程序
-     * @return 事件處理程序
-     */
-    @NotNull GUIHandler getEventHandler();
-
-    /**
-     * 繪製按鈕
-     * @param buttons 按鈕
-     */
-    @NotNull GUI drawButton(final @NotNull Button... buttons);
-
-    /**
-     * 繪製物品
-     * @param itemStacks 物品
-     */
-    @NotNull GUI drawItemStack(final int slotId, final @NotNull ItemStack itemStacks);
+    @NotNull Class<? extends InventoryEvent>[] cancels() default {};
 
 }

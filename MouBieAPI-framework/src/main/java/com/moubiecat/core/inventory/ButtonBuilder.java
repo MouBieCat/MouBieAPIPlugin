@@ -26,13 +26,10 @@ import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.core.itemstack.ItemStackBuilder;
 import com.moubiecat.core.nbttag.ItemStackNBTTagBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -55,10 +52,6 @@ public class ButtonBuilder
 
     // 介面位置
     protected int buttonSlot;
-
-    // 點選方法
-    @NotNull
-    protected final List<ClickType> buttonClickType = new ArrayList<>();
 
     // 是否取消點擊事件
     protected boolean buttonCancelEvent = true;
@@ -90,8 +83,6 @@ public class ButtonBuilder
     public ButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack);
         this.buttonSlot = slot;
-
-        this.initButton();
     }
 
     /**
@@ -117,21 +108,6 @@ public class ButtonBuilder
      */
     public final boolean isButtonCancelEvent() {
         return this.buttonCancelEvent;
-    }
-
-    /**
-     * 獲取點擊的方法
-     * @return 點擊方法
-     */
-    @NotNull
-    public final List<ClickType> getButtonClickType() {
-        return this.buttonClickType;
-    }
-
-    /**
-     * 初始化按鈕配置
-     */
-    protected void initButton() {
     }
 
     /**

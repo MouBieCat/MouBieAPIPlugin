@@ -28,6 +28,7 @@ import com.moubiecat.api.inventory.gui.GUIHandler;
 import com.moubiecat.api.inventory.gui.InventorySize;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -107,10 +108,11 @@ public abstract class UInventoryAbstract
      * 繪製按鈕
      * @param buttons 按鈕
      */
+    @NotNull
     public final UInventoryAbstract drawButton(final @NotNull Button... buttons) {
-        for (final Button button : buttons)
-            this.inventory.setItem(button.getButtonSlot(), button.build());
-
+        for (final HumanEntity entity : this.inventory.getViewers())
+            for (final Button button : buttons)
+                entity.getOpenInventory().setItem(button.getButtonSlot(), button.build());
         return this;
     }
 
@@ -118,17 +120,10 @@ public abstract class UInventoryAbstract
      * 繪製物品
      * @param itemStacks 物品
      */
+    @NotNull
     public final UInventoryAbstract drawItemStack(final int slotId, final @NotNull ItemStack itemStacks) {
-        this.inventory.setItem(slotId, itemStacks);
-        return this;
-    }
-
-    /**
-     * 繪製物品
-     * @param itemStacks 物品
-     */
-    public final UInventoryAbstract drawItemStack(final @NotNull ItemStack... itemStacks) {
-        this.inventory.addItem(itemStacks);
+        for (final HumanEntity entity : this.inventory.getViewers())
+            entity.getOpenInventory().setItem(slotId, itemStacks);
         return this;
     }
 
