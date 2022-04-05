@@ -21,7 +21,7 @@
 
 package com.moubiecat.core.itemstack;
 
-import com.moubiecat.api.Utils;
+import com.moubiecat.Utils;
 import com.moubiecat.api.builder.ItemBuilder;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.bukkit.Material;

@@ -21,7 +21,7 @@
 
 package com.moubiecat.core.plugin;
 
-import com.moubiecat.api.Utils;
+import com.moubiecat.Utils;
 import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.plugin.PluginDebugger;
 import org.jetbrains.annotations.NotNull;

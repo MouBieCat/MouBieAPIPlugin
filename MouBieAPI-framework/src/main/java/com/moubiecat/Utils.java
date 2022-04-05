@@ -19,7 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
 
-package com.moubiecat.api;
+package com.moubiecat;
 
 import com.moubiecat.api.plugin.MouBiePlugin;
 import net.md_5.bungee.api.ChatColor;
@@ -46,20 +46,18 @@ public final class Utils {
      * @return RGB字串
      */
     public static String forMessageToRGB(@NotNull String msg) {
-        String message = msg;
-
         final Pattern hexPattern = Pattern.compile("<#([A-Fa-f0-9]){6}>");
-        Matcher matcher = hexPattern.matcher(message);
+        Matcher matcher = hexPattern.matcher(msg);
 
         while (matcher.find()) {
             final ChatColor hexColor = ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
-            final String before = message.substring(0, matcher.start());
-            final String after = message.substring(matcher.end());
-            message = before + hexColor + after;
-            matcher = hexPattern.matcher(message);
+            final String before = msg.substring(0, matcher.start());
+            final String after = msg.substring(matcher.end());
+            msg = before + hexColor + after;
+            matcher = hexPattern.matcher(msg);
         }
 
-        return ChatColor.translateAlternateColorCodes('&', message);
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
     /**

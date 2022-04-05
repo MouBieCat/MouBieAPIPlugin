@@ -21,7 +21,7 @@
 
 package com.moubieapi.commands.args;
 
-import com.moubiecat.api.Utils;
+import com.moubiecat.Utils;
 import com.moubiecat.api.commands.SenderType;
 import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.core.commands.SubcommandAbstract;

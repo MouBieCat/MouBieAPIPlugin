@@ -21,7 +21,7 @@
 
 package com.moubiecat.core.plugin;
 
-import com.moubiecat.api.Utils;
+import com.moubiecat.Utils;
 import com.moubiecat.api.event.MouBiePluginDisableEvent;
 import com.moubiecat.api.event.MouBiePluginEnableEvent;
 import com.moubiecat.api.event.MouBiePluginReloadEvent;

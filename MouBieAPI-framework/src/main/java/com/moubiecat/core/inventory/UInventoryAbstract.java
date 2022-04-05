@@ -21,7 +21,7 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.Utils;
+import com.moubiecat.Utils;
 import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIHandler;
