@@ -66,9 +66,9 @@ public final class UInventoryListenerHandler
         this.handler = gui;
 
         // 初始化
-        this.shortListener(InventoryOpenEvent.class);
-        this.shortListener(InventoryClickEvent.class);
-        this.shortListener(InventoryCloseEvent.class);
+        this.sortedListener(InventoryOpenEvent.class);
+        this.sortedListener(InventoryClickEvent.class);
+        this.sortedListener(InventoryCloseEvent.class);
     }
 
     /**
@@ -117,7 +117,7 @@ public final class UInventoryListenerHandler
      * 排序一個插件註冊動作的所有方法(優先等級)
      * @param eventClass 事件類
      */
-    private void shortListener(final @NotNull Class<? extends InventoryEvent> eventClass) {
+    private void sortedListener(final @NotNull Class<? extends InventoryEvent> eventClass) {
         final List<Method> methods = new LinkedList<>();
 
         for (final Method method : this.handler.getClass().getDeclaredMethods()) {

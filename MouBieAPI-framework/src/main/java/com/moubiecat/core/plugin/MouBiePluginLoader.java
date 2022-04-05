@@ -25,10 +25,10 @@ import com.moubiecat.Utils;
 import com.moubiecat.api.event.MouBiePluginDisableEvent;
 import com.moubiecat.api.event.MouBiePluginEnableEvent;
 import com.moubiecat.api.event.MouBiePluginReloadEvent;
-import com.moubiecat.core.reflect.CraftBukkitReflect;
 import com.moubiecat.api.plugin.MouBiePlugin;
 import com.moubiecat.api.plugin.PluginLoader;
 import com.moubiecat.api.plugin.PluginRegister;
+import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -57,10 +57,10 @@ public final class MouBiePluginLoader
         this.plugin = plugin;
 
         // 初始化一些東西.. ? (排序優先順序、添加動作至集合)
-        this.shortExecute(PluginRegister.ActionType.ACTION_LOAD);
-        this.shortExecute(PluginRegister.ActionType.ACTION_ENABLE);
-        this.shortExecute(PluginRegister.ActionType.ACTION_DISABLE);
-        this.shortExecute(PluginRegister.ActionType.ACTION_RELOAD);
+        this.sortedExecute(PluginRegister.ActionType.ACTION_LOAD);
+        this.sortedExecute(PluginRegister.ActionType.ACTION_ENABLE);
+        this.sortedExecute(PluginRegister.ActionType.ACTION_DISABLE);
+        this.sortedExecute(PluginRegister.ActionType.ACTION_RELOAD);
     }
 
     /**
@@ -110,7 +110,7 @@ public final class MouBiePluginLoader
      * 排序一個插件註冊動作的所有方法(優先等級)
      * @param actionType 動作類型
      */
-    private void shortExecute(final @NotNull PluginRegister.ActionType actionType) {
+    private void sortedExecute(final @NotNull PluginRegister.ActionType actionType) {
         final List<Method> methods = new LinkedList<>();
 
         // 查找有關 Register.class 的類方法並且判斷方法示標動作類型
