@@ -109,9 +109,6 @@ public final class UInventoryListenerHandler
             // 重新繪製按鈕
             this.handler.drawButton(button);
         }
-
-        // 該按鈕是否取消事件
-        event.setCancelled(button.isButtonCancelEvent());
         return true;
     }
 

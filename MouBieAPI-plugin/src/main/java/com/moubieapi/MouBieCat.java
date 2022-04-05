@@ -40,6 +40,7 @@ public final class MouBieCat
     // 插件標題
     public static final String PLUGIN_TITLE = "§7[§fMouBie§6API§7] §r";
 
+
     @PluginRegister(name = "註冊插件事件", type = PluginRegister.ActionType.ACTION_ENABLE)
     private void registerListener() {
         Bukkit.getPluginManager().registerEvents(new InventoryListener(), this);
@@ -52,6 +53,7 @@ public final class MouBieCat
         if (command != null)
             command.setExecutor(new CommandMain());
     }
+
 
     /**
      * 獲取當前插件實例

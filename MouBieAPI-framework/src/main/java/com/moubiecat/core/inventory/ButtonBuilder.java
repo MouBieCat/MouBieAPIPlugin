@@ -53,9 +53,6 @@ public class ButtonBuilder
     // 介面位置
     protected int buttonSlot;
 
-    // 是否取消點擊事件
-    protected boolean buttonCancelEvent = true;
-
     /**
      * 建構子
      * @param material 材質
@@ -100,14 +97,6 @@ public class ButtonBuilder
      */
     public final int getButtonSlot() {
         return this.buttonSlot;
-    }
-
-    /**
-     * 獲取該物品是否可以被移動
-     * @return 類型
-     */
-    public final boolean isButtonCancelEvent() {
-        return this.buttonCancelEvent;
     }
 
     /**

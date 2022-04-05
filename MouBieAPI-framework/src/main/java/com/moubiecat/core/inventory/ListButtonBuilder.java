@@ -25,6 +25,7 @@ import com.moubiecat.api.inventory.button.ListButton;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.button.event.ListButtonEvent;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
@@ -79,6 +80,8 @@ public class ListButtonBuilder
      */
     public ListButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
         super(itemStack, slot);
+        this.buttonClickType.add(ClickType.LEFT);
+        this.buttonClickType.add(ClickType.RIGHT);
     }
 
     /**
@@ -164,7 +167,7 @@ public class ListButtonBuilder
      * @param event 事件
      */
     @Override
-    protected void onClick(final @NotNull ClickButtonEvent event) {
+    protected final void onClick(final @NotNull ClickButtonEvent event) {
         switch (event.getClickTypes()) {
             case LEFT -> this.nextContents(event);
             case RIGHT -> this.previousContent(event);

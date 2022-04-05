@@ -46,10 +46,4 @@ public interface Button
      */
     int getButtonSlot();
 
-    /**
-     * 獲取該物品是否可以被移動
-     * @return 類型
-     */
-    boolean isButtonCancelEvent();
-
 }
