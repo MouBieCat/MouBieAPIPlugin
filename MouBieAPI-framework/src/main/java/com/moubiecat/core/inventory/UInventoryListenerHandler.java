@@ -24,9 +24,7 @@ package com.moubiecat.core.inventory;
 import com.moubiecat.api.inventory.button.Button;
 import com.moubiecat.api.inventory.button.Clickable;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
-import com.moubiecat.api.inventory.gui.GUI;
-import com.moubiecat.api.inventory.gui.GUIHandler;
-import com.moubiecat.api.inventory.gui.GUIRegister;
+import com.moubiecat.api.inventory.gui.*;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -98,9 +96,11 @@ public final class UInventoryListenerHandler
         // 獲取點擊按鈕ID
         final @Nullable UUID buttonId = ButtonBuilder.getButtonId(event.getCurrentItem());
         final @Nullable Button button = this.buttons.get(buttonId);
+
         if (buttonId == null || button == null)
             return false;
 
+        // 如果按鈕可點擊
         if (button instanceof Clickable clickable) {
             clickable.executeButtonClick(
                     new ClickButtonEvent(this.handler, event.getClick(), (Player) event.getWhoClicked(), event.getSlot())
@@ -108,6 +108,7 @@ public final class UInventoryListenerHandler
 
             // 重新繪製按鈕
             this.handler.drawButton(button);
+            // 取消事件
             event.setCancelled(true);
         }
         return true;
@@ -155,6 +156,45 @@ public final class UInventoryListenerHandler
     @NotNull
     public GUI getHandler() {
         return this.handler;
+    }
+
+    /**
+     * 定義一些介面處理操作
+     * @author MouBieCat
+     */
+    public static class GUIHandler {
+        /**
+         * 判斷介面是否為同步觸發
+         * @param gui 介面
+         * @return 是否同步
+         */
+        public static boolean isSynchronous(final @NotNull GUI gui) {
+            // 獲取介面類
+            final Class<? extends @NotNull GUI> guiClass = gui.getClass();
+            if (guiClass.isAnnotationPresent(GUIEventSynchronous.class))
+                return guiClass.getAnnotation(GUIEventSynchronous.class).isSynchronous();
+
+            return false;
+        }
+
+        /**
+         * 該事件在介面是否被強制取消
+         * @param gui 介面
+         * @param eventClass 事件類
+         * @return 是否被取消
+         */
+        public static boolean isCancelEvent(final @NotNull GUI gui, final @NotNull Class<? extends InventoryEvent> eventClass) {
+            // 獲取介面類
+            final Class<? extends @NotNull GUI> guiClass = gui.getClass();
+            if (guiClass.isAnnotationPresent(GUIEventCancelRegister.class)) {
+                final @NotNull Class<? extends InventoryEvent>[] cancels =
+                        guiClass.getAnnotation(GUIEventCancelRegister.class).cancels();
+
+                return Arrays.stream(cancels).toList().contains(eventClass);
+            }
+
+            return false;
+        }
     }
 
 }
