@@ -21,6 +21,7 @@
 
 package com.moubieapi.listener;
 
+import com.moubieapi.MouBieCat;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIEventCancelRegister;
 import org.bukkit.Material;
@@ -53,7 +54,7 @@ public final class InventoryListener
         final InventoryHolder holder = event.getInventory().getHolder();
 
         if (holder instanceof GUI gui)
-            this.executeInventoryEvent(gui, event);
+            this.createInventoryThread(gui, event);
     }
 
     /**
@@ -66,7 +67,7 @@ public final class InventoryListener
         final ItemStack currentItem = event.getCurrentItem();
 
         if (holder instanceof GUI gui && currentItem != null && !currentItem.getType().equals(Material.AIR))
-            this.executeInventoryEvent(gui, event);
+            this.createInventoryThread(gui, event);
     }
 
     /**
@@ -78,21 +79,21 @@ public final class InventoryListener
         final InventoryHolder holder = event.getInventory().getHolder();
 
         if (holder instanceof GUI gui)
-            this.executeInventoryEvent(gui, event);
+            this.createInventoryThread(gui, event);
     }
 
     /**
-     * 調用介面事件
+     * 創建介面事件線程
      * @param gui 觸發介面
      * @param event 事件實例
      */
-    private void executeInventoryEvent(final @NotNull GUI gui, @NotNull InventoryEvent event) {
+    private void createInventoryThread(final @NotNull GUI gui, @NotNull InventoryEvent event) {
         // 異步調用事件
-        new AsyncInventoryEventThread(gui, event).run();
+        new AsyncInventoryEventThread(gui, event).runTaskAsynchronously(MouBieCat.getInstance());
         // 是否為可取消事件
         if (event instanceof Cancellable cancellable)
             // 設定取消事件，如果介面的 GUIEventCancelRegister 標記帶有該事件類
-            cancellable.setCancelled(this.isCancelEvent(gui, event));
+            cancellable.setCancelled(this.isCancelInventoryEvent(gui, event));
     }
 
     /**
@@ -101,7 +102,7 @@ public final class InventoryListener
      * @param event 事件
      * @return 是否取消
      */
-    private boolean isCancelEvent(final @NotNull GUI gui, final @NotNull InventoryEvent event) {
+    private boolean isCancelInventoryEvent(final @NotNull GUI gui, final @NotNull InventoryEvent event) {
         // 獲取介面類
         final @NotNull Class<? extends @NotNull GUI> guiClass = gui.getClass();
 
@@ -122,7 +123,8 @@ public final class InventoryListener
      * 代表異步介面事件線程
      * @author MouBieCat
      */
-    private static class AsyncInventoryEventThread extends BukkitRunnable {
+    private static class AsyncInventoryEventThread
+            extends BukkitRunnable {
 
         // 觸發介面
         @NotNull
