@@ -95,8 +95,7 @@ public class ListButtonBuilder
         else
             // 其他則正常操作
             this.selectItem++;
-
-        this.changeContent0(event);
+        this.onSelectChange(new ListButtonEvent(event, this.selectItem));
     }
 
     /**
@@ -111,15 +110,6 @@ public class ListButtonBuilder
         else
             // 其他則正常操作
             this.selectItem--;
-
-        this.changeContent0(event);
-    }
-
-    /**
-     * 改變內容時
-     * @param event 事件
-     */
-    private void changeContent0(final @NotNull ClickButtonEvent event) {
         this.onSelectChange(new ListButtonEvent(event, this.selectItem));
     }
 
