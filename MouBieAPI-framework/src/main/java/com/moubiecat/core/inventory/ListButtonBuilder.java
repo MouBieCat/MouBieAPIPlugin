@@ -49,7 +49,7 @@ public class ListButtonBuilder
 
     // 內容集合
     @NotNull
-    protected final List<String> contents = new LinkedList<>();
+    protected final List<Content> contents = new LinkedList<>();
 
     // 選取內容ID
     private int selectItem = 0;
@@ -136,8 +136,8 @@ public class ListButtonBuilder
      * @return 項目
      */
     @NotNull
-    public final String getSelectContent() {
-        return this.getContent(this.selectItem);
+    public final Content getSelectContent() {
+        return this.contents.get(this.selectItem);
     }
 
     /**
@@ -145,10 +145,10 @@ public class ListButtonBuilder
      * @param index 位置
      * @return 內容
      */
-    @NotNull
-    public final String getContent(final int index) {
-        if (index >= this.contents.size())
-            return "";
+    @Nullable
+    public final Content getContent(final int index) {
+        if (index >= this.contents.size() || index < 0)
+            return null;
 
         return this.contents.get(index);
     }
@@ -158,7 +158,7 @@ public class ListButtonBuilder
      * @return 內容
      */
     @NotNull
-    public final List<String> getContents() {
+    public final List<Content> getContents() {
         return this.contents;
     }
 
@@ -196,14 +196,45 @@ public class ListButtonBuilder
             lore.addAll(itemMeta.getLore());
 
         // 添加選取項目內容
-        for (int i = 0; i < this.contents.size(); i++)
-            lore.add(this.buttonStyle.replaceStyle(
-                    this.getContent(i),
-                    i == this.selectItem)
-            );
+        for (int i = 0; i < this.contents.size(); i++) {
+            final Content content = this.contents.get(i);
+            final boolean isSelectItem = (i == this.selectItem);
+
+            lore.add(this.buttonStyle.replaceStyle(content.message, isSelectItem));
+            if (isSelectItem)
+                this.type(content.icon);
+        }
 
         this.lore(lore);
         return super.build();
+    }
+
+    /**
+     * 代表清單內容
+     *
+     * @author MouBieCat
+     */
+    public record Content(@NotNull Material icon, @NotNull String message) {
+        /**
+         * 建構子
+         * @param icon           圖示
+         * @param message        內容訊息
+         */
+        public Content(final @NotNull Material icon, final @NotNull String message) {
+            this.icon = icon;
+            this.message = message;
+        }
+
+        /**
+         * 傳成字串型別
+         * @return 訊息
+         */
+        @Override
+        @NotNull
+        public String toString() {
+            return this.message;
+        }
+
     }
 
     /**
@@ -231,6 +262,7 @@ public class ListButtonBuilder
                     this.selectItemDisplayStyle.replace("{content}", content) :
                     this.uncheckedItemDisplayStyle.replace("{content}", content);
         }
+
     }
 
 }

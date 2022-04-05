@@ -21,7 +21,9 @@
 
 package com.moubiecat.api.inventory.button;
 
+import com.moubiecat.core.inventory.ListButtonBuilder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -42,19 +44,19 @@ public interface ListButton
      * 獲取當前選取的項目
      * @return 項目
      */
-    @NotNull String getSelectContent();
+    @NotNull ListButtonBuilder.Content getSelectContent();
 
     /**
      * 獲取一個指定的內容
      * @param index 位置
      * @return 內容
      */
-    @NotNull String getContent(int index);
+    @Nullable ListButtonBuilder.Content getContent(int index);
 
     /**
      * 獲取所有內容
      * @return 內容
      */
-    @NotNull List<String> getContents();
+    @NotNull List<ListButtonBuilder.Content> getContents();
 
 }

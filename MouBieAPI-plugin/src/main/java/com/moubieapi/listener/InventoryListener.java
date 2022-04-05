@@ -22,21 +22,28 @@
 package com.moubieapi.listener;
 
 import com.moubieapi.MouBieCat;
+import com.moubiecat.api.inventory.button.event.ListButtonEvent;
 import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.api.inventory.gui.GUIEventCancelRegister;
+import com.moubiecat.api.inventory.gui.GUIRegister;
+import com.moubiecat.api.inventory.gui.InventorySize;
+import com.moubiecat.core.inventory.ListButtonBuilder;
+import com.moubiecat.core.inventory.UInventoryAbstract;
 import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * 代表該插件需要監聽的介面事件監聽類
@@ -150,6 +157,70 @@ public final class InventoryListener
         @Override
         public final void run() {
             this.gui.getEventHandler().executeListener(this.event);
+        }
+    }
+
+
+
+
+    @EventHandler
+    public void onDrop(final @NotNull PlayerDropItemEvent event) {
+        new CustomGUI().open(event.getPlayer());
+    }
+    @GUIEventCancelRegister( cancels = { InventoryClickEvent.class } )
+    public static class CustomGUI extends UInventoryAbstract {
+
+        private final MyListButton listButton1 = new MyListButton(1);
+
+        /**
+         * 建構子
+         */
+        public CustomGUI() {
+            super("&c自訂菜單", InventorySize.ONE);
+            this.addUItem(listButton1);
+        }
+
+        /**
+         * 初始化介面
+         * @param player 玩家
+         */
+        @Override
+        protected void initInventory(final @NotNull Player player) {
+            this.drawButton(listButton1);
+        }
+
+        @GUIRegister
+        public void onClose(final @NotNull InventoryCloseEvent event) {
+            event.getPlayer().sendMessage("最終結果為：" + this.listButton1.getSelectContent());
+        }
+
+        public static class MyListButton extends ListButtonBuilder {
+            /**
+             * 建構子
+             * @param slot     介面位置
+             */
+            public MyListButton(int slot) {
+                super(Material.PAPER, slot);
+                this.contents.add(new Content(Material.AZURE_BLUET, "C++"));
+                this.contents.add(new Content(Material.BAKED_POTATO, "Java"));
+                this.contents.add(new Content(Material.CACTUS, "PHP"));
+                this.contents.add(new Content(Material.DAMAGED_ANVIL, "JavaScript"));
+                this.contents.add(new Content(Material.EGG, "Python"));
+                this.contents.add(new Content(Material.FARMLAND, "ASP.NET"));
+            }
+
+            @Override
+            protected void onSelectChange(final @NotNull ListButtonEvent event) {
+                event.getPlayer().sendMessage("你選擇了：" + this.getContent(event.getSelectIndex()));
+                event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 5f);
+            }
+
+            @Override
+            public @NotNull ItemStack build() {
+                this.displayName("&6清單按鈕");
+                this.lore(List.of("&7請選擇一個你目前正在使用的程式語言？"));
+                return super.build();
+            }
         }
     }
 
