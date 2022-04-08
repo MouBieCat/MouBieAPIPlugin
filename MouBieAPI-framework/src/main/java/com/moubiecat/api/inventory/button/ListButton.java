@@ -29,9 +29,10 @@ import java.util.List;
 
 /**
  * 代表一個有清單列表的按鈕
+ * @param <T> 裝載內容
  * @author MouBieCat
  */
-public interface ListButton
+public interface ListButton<T extends ListButtonBuilder.Content>
         extends Clickable {
 
     /**
@@ -44,19 +45,19 @@ public interface ListButton
      * 獲取當前選取的項目
      * @return 項目
      */
-    @NotNull ListButtonBuilder.Content getSelectContent();
+    @NotNull T getSelectContent();
 
     /**
      * 獲取一個指定的內容
      * @param index 位置
      * @return 內容
      */
-    @Nullable ListButtonBuilder.Content getContent(int index);
+    @Nullable T getContent(int index);
 
     /**
      * 獲取所有內容
      * @return 內容
      */
-    @NotNull List<ListButtonBuilder.Content> getContents();
+    @NotNull List<T> getContents();
 
 }

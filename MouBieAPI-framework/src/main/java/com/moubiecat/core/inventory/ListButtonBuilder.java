@@ -39,9 +39,9 @@ import java.util.List;
  * 代表一個有清單列表的按鈕建構器
  * @author MouBieCat
  */
-public class ListButtonBuilder
+public class ListButtonBuilder<T extends ListButtonBuilder.Content>
         extends ClickButtonBuilder
-        implements ListButton {
+        implements ListButton<T> {
 
     // 按鈕樣式
     @NotNull
@@ -49,7 +49,7 @@ public class ListButtonBuilder
 
     // 內容集合
     @NotNull
-    protected final List<Content> contents = new LinkedList<>();
+    protected final List<T> contents = new LinkedList<>();
 
     // 選取內容ID
     private int selectItem = 0;
@@ -126,7 +126,7 @@ public class ListButtonBuilder
      * @return 項目
      */
     @NotNull
-    public final Content getSelectContent() {
+    public final T getSelectContent() {
         return this.contents.get(this.selectItem);
     }
 
@@ -136,7 +136,7 @@ public class ListButtonBuilder
      * @return 內容
      */
     @Nullable
-    public final Content getContent(final int index) {
+    public final T getContent(final int index) {
         if (index >= this.contents.size() || index < 0)
             return null;
 
@@ -148,7 +148,7 @@ public class ListButtonBuilder
      * @return 內容
      */
     @NotNull
-    public final List<Content> getContents() {
+    public final List<T> getContents() {
         return this.contents;
     }
 
@@ -187,7 +187,7 @@ public class ListButtonBuilder
 
         // 添加選取項目內容
         for (int i = 0; i < this.contents.size(); i++) {
-            final Content content = this.contents.get(i);
+            final T content = this.contents.get(i);
             final boolean isSelectItem = (i == this.selectItem);
 
             lore.add(this.buttonStyle.replaceStyle(content.message, isSelectItem));
@@ -204,7 +204,15 @@ public class ListButtonBuilder
      *
      * @author MouBieCat
      */
-    public record Content(@NotNull Material icon, @NotNull String message) {
+    public static class Content {
+
+        @NotNull
+        protected final Material icon;
+
+        @NotNull
+        protected final String message;
+
+
         /**
          * 建構子
          * @param icon           圖示
@@ -216,6 +224,24 @@ public class ListButtonBuilder
         }
 
         /**
+         * 獲取顯示圖標
+         * @return 圖標
+         */
+        @NotNull
+        public final Material getIcon() {
+            return this.icon;
+        }
+
+        /**
+         * 獲取顯示訊息
+         * @return 訊息
+         */
+        @NotNull
+        public final String getDisplay() {
+            return this.message;
+        }
+
+        /**
          * 傳成字串型別
          * @return 訊息
          */
@@ -224,7 +250,6 @@ public class ListButtonBuilder
         public String toString() {
             return this.message;
         }
-
     }
 
     /**
