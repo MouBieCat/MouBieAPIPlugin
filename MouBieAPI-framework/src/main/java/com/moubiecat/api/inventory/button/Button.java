@@ -22,6 +22,7 @@
 package com.moubiecat.api.inventory.button;
 
 import com.moubiecat.api.builder.Builder;
+import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,6 +34,12 @@ import java.util.UUID;
  */
 public interface Button
         extends Builder<ItemStack> {
+
+    /**
+     * 獲取屬於按鈕的介面
+     * @return 介面
+     */
+    @NotNull GUI getHandler();
 
     /**
      * 獲取按鈕UUID

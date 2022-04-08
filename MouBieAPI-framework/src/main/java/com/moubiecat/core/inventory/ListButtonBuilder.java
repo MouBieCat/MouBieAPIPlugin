@@ -24,6 +24,7 @@ package com.moubiecat.core.inventory;
 import com.moubiecat.api.inventory.button.ListButton;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.button.event.ListButtonEvent;
+import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -59,8 +60,8 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * @param material 材質
      * @param slot     介面位置
      */
-    public ListButtonBuilder(final @NotNull Material material, final int slot) {
-        this(material, 1, slot);
+    public ListButtonBuilder(final @NotNull GUI gui, final @NotNull Material material, final int slot) {
+        this(gui, material, 1, slot);
     }
 
     /**
@@ -69,8 +70,8 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * @param amount   數量
      * @param slot     介面位置
      */
-    public ListButtonBuilder(final @NotNull Material material, final int amount, final int slot) {
-        this(new ItemStack(material, amount), slot);
+    public ListButtonBuilder(final @NotNull GUI gui, final @NotNull Material material, final int amount, final int slot) {
+        this(gui, new ItemStack(material, amount), slot);
     }
 
     /**
@@ -78,8 +79,8 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * @param itemStack 物品實例
      * @param slot      介面位置
      */
-    public ListButtonBuilder(final @NotNull ItemStack itemStack, final int slot) {
-        super(itemStack, slot);
+    public ListButtonBuilder(final @NotNull GUI gui, final @NotNull ItemStack itemStack, final int slot) {
+        super(gui, itemStack, slot);
         this.buttonClickType.add(ClickType.LEFT);
         this.buttonClickType.add(ClickType.RIGHT);
     }

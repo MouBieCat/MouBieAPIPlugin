@@ -53,6 +53,7 @@ public abstract class PageUInventoryAbstract
     @Override
     @Deprecated
     protected final void initInventory(final @NotNull Player player) {
+        this.initPageInventory(player, 0);
     }
 
     /**
