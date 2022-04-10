@@ -38,6 +38,7 @@ import java.util.List;
 
 /**
  * 代表一個有清單列表的按鈕建構器
+ * @param <T> 裝載內容
  * @author MouBieCat
  */
 public class ListButtonBuilder<T extends ListButtonBuilder.Content>
@@ -88,7 +89,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
     /**
      * 選取下一個項目
      */
-    protected final void nextContents(final @NotNull ClickButtonEvent event) {
+    protected final void nextContent(final @NotNull ClickButtonEvent event) {
         // 如果選取項已經到最大
         if (this.selectItem >= this.contents.size() - 1)
             // 將選取項拉回第一項
@@ -160,7 +161,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
     @Override
     protected final void onClick(final @NotNull ClickButtonEvent event) {
         switch (event.getClickTypes()) {
-            case LEFT -> this.nextContents(event);
+            case LEFT -> this.nextContent(event);
             case RIGHT -> this.previousContent(event);
         }
     }
