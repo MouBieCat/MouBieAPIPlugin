@@ -33,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
     @NotNull
     protected final List<T> contents = new LinkedList<>();
 
-    // 選取內容ID
-    private int selectItem = 0;
+    // 當前選取ID
+    private int selectItemId = 0;
 
     /**
      * 建構子
@@ -91,13 +92,13 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      */
     protected final void nextContent(final @NotNull ClickButtonEvent event) {
         // 如果選取項已經到最大
-        if (this.selectItem >= this.contents.size() - 1)
+        if (this.selectItemId >= this.contents.size() - 1)
             // 將選取項拉回第一項
-            this.selectItem = 0;
+            this.selectItemId = 0;
         else
             // 其他則正常操作
-            this.selectItem++;
-        this.onSelectChange(new ListButtonEvent(event, this.selectItem));
+            this.selectItemId++;
+        this.changeContent(event);
     }
 
     /**
@@ -105,14 +106,22 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      */
     protected final void previousContent(final @NotNull ClickButtonEvent event) {
         // 如果選取項已經到最底
-        if (this.selectItem <= 0)
+        if (this.selectItemId <= 0)
             // 則將選取向拉到最後一個
-            this.selectItem = this.contents.size() - 1;
+            this.selectItemId = this.contents.size() - 1;
 
         else
             // 其他則正常操作
-            this.selectItem--;
-        this.onSelectChange(new ListButtonEvent(event, this.selectItem));
+            this.selectItemId--;
+        this.changeContent(event);
+    }
+
+    /**
+     * 改變內容事件函數
+     * @param event 事件
+     */
+    private void changeContent(final @NotNull ClickButtonEvent event) {
+        this.onSelectItemChange(new ListButtonEvent(event, this.selectItemId));
     }
 
     /**
@@ -120,7 +129,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * @return ID
      */
     public final int getSelectIndex() {
-        return this.selectItem;
+        return this.selectItemId;
     }
 
     /**
@@ -129,7 +138,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      */
     @NotNull
     public final T getSelectContent() {
-        return this.contents.get(this.selectItem);
+        return this.contents.get(this.selectItemId);
     }
 
     /**
@@ -139,9 +148,6 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      */
     @Nullable
     public final T getContent(final int index) {
-        if (index >= this.contents.size() || index < 0)
-            return null;
-
         return this.contents.get(index);
     }
 
@@ -150,12 +156,12 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * @return 內容
      */
     @NotNull
-    public final List<T> getContents() {
+    public final Collection<T> getContents() {
         return this.contents;
     }
 
     /**
-     * 當被點級時調用
+     * 當被點擊時調用
      * @param event 事件
      */
     @Override
@@ -170,7 +176,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      * 當選取項目改變時調用
      * @param event 事件
      */
-    protected void onSelectChange(final @NotNull ListButtonEvent event) {
+    protected void onSelectItemChange(final @NotNull ListButtonEvent event) {
     }
 
     /**
@@ -190,7 +196,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
         // 添加選取項目內容
         for (int i = 0; i < this.contents.size(); i++) {
             final T content = this.contents.get(i);
-            final boolean isSelectItem = (i == this.selectItem);
+            final boolean isSelectItem = (i == this.selectItemId);
 
             lore.add(this.buttonStyle.replaceStyle(content.message, isSelectItem));
             if (isSelectItem)
@@ -208,12 +214,13 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
      */
     public static class Content {
 
+        // 顯示圖樣
         @NotNull
         protected final Material icon;
 
+        // 顯示訊息
         @NotNull
         protected final String message;
-
 
         /**
          * 建構子
@@ -244,7 +251,7 @@ public class ListButtonBuilder<T extends ListButtonBuilder.Content>
         }
 
         /**
-         * 傳成字串型別
+         * 轉成字串型別
          * @return 訊息
          */
         @Override

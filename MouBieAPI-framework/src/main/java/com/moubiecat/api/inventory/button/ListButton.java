@@ -25,6 +25,7 @@ import com.moubiecat.core.inventory.ListButtonBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -58,6 +59,6 @@ public interface ListButton<T extends ListButtonBuilder.Content>
      * 獲取所有內容
      * @return 內容
      */
-    @NotNull List<T> getContents();
+    @NotNull Collection<T> getContents();
 
 }
