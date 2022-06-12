@@ -143,7 +143,7 @@ public class ButtonBuilder
         final String uuidString =
                 ItemStackNBTTagBuilder.getString(itemStack, ButtonBuilder.MOU_BIE_API_BUTTON_TAG, ButtonBuilder.BUTTON_UUID);
 
-        return !uuidString.equals("") ? UUID.fromString(uuidString) : null;
+        return uuidString.length() == 16 ? UUID.fromString(uuidString) : null;
     }
 
 }

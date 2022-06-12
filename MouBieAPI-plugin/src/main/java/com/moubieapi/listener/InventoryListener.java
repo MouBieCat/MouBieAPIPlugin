@@ -88,13 +88,15 @@ public final class InventoryListener
      * @param event 事件實例
      */
     private void executeListener(final @NotNull GUI gui, @NotNull InventoryEvent event) {
+        final AsyncInventoryEventThread thread = new AsyncInventoryEventThread(gui, event);
+
         if (UInventoryListenerHandler.GUIHandler.isSynchronous(gui))
             // 同步調用
-            new AsyncInventoryEventThread(gui, event).run();
+            thread.run();
 
         else
             // 異步調用
-            new AsyncInventoryEventThread(gui, event).runTaskAsynchronously(MouBieCat.getInstance());
+            thread.runTaskAsynchronously(MouBieCat.getInstance());
 
         // 是否為可取消事件、事件不是取消狀態
         if (event instanceof Cancellable cancellable && !cancellable.isCancelled())
