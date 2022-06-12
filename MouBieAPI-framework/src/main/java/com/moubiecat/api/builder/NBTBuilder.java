@@ -21,7 +21,7 @@
 
 package com.moubiecat.api.builder;
 
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -42,13 +42,7 @@ public interface NBTBuilder<T>
      * 獲取NBTag物件
      * @return NBTag
      */
-    @NotNull Tag getCompound();
-
-    /**
-     * 獲取當前 NBTTag 要建構的對象
-     * @return 建構對象
-     */
-    @NotNull T getBuilder();
+    @NotNull CompoundTag getCompound();
 
     /**
      * 在該 tag 上設置一個 boolean

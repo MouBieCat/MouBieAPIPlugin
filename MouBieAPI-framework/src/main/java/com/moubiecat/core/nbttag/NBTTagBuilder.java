@@ -23,7 +23,6 @@ package com.moubiecat.core.nbttag;
 
 import com.moubiecat.api.builder.NBTBuilder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -72,17 +71,8 @@ public abstract class NBTTagBuilder<T>
      * @return NBTag
      */
     @NotNull
-    public final Tag getCompound() {
+    public final CompoundTag getCompound() {
         return this.compound;
-    }
-
-    /**
-     * 獲取當前 NBTTag 要建構的對象
-     * @return 建構對象
-     */
-    @NotNull
-    public final T getBuilder() {
-        return this.builder;
     }
 
     /**

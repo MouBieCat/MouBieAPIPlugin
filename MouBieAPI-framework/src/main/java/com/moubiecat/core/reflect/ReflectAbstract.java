@@ -8,12 +8,12 @@
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 
 /**
  * 提供一些基本的反射機制代碼
+ *
  * @author MouBieCat
  */
 abstract class ReflectAbstract {
@@ -39,7 +40,6 @@ abstract class ReflectAbstract {
      * @param path 路徑
      * @return 類
      */
-    @NotNull
     @SuppressWarnings("all")
     public static Class<?> getClass(final @NotNull String path) {
         try {
@@ -52,11 +52,10 @@ abstract class ReflectAbstract {
 
     /**
      * 根據一個 Class 類獲取類的一個屬性
-     * @param clazz 類
+     * @param clazz     類
      * @param fieldName 屬性名稱
      * @return 類屬性
      */
-    @NotNull
     @SuppressWarnings("all")
     public static Field getField(final @NotNull Class<?> clazz, final @NotNull String fieldName) {
         try {
@@ -69,15 +68,16 @@ abstract class ReflectAbstract {
 
     /**
      * 根據一個屬性獲取一個對想屬性實例
-     * @param field 屬性
+     * @param field  屬性
      * @param object 獲取對象
      * @return 對象屬性實例
      */
-    @NotNull
     @SuppressWarnings("all")
     public static Object getObject(final @NotNull Field field, final @NotNull Object object) {
         try {
+            // 設定可強制訪問
             field.setAccessible(true);
+            // 訪問
             return field.get(object);
         } catch (final IllegalAccessException e) {
             e.printStackTrace();
@@ -87,12 +87,11 @@ abstract class ReflectAbstract {
 
     /**
      * 根據一個 Class 類獲取類的一個方法
-     * @param clazz 類
+     * @param clazz      類
      * @param methodName 方法名稱
-     * @param argsClass 方法參數對照表
+     * @param argsClass  方法參數對照表
      * @return 類方法
      */
-    @NotNull
     @SuppressWarnings("all")
     public static Method getMethod(final @NotNull Class<?> clazz, final @NotNull String methodName, final @NotNull Class<?>... argsClass) {
         try {
@@ -105,17 +104,18 @@ abstract class ReflectAbstract {
 
     /**
      * 調用一個類方法
-     * @param method 類方法
+     * @param method      類方法
      * @param privateCall 是否強制繞過調用訪問
-     * @param obj 在哪個實例上調用
-     * @param args 類方法參數
+     * @param obj         在哪個實例上調用
+     * @param args        類方法參數
      * @return
      */
-    @NotNull
     @SuppressWarnings("all")
     public static Object invoke(final @NotNull Method method, final @Nullable Object obj, final @Nullable Object... args) {
         try {
+            // 設定可強制訪問
             method.setAccessible(true);
+            // 調用
             return method.invoke(obj, args);
         } catch (final InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
