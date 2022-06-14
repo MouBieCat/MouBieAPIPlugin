@@ -90,7 +90,7 @@ public final class InventoryListener
     private void executeListener(final @NotNull GUI gui, @NotNull InventoryEvent event) {
         final AsyncInventoryEventThread thread = new AsyncInventoryEventThread(gui, event);
 
-        if (UInventoryListenerHandler.GUIHandler.isSynchronous(gui))
+        if (UInventoryListenerHandler.GUIHelper.isSynchronous(gui))
             // 同步調用
             thread.run();
 
@@ -101,7 +101,7 @@ public final class InventoryListener
         // 是否為可取消事件、事件不是取消狀態
         if (event instanceof Cancellable cancellable && !cancellable.isCancelled())
             cancellable.setCancelled(
-                    UInventoryListenerHandler.GUIHandler.isCancelEvent(gui, event.getClass())
+                    UInventoryListenerHandler.GUIHelper.isCancelEvent(gui, event.getClass())
             );
     }
 
@@ -109,7 +109,7 @@ public final class InventoryListener
      * 代表異步介面事件線程
      * @author MouBieCat
      */
-    private static class AsyncInventoryEventThread
+    private final static class AsyncInventoryEventThread
             extends BukkitRunnable {
 
         // 觸發介面
@@ -134,7 +134,7 @@ public final class InventoryListener
          * 運行
          */
         @Override
-        public final void run() {
+        public void run() {
             this.gui.getEventHandler().executeListener(this.event);
         }
     }

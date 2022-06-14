@@ -30,6 +30,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -93,7 +94,7 @@ public class ClickButtonBuilder
      * @return 點擊方法
      */
     @NotNull
-    public final List<ClickType> getButtonClickType() {
+    public final Collection<ClickType> getButtonClickType() {
         return this.buttonClickType;
     }
 

@@ -94,10 +94,11 @@ public final class UInventoryListenerHandler
      */
     private boolean executeInventoryClickEvent0(final @NotNull InventoryClickEvent event) {
         // 獲取點擊按鈕ID
-        final @Nullable UUID buttonId = ButtonBuilder.getButtonId(event.getCurrentItem());
-        final @Nullable Button button = this.buttons.get(buttonId);
+        final @Nullable Button button = this.buttons.get(
+                ButtonBuilder.getButtonId(event.getCurrentItem())
+        );
 
-        if (buttonId == null || button == null)
+        if (button == null)
             return false;
 
         // 如果按鈕可點擊
@@ -162,7 +163,7 @@ public final class UInventoryListenerHandler
      * 定義一些介面處理操作
      * @author MouBieCat
      */
-    public static class GUIHandler {
+    public static class GUIHelper {
         /**
          * 判斷介面是否為同步觸發
          * @param gui 介面
@@ -171,8 +172,8 @@ public final class UInventoryListenerHandler
         public static boolean isSynchronous(final @NotNull GUI gui) {
             // 獲取介面類
             final Class<? extends @NotNull GUI> guiClass = gui.getClass();
-            if (guiClass.isAnnotationPresent(GUIEventSynchronous.class))
-                return guiClass.getAnnotation(GUIEventSynchronous.class).isSynchronous();
+            if (guiClass.isAnnotationPresent(GUIEventSynchronousRegister.class))
+                return guiClass.getAnnotation(GUIEventSynchronousRegister.class).isSynchronous();
 
             return false;
         }

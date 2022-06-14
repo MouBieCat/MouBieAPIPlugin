@@ -32,7 +32,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GUIEventSynchronous {
+public @interface GUIEventSynchronousRegister {
 
     /**
      * 獲取是否同步觸發
