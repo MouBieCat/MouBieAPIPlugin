@@ -109,7 +109,7 @@ public abstract class UInventoryAbstract
      * @param buttons 按鈕
      */
     @NotNull
-    public final UInventoryAbstract drawButton(final @NotNull Button... buttons) {
+    public final UInventoryAbstract drawButtons(final @NotNull Button... buttons) {
         for (final HumanEntity entity : this.inventory.getViewers())
             for (final Button button : buttons)
                 entity.getOpenInventory().setItem(button.getButtonSlot(), button.build());
@@ -141,7 +141,7 @@ public abstract class UInventoryAbstract
      * @param buttons 按鈕
      */
     @NotNull
-    protected final UInventoryAbstract addUItem(final @NotNull Button ... buttons) {
+    public final UInventoryAbstract addButtons(final @NotNull Button ... buttons) {
         this.eventHandler.registerButton(buttons);
         return this;
     }

@@ -2,7 +2,7 @@
  * LICENSE
  * MouBieAPI
  * -------------
- * Copyright (C) 2021 MouBieCat(MouBie_Yuki)
+ * Copyright (C) 2022 MouBieCat(MouBie_Yuki)
  * -------------
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -21,50 +21,31 @@
 
 package com.moubiecat.api.inventory.button.event;
 
+import com.moubiecat.api.inventory.button.ListButton;
 import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表清單式按鈕事件
+ * 代表清單按鈕點擊事件
  * @author MouBieCat
  */
 public class ListButtonEvent
-        extends ClickButtonEvent {
-
-    // 選取項位置
-    private final int selectIndex;
+        extends ButtonEvent<ListButton> {
 
     /**
      * 建構子
-     * @param gui    事件介面
-     * @param type   事件點擊類型
-     * @param player 事件玩家
-     * @param slot   點擊位置
-     * @param index  選取項ID
+     * @param gui         介面
+     * @param player      玩家
+     * @param button      按鈕
+     * @param clickType   點擊方法
      */
-    public ListButtonEvent(final @NotNull GUI gui, final @NotNull ClickType type, final @NotNull Player player, final int slot, final int index) {
-        super(gui, type, player, slot);
-        this.selectIndex = index;
-    }
-
-    /**
-     * 建構子
-     * @param event 原事件
-     * @param index  選取項ID
-     */
-    public ListButtonEvent(final @NotNull ClickButtonEvent event, final int index) {
-        super(event.getGUI(), event.getClickTypes(), event.getPlayer(), event.getSlot());
-        this.selectIndex = index;
-    }
-
-    /**
-     * 獲取選取項位置
-     * @return 位置
-     */
-    public final int getSelectIndex() {
-        return this.selectIndex;
+    public ListButtonEvent(final @NotNull GUI gui,
+                           final @NotNull Player player,
+                           final @NotNull ListButton button,
+                           final @NotNull ClickType clickType) {
+        super(gui, player, button, clickType);
     }
 
 }

@@ -31,6 +31,13 @@ import java.lang.annotation.Target;
 
 /**
  * 代表一些可取消的事件操作
+ * 警告：
+ *  如果介面為異步處理，請確保取消 InventoryClickEvent 的事件。除非您有其它想法。否則這是必須的。
+ *  &#064;GUIEventCancelRegister(  cancels = { InventoryClickEvent.class } )
+ *
+ *  或是在您的介面類中聲明
+ *  &#064;GUIEventSynchronousRegister
+ *  讓介面同步觸發。但您必須在適當的情況，自行處理取消事件，否則按鈕將會被意外拋出。
  * @author MouBieCat
  */
 @Target(ElementType.TYPE)

@@ -21,43 +21,20 @@
 
 package com.moubiecat.api.inventory.button;
 
-import com.moubiecat.core.inventory.ListButtonBuilder;
+import com.moubiecat.api.inventory.button.components.Contents;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Collection;
 
 /**
  * 代表一個有清單列表的按鈕
- * @param <T> 裝載內容
  * @author MouBieCat
  */
-public interface ListButton<T extends ListButtonBuilder.Content>
-        extends Clickable {
+public interface ListButton
+        extends ClickButton {
 
     /**
-     * 獲取當前選取項目ID
-     * @return ID
+     * 獲取清單內容管理器
+     * @return 內容管理器
      */
-    int getSelectIndex();
-
-    /**
-     * 獲取當前選取的項目
-     * @return 項目
-     */
-    @NotNull T getSelectContent();
-
-    /**
-     * 獲取一個指定的內容
-     * @param index 位置
-     * @return 內容
-     */
-    @Nullable T getContent(int index);
-
-    /**
-     * 獲取所有內容
-     * @return 內容
-     */
-    @NotNull Collection<T> getContents();
+    @NotNull Contents getButtonContents();
 
 }

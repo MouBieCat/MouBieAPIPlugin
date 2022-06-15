@@ -216,8 +216,10 @@ public class ItemStackBuilder
     public final ItemBuilder lore(final @NotNull List<String> lore) {
         final ItemMeta itemMeta = this.getItemMeta();
         if (itemMeta != null) {
-            final List<String> colorLore = lore.stream().map(Utils::forMessageToRGB).toList();
-            itemMeta.setLore(colorLore);
+            itemMeta.setLore(
+                    lore.stream().map(Utils::forMessageToRGB).toList()
+            );
+
             this.setItemMeta(itemMeta);
         }
         return this;
@@ -305,6 +307,7 @@ public class ItemStackBuilder
          * @return net.minecraft.world.item.ItemStack
          */
         @NotNull
+        @SuppressWarnings("all")
         public static net.minecraft.world.item.ItemStack asNMSCopy(final @NotNull ItemStack original) {
             final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass("inventory.CraftItemStack");
             final Method asNMSCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
@@ -317,6 +320,7 @@ public class ItemStackBuilder
          * @return org.bukkit.inventory.ItemStack
          */
         @NotNull
+        @SuppressWarnings("all")
         public static ItemStack asBukkitCopy(final @NotNull net.minecraft.world.item.ItemStack itemStack) {
             final Class<?> craftItemStackClass = CraftBukkitReflect.getCraftBukkitClass("inventory.CraftItemStack");
             final Method asBukkitCopy = CraftBukkitReflect.getMethod(craftItemStackClass, "asBukkitCopy", net.minecraft.world.item.ItemStack.class);

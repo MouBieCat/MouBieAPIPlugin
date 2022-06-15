@@ -45,7 +45,7 @@ public interface Button
      * 獲取按鈕UUID
      * @return UUID
      */
-    @NotNull UUID getButtonId();
+    @NotNull UUID getButtonUUID();
 
     /**
      * 獲取物品在介面上的位置

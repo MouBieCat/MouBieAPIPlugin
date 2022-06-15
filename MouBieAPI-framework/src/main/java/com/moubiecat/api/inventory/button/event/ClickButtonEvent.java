@@ -21,79 +21,31 @@
 
 package com.moubiecat.api.inventory.button.event;
 
+import com.moubiecat.api.inventory.button.ClickButton;
 import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * 代表GUI按鈕點擊事件
+ * 按表按鈕點擊事件
  * @author MouBieCat
  */
-public class ClickButtonEvent {
-
-    // 事件GUI
-    @NotNull
-    private final GUI gui;
-
-    // 點擊者
-    @NotNull
-    private final Player player;
-
-    // 點擊方式類型陣列
-    @NotNull
-    private final ClickType clickTypes;
-
-    // 點擊位置
-    private final int slot;
+public class ClickButtonEvent
+        extends ButtonEvent<ClickButton> {
 
     /**
      * 建構子
-     * @param gui 事件介面
-     * @param type 事件點擊類型
-     * @param player 事件玩家
-     * @param slot 點擊位置
+     * @param gui         介面
+     * @param player      玩家
+     * @param button      按鈕
+     * @param clickType   點擊方法
      */
-    public ClickButtonEvent(@NotNull GUI gui, @NotNull ClickType type, @NotNull Player player, int slot) {
-        this.gui = gui;
-        this.clickTypes = type;
-        this.player = player;
-        this.slot = slot;
-    }
-
-    /**
-     * 獲取事件介面
-     * @return GUI
-     */
-    @NotNull
-    public final GUI getGUI() {
-        return this.gui;
-    }
-
-    /**
-     * 獲取事件點擊方式
-     * @return 點擊類型
-     */
-    @NotNull
-    public final ClickType getClickTypes() {
-        return this.clickTypes;
-    }
-
-    /**
-     * 獲取點擊者
-     * @return 玩家
-     */
-    @NotNull
-    public final Player getPlayer() {
-        return this.player;
-    }
-
-    /**
-     * 獲取點擊位置
-     * @return 位置ID
-     */
-    public final int getSlot() {
-        return this.slot;
+    public ClickButtonEvent(final @NotNull GUI gui,
+                           final @NotNull Player player,
+                           final @NotNull ClickButton button,
+                           final @NotNull ClickType clickType) {
+        super(gui, player, button, clickType);
     }
 
 }

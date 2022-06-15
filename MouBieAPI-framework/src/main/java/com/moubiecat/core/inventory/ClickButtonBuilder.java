@@ -21,7 +21,7 @@
 
 package com.moubiecat.core.inventory;
 
-import com.moubiecat.api.inventory.button.Clickable;
+import com.moubiecat.api.inventory.button.ClickButton;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.Material;
@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class ClickButtonBuilder
         extends ButtonBuilder
-        implements Clickable {
+        implements ClickButton {
 
     // 點選方法
     @NotNull
@@ -74,7 +74,7 @@ public class ClickButtonBuilder
     }
 
     /**
-     * 當被點級時調用
+     * 當被點擊時調用
      * @param event 事件
      */
     protected void onClick(final @NotNull ClickButtonEvent event) {
@@ -85,7 +85,7 @@ public class ClickButtonBuilder
      * @param event 事件
      */
     public final void executeButtonClick(final @NotNull ClickButtonEvent event) {
-        if (event.getSlot() == this.buttonSlot && this.buttonClickType.contains(event.getClickTypes()))
+        if (this.buttonClickType.contains(event.getClickType()))
             this.onClick(event);
     }
 

@@ -22,7 +22,7 @@
 package com.moubiecat.core.inventory;
 
 import com.moubiecat.api.inventory.button.Button;
-import com.moubiecat.api.inventory.button.Clickable;
+import com.moubiecat.api.inventory.button.ClickButton;
 import com.moubiecat.api.inventory.button.event.ClickButtonEvent;
 import com.moubiecat.api.inventory.gui.*;
 import com.moubiecat.core.reflect.CraftBukkitReflect;
@@ -101,17 +101,18 @@ public final class UInventoryListenerHandler
         if (button == null)
             return false;
 
+        event.setCancelled(true); // 取消事件
         // 如果按鈕可點擊
-        if (button instanceof Clickable clickable) {
-            clickable.executeButtonClick(
-                    new ClickButtonEvent(this.handler, event.getClick(), (Player) event.getWhoClicked(), event.getSlot())
-            );
+        if (button instanceof ClickButton clickButton) {
+            clickButton.executeButtonClick(
+                    new ClickButtonEvent(
+                            this.handler, (Player) event.getWhoClicked(), clickButton, event.getClick()
+                    ));
 
             // 重新繪製按鈕
-            this.handler.drawButton(button);
-            // 取消事件
-            event.setCancelled(true);
+            this.handler.drawButtons(button);
         }
+
         return true;
     }
 
@@ -147,7 +148,7 @@ public final class UInventoryListenerHandler
      */
     public void registerButton(final @NotNull Button... buttons) {
         for (final Button button : buttons)
-            this.buttons.put(button.getButtonId(), button);
+            this.buttons.put(button.getButtonUUID(), button);
     }
 
     /**
@@ -163,7 +164,7 @@ public final class UInventoryListenerHandler
      * 定義一些介面處理操作
      * @author MouBieCat
      */
-    public static class GUIHelper {
+    public static class Helper {
         /**
          * 判斷介面是否為同步觸發
          * @param gui 介面

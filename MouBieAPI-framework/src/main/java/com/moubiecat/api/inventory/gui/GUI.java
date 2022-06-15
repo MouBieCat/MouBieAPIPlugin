@@ -23,6 +23,7 @@ package com.moubiecat.api.inventory.gui;
 
 import com.moubiecat.api.inventory.Openable;
 import com.moubiecat.api.inventory.button.Button;
+import com.moubiecat.core.inventory.UInventoryAbstract;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -53,10 +54,16 @@ public interface GUI
     @NotNull GUIHandler getEventHandler();
 
     /**
+     * 對該介面註冊按鈕
+     * @param buttons 按鈕
+     */
+    @NotNull UInventoryAbstract addButtons(final @NotNull Button ... buttons);
+
+    /**
      * 繪製按鈕
      * @param buttons 按鈕
      */
-    @NotNull GUI drawButton(@NotNull Button... buttons);
+    @NotNull GUI drawButtons(@NotNull Button... buttons);
 
     /**
      * 繪製物品

@@ -31,7 +31,7 @@ import java.util.Collection;
  * 代表一個可點擊的按鈕
  * @author MouBieCat
  */
-public interface Clickable
+public interface ClickButton
         extends Button {
 
     /**

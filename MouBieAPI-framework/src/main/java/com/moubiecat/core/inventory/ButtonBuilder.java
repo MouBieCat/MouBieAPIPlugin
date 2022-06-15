@@ -47,13 +47,13 @@ public class ButtonBuilder
     @NotNull
     private static final String BUTTON_UUID = "button_uuid_tag";
 
+    // 按鈕UUID
+    @NotNull
+    protected final UUID buttonUUID = UUID.randomUUID();
+
     // 所屬介面
     @NotNull
     protected final GUI handler;
-
-    // 按鈕UUID
-    @NotNull
-    protected final UUID buttonId = UUID.randomUUID();
 
     // 介面位置
     protected int buttonSlot;
@@ -102,8 +102,8 @@ public class ButtonBuilder
      * @return UUID
      */
     @NotNull
-    public final UUID getButtonId() {
-        return this.buttonId;
+    public final UUID getButtonUUID() {
+        return this.buttonUUID;
     }
 
     /**
@@ -124,7 +124,7 @@ public class ButtonBuilder
         // 寫入按鈕UUID
         final ItemNBTBuilder nbtBuilder = new ItemStackNBTTagBuilder(this.itemStack, ButtonBuilder.MOU_BIE_API_BUTTON_TAG);
         this.itemStack = nbtBuilder
-                .setString(ButtonBuilder.BUTTON_UUID, this.buttonId.toString())
+                .setString(ButtonBuilder.BUTTON_UUID, this.buttonUUID.toString())
                 .build();
 
         return super.build();
@@ -143,7 +143,7 @@ public class ButtonBuilder
         final String uuidString =
                 ItemStackNBTTagBuilder.getString(itemStack, ButtonBuilder.MOU_BIE_API_BUTTON_TAG, ButtonBuilder.BUTTON_UUID);
 
-        return uuidString.length() == 16 ? UUID.fromString(uuidString) : null;
+        return uuidString.length() == 36 ? UUID.fromString(uuidString) : null;
     }
 
 }
