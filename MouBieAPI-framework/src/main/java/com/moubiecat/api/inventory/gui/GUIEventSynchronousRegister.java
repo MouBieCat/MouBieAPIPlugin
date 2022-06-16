@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  *
  *  或是在您的介面類中聲明
  *  {@code @GUIEventSynchronousRegister}
- *  讓介面同步觸發。但您必須在是當的情況，自行處理取消事件，否則按鈕將會被意外拋出。
+ *  讓介面同步觸發。但您必須在適當的情況，自行處理取消事件，否則按鈕將會被意外拋出。
  * @author MouBieCat
  */
 @Target(ElementType.TYPE)
