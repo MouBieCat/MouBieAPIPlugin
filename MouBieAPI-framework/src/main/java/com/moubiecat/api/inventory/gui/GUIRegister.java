@@ -29,7 +29,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 代表使用者介面處理程序
+ * 代表使用者介面處理程序註冊器
  * @author MouBieCat
  */
 @Target(ElementType.METHOD)

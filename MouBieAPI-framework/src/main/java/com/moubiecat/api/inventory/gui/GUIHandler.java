@@ -44,7 +44,7 @@ public interface GUIHandler {
     void registerButton(@NotNull Button... buttons);
 
     /**
-     * 獲取正在處理介面
+     * 獲取正在處理的介面
      * @return 介面
      */
     @NotNull GUI getHandler();
