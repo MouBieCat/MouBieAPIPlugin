@@ -30,7 +30,9 @@ import com.moubiecat.api.inventory.gui.GUI;
 import org.bukkit.Material;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,12 +111,25 @@ public class ListButtonBuilder
 
     /**
      * 建構物品
+     * 警告：請勿再 ListButton 的建構子添加 Lore，否則會有不可預期的情況。
+     * 正確做法應該是在繼承類中覆寫該方法，在該方法中添加 Lore
+     * 例如：
+     * {@code @Override}
+     * {@code @NotNull}
+     * public ItemStack build() {
+     *      this.lore(List.of( ... ));
+     *      return super.build();
+     * }
      * @return 物品
      */
     @Override
     @NotNull
     public ItemStack build() {
         final List<String> lore = new ArrayList<>();
+
+        final @Nullable ItemMeta itemMeta = this.getItemMeta();
+        if (itemMeta != null && itemMeta.getLore() != null)
+            lore.addAll(itemMeta.getLore());
 
         for (final Content content : this.contents.getContents()) {
             lore.add(this.buttonStyle.replaceStyle(content));
