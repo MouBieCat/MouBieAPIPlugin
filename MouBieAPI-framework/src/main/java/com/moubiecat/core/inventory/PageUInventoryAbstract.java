@@ -53,7 +53,6 @@ public abstract class PageUInventoryAbstract
     @Override
     @Deprecated
     protected final void initInventory(final @NotNull Player player) {
-        this.initPageInventory(player, 0);
     }
 
     /**
@@ -62,6 +61,15 @@ public abstract class PageUInventoryAbstract
      * @param page 頁數
      */
     protected abstract void initPageInventory(final @NotNull Player player, final int page);
+
+    /**
+     * 開啟一個介面
+     * @param player 玩家
+     */
+    @Override
+    public final void open(final @NotNull Player player) {
+        this.open(player, 0);
+    }
 
     /**
      * 開啟一個介面的頁數

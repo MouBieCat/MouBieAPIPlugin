@@ -151,7 +151,7 @@ public abstract class UInventoryAbstract
      * @param player 玩家
      */
     @Override
-    public final void open(final @NotNull Player player) {
+    public void open(final @NotNull Player player) {
         player.openInventory(this.inventory);
         this.initInventory(player);
     }

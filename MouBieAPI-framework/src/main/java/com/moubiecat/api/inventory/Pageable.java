@@ -32,12 +32,6 @@ public interface Pageable
         extends Openable {
 
     /**
-     * 開啟一個介面(不指定頁數開起第一頁)
-     * @param player 玩家
-     */
-    @Deprecated void open(@NotNull Player player);
-
-    /**
      * 開啟一個介面的頁數
      * @param player 玩家
      * @param page 頁數
