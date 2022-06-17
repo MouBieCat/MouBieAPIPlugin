@@ -74,6 +74,13 @@ public class ClickButtonBuilder
     }
 
     /**
+     * 初始化按鈕
+     */
+    @Override
+    protected void initButton() {
+    }
+
+    /**
      * 當被點擊時調用
      * @param event 事件
      */

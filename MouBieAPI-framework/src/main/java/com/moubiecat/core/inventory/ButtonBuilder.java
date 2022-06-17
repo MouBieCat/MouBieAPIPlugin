@@ -27,6 +27,7 @@ import com.moubiecat.api.inventory.gui.GUI;
 import com.moubiecat.core.itemstack.ItemStackBuilder;
 import com.moubiecat.core.nbttag.ItemStackNBTTagBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +38,7 @@ import java.util.UUID;
  * 代表一個介面按鈕類別
  * @author MouBieCat
  */
-public class ButtonBuilder
+public abstract class ButtonBuilder
         extends ItemStackBuilder
         implements Button {
 
@@ -86,6 +87,7 @@ public class ButtonBuilder
         super(itemStack);
         this.handler = gui;
         this.buttonSlot = slot;
+        this.initButton();
     }
 
     /**
@@ -113,6 +115,11 @@ public class ButtonBuilder
     public final int getButtonSlot() {
         return this.buttonSlot;
     }
+
+    /**
+     * 初始化按鈕
+     */
+    protected abstract void initButton();
 
     /**
      * 建構函數

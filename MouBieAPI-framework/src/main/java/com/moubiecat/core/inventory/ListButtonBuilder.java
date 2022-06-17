@@ -65,6 +65,16 @@ public class ListButtonBuilder
     }
 
     /**
+     * 初始化按鈕
+     */
+    @Override
+    protected void initButton() {
+        this.buttonClickType.add(ClickType.LEFT);
+        this.buttonClickType.add(ClickType.RIGHT);
+        super.initButton();
+    }
+
+    /**
      * 選取下一個項目
      * @param event 點擊事件
      */
