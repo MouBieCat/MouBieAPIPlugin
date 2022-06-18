@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
  * @author MouBieCat
  */
 public interface GUI
-        extends Openable, InventoryHolder {
+        extends Openable, InventoryHolder, Iterable<ItemStack> {
 
     /**
      * 獲取介面大小

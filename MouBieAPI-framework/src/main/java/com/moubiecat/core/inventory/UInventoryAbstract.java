@@ -34,6 +34,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Iterator;
+
 /**
  * 代表一個使用者介面類別
  * @author MouBieCat
@@ -161,5 +163,15 @@ public abstract class UInventoryAbstract
      * @param player 玩家
      */
     protected abstract void initInventory(final @NotNull Player player);
+
+    /**
+     * 迭代介面中的所有物品的實現
+     * @return 物品迭代
+     */
+    @NotNull
+    @Override
+    public final Iterator<ItemStack> iterator() {
+        return this.inventory.iterator();
+    }
 
 }
