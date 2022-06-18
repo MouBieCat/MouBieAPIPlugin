@@ -115,9 +115,10 @@ public interface ItemBuilder
     /**
      * 設定物品的敘述說明
      * @param lore 敘述
+     * @param reserve 是否保留先前的(如果有)
      * @return 當前的建構器
      */
-    @NotNull ItemBuilder lore(@NotNull List<String> lore);
+    @NotNull ItemBuilder lore(@NotNull List<String> lore, boolean reserve);
 
     /**
      * 對物品添加一些特殊標籤

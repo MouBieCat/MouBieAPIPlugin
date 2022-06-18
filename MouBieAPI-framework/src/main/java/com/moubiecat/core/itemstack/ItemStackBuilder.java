@@ -37,6 +37,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -213,13 +214,19 @@ public class ItemStackBuilder
      * @return 當前的建構器
      */
     @NotNull
-    public final ItemBuilder lore(final @NotNull List<String> lore) {
+    public final ItemBuilder lore(final @NotNull List<String> lore, final boolean reserve) {
         final ItemMeta itemMeta = this.getItemMeta();
-        if (itemMeta != null) {
-            itemMeta.setLore(
-                    lore.stream().map(Utils::forMessageToRGB).toList()
-            );
 
+        if (itemMeta != null) {
+            final List<String> newLore = new ArrayList<>();
+
+            if (reserve && itemMeta.getLore() != null)
+                newLore.addAll(itemMeta.getLore());
+            newLore.addAll(lore);
+
+            itemMeta.setLore(
+                    newLore.stream().map(Utils::forMessageToRGB).toList()
+            );
             this.setItemMeta(itemMeta);
         }
         return this;

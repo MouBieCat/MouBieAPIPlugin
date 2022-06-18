@@ -57,7 +57,7 @@ public interface GUI
      * 對該介面註冊按鈕
      * @param buttons 按鈕
      */
-    @NotNull UInventoryAbstract addButtons(final @NotNull Button ... buttons);
+    @NotNull UInventoryAbstract addButtons(@NotNull Button ... buttons);
 
     /**
      * 繪製按鈕
