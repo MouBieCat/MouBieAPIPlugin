@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -211,6 +212,7 @@ public class ItemStackBuilder
     /**
      * 設定物品的敘述說明
      * @param lore 敘述
+     * @param reserve 是否在原有狀態上添加
      * @return 當前的建構器
      */
     @NotNull
@@ -229,6 +231,19 @@ public class ItemStackBuilder
             );
             this.setItemMeta(itemMeta);
         }
+        return this;
+    }
+
+    /**
+     * 設定物品的敘述說明
+     * @param reserve 是否在原有狀態上添加
+     * @param msg 敘述
+     * @return 當前的建構器
+     */
+    @NotNull
+    public final ItemBuilder lore(final boolean reserve, final @NotNull String... msg) {
+        final List<String> stringList = new ArrayList<>(Arrays.asList(msg));
+        this.lore(stringList, reserve);
         return this;
     }
 

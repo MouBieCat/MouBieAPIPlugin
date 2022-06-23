@@ -121,6 +121,14 @@ public interface ItemBuilder
     @NotNull ItemBuilder lore(@NotNull List<String> lore, boolean reserve);
 
     /**
+     * 設定物品的敘述說明
+     * @param reserve 是否在原有狀態上添加
+     * @param msg 敘述
+     * @return 當前的建構器
+     */
+    @NotNull ItemBuilder lore(boolean reserve, @NotNull String... msg);
+
+    /**
      * 對物品添加一些特殊標籤
      * @param itemFlag 標籤
      * @return 當前的建構器
