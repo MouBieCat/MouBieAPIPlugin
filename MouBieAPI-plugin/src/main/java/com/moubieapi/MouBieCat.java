@@ -21,12 +21,10 @@
 
 package com.moubieapi;
 
-import com.moubieapi.commands.CommandMain;
 import com.moubieapi.listener.InventoryListener;
 import com.moubiecat.api.plugin.PluginRegister;
 import com.moubiecat.core.plugin.MouBiePluginBase;
 import org.bukkit.Bukkit;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,9 +47,9 @@ public final class MouBieCat
 
     @PluginRegister(name = "註冊插件指令", type = PluginRegister.ActionType.ACTION_ENABLE)
     private void registerCommands() {
-        final PluginCommand command = this.getCommand("MouBieAPI");
-        if (command != null)
-            command.setExecutor(new CommandMain());
+//        final PluginCommand command = this.getCommand("MouBieAPI");
+//        if (command != null)
+//            command.setExecutor(new CommandMain());
     }
 
 
